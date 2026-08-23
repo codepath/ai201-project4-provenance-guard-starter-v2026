@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Hugging Face model cache
+.cache/
+models/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# NOTE: logs/ and results/ are deliberately NOT ignored. Your audit log and
+# your attack runs are evidence, and they're part of what gets graded.
+# Commit them.

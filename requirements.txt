@@ -1,0 +1,19 @@
+# AI201 pair 4 — pinned with BOTH lower and upper bounds, on purpose.
+#
+# Supported Python: 3.11, 3.12, or 3.13. NOT 3.14.
+
+# The web service
+flask>=3.0,<4.0
+
+# Rate limiting — UNIT 8. The only new install in this pair.
+flask-limiter>=3.5,<4.0
+
+# Sending requests to your own service, for run_attacks.py
+requests>=2.31,<3.0
+
+# Signal one: a language model that runs on YOUR machine. No key, no account.
+# Downloads about 550 MB the first time you use it.
+transformers>=4.44,<5.0
+
+# transformers needs a backend. CPU-only is fine — nothing here trains.
+torch>=2.2,<3.0
