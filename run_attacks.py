@@ -8,6 +8,17 @@ Run the attack set against your service.  <- UNIT 8, MILESTONE 2
     python run_attacks.py --set ... --label before
     python run_attacks.py --set ... --label after   # after your improvement
 
+To work one attack at a time — which is what the in-class follow-along does:
+
+    python run_attacks.py --set ... --id EV03 --show          # print it, send nothing
+    python run_attacks.py --set ... --id EV03                 # send just that one
+    python run_attacks.py --set ... --one-per-family --show   # one from each family
+
+`--show` prints the attack's text and a curl command you can paste, and sends
+nothing and writes nothing. It's for putting an attack on a screen and firing
+it by hand, so the class watches the request go out instead of watching a
+progress list scroll past.
+
 And for Milestone 1, to prove your rate limit works:
 
     python run_attacks.py --flood 15
@@ -189,6 +200,134 @@ def auto_verdict(status, payload, error):
     return "", ""
 
 
+def select_attacks(attacks, args):
+    """
+    Narrow the set to what was asked for. Returns (attacks, complaint).
+
+    `--id` wins over `--family`, and `--one-per-family` takes the first attack
+    of each family in the order the files list them.
+
+    A complaint comes back as a message rather than an exception. Mistyping an
+    id at the front of a room should tell you the ids that exist, not print a
+    traceback over your slides.
+    """
+    if args.attack_id:
+        wanted = args.attack_id.strip().lower()
+        picked = [a for a in attacks if a["id"].lower() == wanted]
+        if not picked:
+            known = [a["id"] for a in attacks]
+            sample = ", ".join(known[:5])
+            return [], (f"No attack with id '{args.attack_id}' in this set.\n"
+                        f"Ids look like: {sample} ... {known[-1]} "
+                        f"({len(known)} in all).\n"
+                        f"The `id` column of attacks.csv is the whole list.")
+        return picked, None
+
+    if args.one_per_family:
+        first = {}
+        for attack in attacks:
+            first.setdefault(attack["family"], attack)
+        return list(first.values()), None
+
+    if args.family:
+        picked = [a for a in attacks if a["family"] == args.family]
+        if not picked:
+            families = sorted({a["family"] for a in attacks})
+            return [], (f"No family called '{args.family}' in this set.\n"
+                        f"Families here: {', '.join(families)}.")
+        return picked, None
+
+    return attacks, None
+
+
+def curl_commands(url, attack):
+    """
+    (bash, windows) — the same request, written for both shells.
+
+    RUNNING.md already says PowerShell needs `curl.exe` on one line with the
+    inner quotes backslashed, so print that variant too rather than making
+    half the room translate it live.
+    """
+    if "raw" in attack:
+        body = attack["raw"]
+        content_type = attack["content_type"]
+    else:
+        body = json.dumps(attack["body"])
+        content_type = "application/json"
+
+    # Inside bash's single quotes an apostrophe has to close the quote, escape
+    # itself and reopen — '\'' — and several attacks contain one.
+    bash_body = body.replace("'", "'\\''")
+    bash = (f"curl -X POST {url}/submit \\\n"
+            f'  -H "Content-Type: {content_type}" \\\n'
+            f"  -d '{bash_body}'")
+
+    # PowerShell wants the JSON's own double quotes backslashed, and doubles an
+    # apostrophe to keep it inside the single-quoted string.
+    windows_body = body.replace('"', '\\"').replace("'", "''")
+    windows = (f"curl.exe -X POST {url}/submit "
+               f'-H "Content-Type: {content_type}" '
+               f"-d '{windows_body}'")
+
+    return bash, windows
+
+
+# Past this, a curl command is longer than a terminal or a projector can show
+# and pasting it is worse than letting the script send it.
+CURL_TOO_LONG = 2000
+
+
+def show_attacks(attacks, url):
+    """
+    Print the selected attacks instead of sending them.
+
+    This sends nothing and writes no report — the whole point is that you send
+    it yourself, in front of people, and they watch the response come back.
+    """
+    for attack in attacks:
+        print("=" * 70)
+        print(f"{attack['id']}  ·  {attack['family']}")
+        print("=" * 70)
+        print(f"\nTargeting: {attack['targets']}\n")
+
+        if "raw" in attack:
+            print(f"Sent raw, claiming {attack['content_type']}:\n")
+            print(attack["raw"] if attack["raw"] else "(an empty body)")
+        elif "text" in attack.get("body", {}):
+            print(attack["body"]["text"])
+            print(f"\n(submits as creator_id `{attack['body']['creator_id']}`)")
+        else:
+            print("No text field — the body itself is the attack:\n")
+            print(json.dumps(attack["body"], indent=2))
+
+        bash, windows = curl_commands(url, attack)
+        if len(bash) > CURL_TOO_LONG:
+            print(f"\nThe curl for this one runs to {len(bash):,} characters, which is "
+                  f"not something\nto paste at a projector. Send it with the script "
+                  f"instead:\n\n  python run_attacks.py --set <folder> "
+                  f"--id {attack['id']}\n")
+            continue
+
+        print("\n--- curl -------------------------------------------------------------\n")
+        print(bash)
+        print("\n--- the same thing in PowerShell (one line) ---------------------------\n")
+        print(windows)
+        print()
+
+    print(f"{len(attacks)} attack(s) shown. Nothing was sent and no report was "
+          f"written —\ndrop the `--show` to have this script send them.")
+
+
+def require_requests():
+    """The one dependency the sending paths need, checked before they start."""
+    try:
+        import requests  # noqa: F401
+    except ImportError:
+        print("The `requests` package isn't installed.\n"
+              "Run: pip install -r requirements.txt", file=sys.stderr)
+        sys.exit(1)
+
+
 FLOOD_TEXT = (
     "This is an ordinary submission, sent over and over from the same account "
     "to find out where the rate limit sits. Nothing about the text matters here."
@@ -267,16 +406,17 @@ def main():
     parser.add_argument("--timeout", type=float, default=90.0,
                         help="seconds per request — signal one runs a model, so be generous")
     parser.add_argument("--family", help="run only one family")
+    parser.add_argument("--id", dest="attack_id", metavar="ID",
+                        help="run only the attack with this id, e.g. EV03")
+    parser.add_argument("--one-per-family", action="store_true",
+                        help="run the first attack of each family")
+    parser.add_argument("--show", action="store_true",
+                        help="print the selected attack(s) and a curl command for "
+                             "each instead of sending anything")
     args = parser.parse_args()
 
-    try:
-        import requests  # noqa: F401
-    except ImportError:
-        print("The `requests` package isn't installed.\n"
-              "Run: pip install -r requirements.txt", file=sys.stderr)
-        sys.exit(1)
-
     if args.flood:
+        require_requests()
         run_flood(args)
         return
 
@@ -299,9 +439,16 @@ def main():
               f"Expected attacks.csv — check the path.", file=sys.stderr)
         sys.exit(1)
 
-    if args.family:
-        attacks = [a for a in attacks if a["family"] == args.family]
+    attacks, complaint = select_attacks(attacks, args)
+    if complaint:
+        print(complaint, file=sys.stderr)
+        sys.exit(1)
 
+    if args.show:
+        show_attacks(attacks, args.url)
+        return
+
+    require_requests()
     import requests
     try:
         health = requests.get(f"{args.url}/health", timeout=5).json()

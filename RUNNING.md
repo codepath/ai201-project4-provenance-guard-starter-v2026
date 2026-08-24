@@ -185,6 +185,55 @@ trace look exactly like a quiet afternoon.
 
 ---
 
+## Running it somewhere else (week 9)
+
+Week 9 asks you to deploy one of your systems. **Read this before you pick
+which one** — for this project the answer is already decided, and it isn't the
+hosted one.
+
+Flask's built-in server says "development server" on startup because that's
+what it is. A real one comes from `gunicorn`, which is in
+`requirements.txt` and unused until now:
+
+```bash
+gunicorn app:app --bind 0.0.0.0:$PORT
+```
+
+Two settings do the work, and both read the environment:
+
+| Variable | Default | What it does |
+|---|---|---|
+| `HOST` | `127.0.0.1` | Loopback — your machine only. A host needs `0.0.0.0`, or nothing outside the box can reach the service and it looks like the app is down |
+| `PORT` | `5000` | Most hosts hand you a port in `PORT` and expect you to bind exactly that one |
+| `AI201_DEBUG` | `1` | Debug mode. Off automatically whenever `HOST` isn't loopback — an interactive debugger on a public address is a stranger's Python prompt inside your process |
+
+Nothing about your local workflow changes. With no variables set you get
+`http://127.0.0.1:5000` and every `curl` above still works.
+
+### This project will not fit a free host
+
+Say it plainly, because the arithmetic is the point:
+
+| What has to be in memory | Roughly |
+|---|---|
+| `torch` | ~200–800 MB depending on the build |
+| the `gpt2` weights | ~550 MB on disk, loaded into RAM to score |
+| Flask, gunicorn, your code | the rest |
+| **A free tier gives you** | **512 MB** |
+
+That's over budget before a single request arrives — and a free host has no
+persistent disk, so the 550 MB download starts again after every idle
+spin-down. There is no configuration that fixes this. The model is the size it
+is.
+
+**So pair 4 extensions take Path B — local, with logs.** That is the expected
+answer for this project, not a fallback and not a failure. Working out that a
+system doesn't fit its host *before* you spend an evening watching it get
+killed is the skill week 9 is actually testing. Write the arithmetic above in
+your write-up; that's the deliverable.
+
+---
+
 ## Where everything lives
 
 | File | What it does |

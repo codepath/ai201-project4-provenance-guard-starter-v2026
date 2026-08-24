@@ -118,7 +118,9 @@ def style_signal(text: str) -> float:
          unscaled means whichever has the bigger numbers wins by default.
 
     Test it on the four calibration inputs from Milestone 4 — clearly AI,
-    clearly human, formal human, lightly-edited AI — before you trust it.
+    clearly human, plain conventional human writing, lightly-edited AI — before
+    you trust it. Plain and ordinary, not formal: formal prose reads as *human*
+    to signal one, and it is plain writing that gets accused.
     """
     # TODO: replace this
     return 0.5

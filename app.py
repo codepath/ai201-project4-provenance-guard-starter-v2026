@@ -261,7 +261,8 @@ def main():
     print('    -H "Content-Type: application/json" \\')
     print("    -d '{\"message\": \"hello\"}'")
     print()
-    app.run(host=config.HOST, port=config.PORT, debug=True)
+    # debug=True hands out an interactive debugger, so it's local-only — see config.py
+    app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
 
 
 if __name__ == "__main__":
