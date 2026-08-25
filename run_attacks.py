@@ -25,8 +25,13 @@ And for Milestone 1, to prove your rate limit works:
 
 That sends 15 submissions from ONE creator_id in a burst and prints the run of
 status codes, which is what your README's **Rate Limiting** section asks for.
-The attack set can't do this for you: every attack row gets its own creator_id,
-so an attack run looks like 44 different callers and never trips a limit.
+
+Every row in `attacks.csv` gets its own creator_id (`attacker_<id>`), so those
+attacks look like a crowd of different callers and never trip a limit. The one
+exception is the `flood_same_creator` family in the malformed-requests file,
+whose rows deliberately share a creator_id — those are the only attacks in the
+set that mean anything with limiting switched on, and this script warns you
+before the run if it's off.
 
 Sending the whole set by hand would eat the milestone, so this does the sending
 and the recording. What it does **not** do is decide whether an attack held or
@@ -475,7 +480,11 @@ def main():
             "targets": attack["targets"],
             "status": status,
             "content_id": payload.get("content_id"),
-            "creator_id": attack.get("body", {}).get("creator_id"),
+            # `body` is whatever the attack file held — a malformed-request
+            # attack can legitimately make it a list, a string or absent, so
+            # this must not assume a dict. A crash here would take the harness
+            # down partway through a run and lose every result after it.
+            "creator_id": (attack.get("body") if isinstance(attack.get("body"), dict) else {}).get("creator_id"),
             "guess": payload.get("guess"),
             "confidence": payload.get("confidence"),
             "model_score": payload.get("model_score"),

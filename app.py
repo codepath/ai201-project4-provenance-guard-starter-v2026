@@ -76,8 +76,15 @@ if config.RATE_LIMITING_ENABLED:
         matters: one script can look like a thousand callers, and one household
         can look like one.
         """
-        payload = request.get_json(silent=True) or {}
-        return payload.get("creator_id") or get_remote_address()
+        payload = request.get_json(silent=True)
+        # A body that parses as JSON but isn't an object — a bare list or
+        # string — has no .get. Without this guard the key function raises
+        # BEFORE the route runs, and a malformed request becomes a 500 that
+        # looks like your handler crashed when your handler never ran.
+        if not isinstance(payload, dict):
+            return get_remote_address()
+        creator = payload.get("creator_id")
+        return creator if isinstance(creator, str) and creator.strip() else get_remote_address()
 
     limiter = Limiter(
         key_func=rate_limit_key,
@@ -93,7 +100,9 @@ if config.RATE_LIMITING_ENABLED:
 
         ⚠️ An attack that shows up only as an absence is one you'll never find.
         """
-        payload = request.get_json(silent=True) or {}
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            payload = {}
         audit.log_rejection(
             creator_id=payload.get("creator_id", "unknown"),
             reason="rate_limited",
