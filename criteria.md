@@ -14,7 +14,7 @@ Under each, write a sentence or two on **why that target**. *"I allow at most 1
 false positive in 10 because on a writing site a wrong accusation costs more
 than a missed detection"* is a real answer.
 
-> Missing your own targets next week costs you nothing. Setting a target so
+> Missing your own targets next unit costs you nothing. Setting a target so
 > easy you can't miss it does.
 
 ---

@@ -167,7 +167,7 @@ def submit():
     ⚠️ **Both signal scores go in the response, not just the log.** Unit 8's
     `run_attacks.py` and `run_eval.py` read `model_score` and `style_score`
     straight off this response and put them in your reports. Leave them out and
-    every row of next week's evidence says `null` — which is exactly the
+    every row of next unit's evidence says `null` — which is exactly the
     diagnostic you need to name a stage and a mechanism. You do not want to
     find that out after running the attack set.
 
@@ -189,7 +189,7 @@ def submit():
       5. Add `stylometry.style_signal(text)`.
       6. Combine them with `scoring.combine_signals(...)`.
       7. Log BOTH signal scores alongside the combined one, and put them in the
-         response too. Next week you can't diagnose anything without them.
+         response too. Next unit you can't diagnose anything without them.
 
     **Milestone 5 — the label.**
       8. `scoring.score_to_label(...)` and put the real label in the response.

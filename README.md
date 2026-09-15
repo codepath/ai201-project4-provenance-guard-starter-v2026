@@ -19,7 +19,7 @@
 > ```
 >
 > That's a web service. Something sent it text and it sent something back.
-> Everything this week is filling in the middle.
+> Everything this unit is filling in the middle.
 >
 > **The rest of this file is your submission.** Fill it in as you go.
 
@@ -118,7 +118,7 @@
 
 <!-- The response needs content_id, guess, confidence, label, AND both
      signal scores - model_score and style_score. Unit 8's tools read those
-     two off the response, so leaving them out costs you next week's
+     two off the response, so leaving them out costs you next unit's
      diagnostics. -->
 
 ```bash
@@ -321,7 +321,7 @@ that produced it:
        [ ] One improvement, with Attack Run — After
        [ ] What's Still Broken, including the production trade
        [ ] At least four new commits
-       [ ] The SAME repository URL as last week
+       [ ] The SAME repository URL as last unit
 
      Do not delete and recreate this repository.
      ═════════════════════════════════════════════════════════════════════ -->

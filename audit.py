@@ -4,7 +4,7 @@ The audit log.
 Every decision your service makes gets written here as one JSON object per
 line. Not `print()` — a file you can read back.
 
-The reason is next week: you run an attack against this service, and **an
+The reason is next unit: you run an attack against this service, and **an
 attack you can't see in a log is an attack you can't diagnose.** An input that
 slipped past your detector leaves no other trace.
 
