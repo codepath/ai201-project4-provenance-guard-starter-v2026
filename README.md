@@ -306,7 +306,7 @@ that produced it:
        [ ] POST /appeal changes status and writes to the log
        [ ] Signals and Scoring names scoring.py::combine_signals
        [ ] Sample Run: a submission AND an appeal, as pasted text
-       [ ] At least four commits
+       [ ] At least four new commits
        [ ] Repository URL submitted — WRITE IT DOWN
 
      SUBMISSION CHECKLIST — unit 8

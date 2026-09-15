@@ -185,9 +185,9 @@ trace look exactly like a quiet afternoon.
 
 ---
 
-## Running it somewhere else (week 9)
+## Running it somewhere else (unit 9)
 
-Week 9 asks you to deploy one of your systems. **Read this before you pick
+Unit 9 asks you to deploy one of your systems. **Read this before you pick
 which one** — for this project the answer is already decided, and it isn't the
 hosted one.
 
@@ -229,7 +229,7 @@ is.
 **So pair 4 extensions take Path B — local, with logs.** That is the expected
 answer for this project, not a fallback and not a failure. Working out that a
 system doesn't fit its host *before* you spend an evening watching it get
-killed is the skill week 9 is actually testing. Write the arithmetic above in
+killed is the skill unit 9 is actually testing. Write the arithmetic above in
 your write-up; that's the deliverable.
 
 ---
@@ -299,10 +299,10 @@ in your handler.
 
 ## A note on committing
 
-At least four commits in unit 7, four more in unit 8.
+At least four new commits in unit 7, four more in unit 8.
 
 `logs/` and `results/` are deliberately **not** in `.gitignore`. Your audit log
-is evidence, and unit 8 grades it directly.
+is evidence, and the entries you paste into your README are what unit 8 grades.
 
 **Do not delete and recreate this repository.** You submit the same URL both
-weeks.
+units.
