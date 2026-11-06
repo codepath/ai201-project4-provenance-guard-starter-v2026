@@ -2,8 +2,9 @@
 """
 Run the attack set against your service.  <- UNIT 8, MILESTONE 2
 
+    python run_attacks.py --unlock                  # once, when Milestone 1 is done
     python app.py                                   # in one terminal
-    python run_attacks.py --set path/to/attack_set  # in another
+    python run_attacks.py --set attack_set          # in another
 
     python run_attacks.py --set ... --label before
     python run_attacks.py --set ... --label after   # after your improvement
@@ -25,6 +26,11 @@ And for Milestone 1, to prove your rate limit works:
 
 That sends 15 submissions from ONE creator_id in a burst and prints the run of
 status codes, which is what your README's **Rate Limiting** section asks for.
+
+That run is also what opens the attack set. The set ships locked in
+`attack_set.locked`, so it can't be read early. `--unlock` looks for a flood run
+in `results/` with at least one 429, and only then unpacks the set into
+`attack_set/`.
 
 Every row in `attacks.csv` gets its own creator_id (`attacker_<id>`), so those
 attacks look like a crowd of different callers and never trip a limit. The one
@@ -52,8 +58,11 @@ Writes `results/attack_run_<date>.md`, which is what you paste into your README.
 import argparse
 import csv
 import datetime as dt
+import io
 import json
+import re
 import sys
+import zipfile
 from pathlib import Path
 
 import config
@@ -69,6 +78,64 @@ for _stream in (sys.stdout, sys.stderr):
 
 
 DEFAULT_URL = f"http://{config.HOST}:{config.PORT}"
+
+# The attack set, scrambled so that opening the file doesn't show it. Patching
+# for attacks you've already read gives a clean run and nothing to diagnose.
+LOCKED_SET = config.ROOT / "attack_set.locked"
+LOCK_KEY = b"ai201-provenance"
+
+
+def flood_evidence():
+    """The newest flood run in results/ that got at least one 429, or None."""
+    for path in sorted(config.RESULTS_DIR.glob("flood_*.md"), reverse=True):
+        found = re.search(r"Rate limited: \*\*(\d+)\*\*", path.read_text(encoding="utf-8"))
+        if found and int(found.group(1)) > 0:
+            return path
+    return None
+
+
+def unlock_attack_set():
+    """
+    Unpack the attack set into attack_set/, once Milestone 1 is done.
+
+    Done means a flood run in results/ got at least one 429 — the same run your
+    Rate Limiting section pastes. A limiter you wrote yourself counts, as long
+    as `--flood` hit it.
+    """
+    folder = config.ROOT / "attack_set"
+    if (folder / "attacks.csv").exists():
+        print("The attack set is already unpacked in attack_set/. Run it:\n\n"
+              "  python run_attacks.py --set attack_set")
+        return
+
+    if not LOCKED_SET.exists():
+        print("attack_set.locked isn't in your repo, so your fork was made before it\n"
+              "was added. Click Sync fork on your fork's GitHub page, then git pull,\n"
+              "and run this again.", file=sys.stderr)
+        sys.exit(1)
+
+    evidence = flood_evidence()
+    if evidence is None:
+        print("The attack set opens once Milestone 1 is done, and no flood run in\n"
+              "results/ has a 429 in it yet. Turn rate limiting on, start your\n"
+              "service, and run:\n\n"
+              "  python run_attacks.py --flood 15\n\n"
+              "No 429 even then? Your limit may be above 15 a minute, so send more,\n"
+              "or limiting is still off. GET /health tells you which. When a run\n"
+              "shows at least one 429, run --unlock again.", file=sys.stderr)
+        sys.exit(1)
+
+    data = LOCKED_SET.read_bytes()
+    unlocked = bytes(b ^ LOCK_KEY[i % len(LOCK_KEY)] for i, b in enumerate(data))
+    with zipfile.ZipFile(io.BytesIO(unlocked)) as archive:
+        archive.extractall(config.ROOT)
+
+    print(f"Milestone 1 is done: {evidence.relative_to(config.ROOT)} has a 429.\n")
+    print("Unpacked the attack set into attack_set/:")
+    for path in sorted(folder.iterdir()):
+        print(f"  attack_set/{path.name}")
+    print("\nRead the header row of each file, then stop reading. Run it:\n\n"
+          "  python run_attacks.py --set attack_set")
 
 
 def load_attacks(folder: Path):
@@ -401,6 +468,9 @@ def main():
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--set", dest="folder",
                         help="folder holding attacks.csv")
+    parser.add_argument("--unlock", action="store_true",
+                        help="unpack the attack set into attack_set/ once Milestone 1 "
+                             "is done")
     parser.add_argument("--flood", type=int, metavar="N",
                         help="skip the attack set: send N submissions from one "
                              "creator_id and print the status codes (Milestone 1)")
@@ -420,13 +490,18 @@ def main():
                              "each instead of sending anything")
     args = parser.parse_args()
 
+    if args.unlock:
+        unlock_attack_set()
+        return
+
     if args.flood:
         require_requests()
         run_flood(args)
         return
 
     if not args.folder:
-        print("Give me an attack set: --set path/to/folder\n"
+        print("Give me an attack set: --set attack_set\n"
+              "Not unpacked yet? python run_attacks.py --unlock\n"
               "Or test your rate limit instead: --flood 15", file=sys.stderr)
         sys.exit(1)
 
@@ -440,8 +515,12 @@ def main():
         print("Say so in your write-up — a skipped row is a gap in your run.\n",
               file=sys.stderr)
     if not attacks:
-        print(f"No attack files found in {folder}.\n"
-              f"Expected attacks.csv — check the path.", file=sys.stderr)
+        if not folder.exists() and LOCKED_SET.exists():
+            print(f"No attack set at {folder} yet. Unlock it first:\n\n"
+                  f"  python run_attacks.py --unlock", file=sys.stderr)
+        else:
+            print(f"No attack files found in {folder}.\n"
+                  f"Expected attacks.csv — check the path.", file=sys.stderr)
         sys.exit(1)
 
     attacks, complaint = select_attacks(attacks, args)

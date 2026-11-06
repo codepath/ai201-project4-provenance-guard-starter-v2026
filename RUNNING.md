@@ -102,7 +102,8 @@ position.**
 | `python detector.py` | Downloads the model and scores a sample — **run before class** |
 | `python detector.py "some text"` | Score one piece of text from the terminal |
 | `python stylometry.py "some text"` | Your style measures, on one piece of text |
-| `python run_attacks.py --set <folder>` | The attack set — **unit 8** |
+| `python run_attacks.py --unlock` | Unpacks the attack set into `attack_set/` once Milestone 1 is done — **unit 8** |
+| `python run_attacks.py --set attack_set` | The attack set — **unit 8** |
 | `python run_attacks.py --flood 15` | Push past your rate limit and print the status codes — **unit 8** |
 | `python run_eval.py --label before` | Your five criteria, three trials — **unit 8** |
 
@@ -245,6 +246,7 @@ your write-up; that's the deliverable.
 | `scoring.py` | Combining and labelling. **Stubs — you build these** |
 | `audit.py` | The audit log writer. Given to you |
 | `run_attacks.py` | Runs the attack set — **unit 8** |
+| `attack_set.locked` | The attack set, locked. `run_attacks.py --unlock` opens it once Milestone 1 is done — **unit 8** |
 | `run_eval.py` | Runs your criteria three times — **unit 8** |
 | `scenarios.py` | What your test runs. **You fill this in** |
 | `criteria.md` | Your five criteria. **You write all five** |
