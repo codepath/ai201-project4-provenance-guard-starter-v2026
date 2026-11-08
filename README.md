@@ -234,3 +234,24 @@ In production I would favor fewer confident accusations, accepting that more AI-
 ### How I Used AI ? Part 2
 
 Codex inspected the assignment and repository, enabled the starter rate limiter, added route-rejection logging, adapted and extended contract tests, and captured real-model HTTP evidence. Codex wrote this progress report; the student has not independently verified it in this session. The original criteria remain AI-authored as disclosed above. No staff attacks, human-authored corpus, evaluation outcomes, or measured improvement have been fabricated. Git commit messages have no AI co-author trailers, as requested; that does not remove this required disclosure of AI assistance.
+
+## Live App Verification Follow-up
+
+Ran the actual `python app.py` entry point as a separate process on a free loopback port with debug disabled and the cached original GPT-2 model. `python verify_live_app.py` completed **88 HTTP requests across three rounds**, with no failed assertions and no service-code changes. Exact responses and audit events are in [results/live_verification.json](results/live_verification.json); server request output is in [results/live_verification_server.log](results/live_verification_server.log).
+
+| Live check | Observed result |
+|---|---|
+| Startup, ping, and health | HTTP 200; rate limiting enabled; real model loaded |
+| Three frozen Part 1 fixtures, three repetitions each | human, unsure, and AI labels matched all nine times |
+| Nine valid appeals | HTTP 200, under_review; original decision and creator preserved |
+| Unknown content IDs | Three HTTP 404 responses |
+| Missing fields, blanks, wrong creator type, malformed JSON | JSON HTTP 400 responses |
+| 20,001-character text | HTTP 413 in each round |
+| Exactly 20,000 characters | HTTP 200 with real model scores |
+| Three independent 15-request floods | Each returned ten 200s followed by five 429s |
+| Different creator after each flood | HTTP 200 each time |
+| Audit completeness and response matching | All 43 decisions, 9 appeals, and 33 rejections present; decision scores and labels matched HTTP responses |
+
+The environment check was rerun: **9 passed, 0 failed**. The contract suite was rerun: **8 passed**. Its logged `DetectorUnavailable` traceback is intentional fault injection: that test verifies the 503 response and absence of a decision.
+
+These live checks support the implemented limiter, logging, validation, scoring-response contract, and appeal path. They do not establish authorship accuracy, the 200/day limit over a whole day, minute-window recovery, distributed limiter behavior, or completion of the absent official attack set and full five-criterion evaluation. The temporary service process was stopped after verification. Codex wrote and executed this regression harness and recorded the evidence.
