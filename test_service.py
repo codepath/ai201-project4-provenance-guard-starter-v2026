@@ -15,6 +15,7 @@ class ServiceTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.paths = patch.multiple(config, LOG_DIR=Path(self.tmp.name), AUDIT_LOG=Path(self.tmp.name)/"audit.jsonl")
         self.paths.start()
+        app.limiter.reset()
         self.client = app.app.test_client()
     def tearDown(self):
         self.paths.stop()
@@ -41,13 +42,15 @@ class ServiceTests(unittest.TestCase):
         with patch.object(detector,"model_signal") as model:
             for payload in cases:
                 with self.subTest(payload=str(payload)[:60]):
+                    app.limiter.reset()
                     response = self.client.post("/submit", json=payload)
                     self.assertIn(response.status_code, (400,413))
                     self.assertTrue(response.is_json)
+            app.limiter.reset()
             response = self.client.post("/submit",data="{broken",content_type="application/json")
             self.assertEqual(response.status_code,400)
             model.assert_not_called()
-        self.assertEqual(audit.read_entries(),[])
+        self.assertFalse(any(e.get("status") in ("decided", "under_review") for e in audit.read_entries()))
     def test_inclusive_text_limit(self):
         with patch.object(detector,"model_signal",return_value=0.5):
             self.assertEqual(self.client.post("/submit",json={"text":"x"*20000,"creator_id":"writer"}).status_code,200)
@@ -56,11 +59,11 @@ class ServiceTests(unittest.TestCase):
             self.assertEqual(self.client.post("/appeal",json=payload).status_code,400)
         for i in range(10):
             self.assertEqual(self.client.post("/appeal",json={"content_id":str(i),"reasoning":"why"}).status_code,404)
-        self.assertEqual(audit.read_entries(),[])
+        self.assertFalse(any(e.get("status") in ("decided", "under_review") for e in audit.read_entries()))
     def test_detector_failure_has_no_decision(self):
         with patch.object(detector,"model_signal",side_effect=detector.DetectorUnavailable("offline")):
             self.assertEqual(self.client.post("/submit",json={"text":"Enough text for a score.","creator_id":"writer"}).status_code,503)
-        self.assertEqual(audit.read_entries(),[])
+        self.assertFalse(any(e.get("status") in ("decided", "under_review") for e in audit.read_entries()))
     def test_all_label_boundaries(self):
         seen = set()
         for i in range(1001):
@@ -74,6 +77,22 @@ class ServiceTests(unittest.TestCase):
         self.assertEqual(scoring.combine_signals(.9,.1),.65)
         for value in (-1,2,float("nan"),float("inf")):
             with self.assertRaises(ValueError): scoring.score_to_label(value)
+    def test_rate_limit_and_rejection_audit(self):
+        with patch.object(detector, "model_signal", return_value=0.5) as model:
+            codes = [self.client.post("/submit", json={"text": "A few sentences for testing.", "creator_id": "flood"}).status_code for _ in range(15)]
+            self.assertEqual(codes, [200]*10 + [429]*5)
+            self.assertEqual(model.call_count, 10)
+            self.assertEqual(self.client.post("/submit", json={"text": "Independent writer.", "creator_id": "other"}).status_code, 200)
+        entries = self.client.get("/log").get_json()["entries"]
+        rejected = [e for e in entries if e.get("reason") == "rate_limited"]
+        self.assertEqual(len(rejected), 5)
+        required = {"timestamp", "content_id", "creator_id", "guess", "model_score", "style_score", "combined_score", "label", "status"}
+        self.assertTrue(all(required <= e.keys() for e in entries if e["status"] == "decided"))
+        self.assertTrue(self.client.get("/health").get_json()["rate_limiting"])
+        bad = self.client.post("/submit", json={"creator_id": "bad-input"})
+        self.assertEqual(bad.status_code, 400)
+        self.assertEqual(audit.read_entries()[-1]["reason"], "invalid_text")
+
     def test_style_measures_vary(self):
         self.assertEqual(stylometry.type_token_ratio("one one two"),2/3)
         self.assertEqual(stylometry.punctuation_density("Hi!"),1/3)
