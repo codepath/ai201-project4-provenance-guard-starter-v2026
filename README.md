@@ -160,3 +160,77 @@ Human examples are public-domain excerpts from [Lewis Carroll's Alice in Wonderl
 **Moment 1:** I asked Codex to complete the project from the pasted assignment. It inspected the starter and produced a pipeline contract, a 70/30 scoring plan, input validation, two-signal scoring, and an appeal route. Codex applied these changes; I have not independently revised or verified them in this session.
 
 **Moment 2:** Codex asked me to supply my own five acceptance criteria because the assignment explicitly requests that. I replied, "write them." It drafted five measurable targets and reasons and committed them before scoring results. These criteria were AI-authored, which differs from the assignment's instruction. I need to review and defend them myself. Codex also wrote verification checks and attributed demo fixtures; generated fixtures are not claimed as my writing.
+
+
+## Part 2 Status
+
+Milestone 1 is implemented and verified. This is **not a complete Part 2 submission**. The staff attack files are absent from the working tree, tracked files, and available local Git history. The assignment supplies those files separately; the user reports not having them. No replacement attack set has been invented or described as staff evidence. The original five criteria remain unchanged.
+
+## Rate Limiting
+
+`POST /submit` allows **10 requests per minute and 200 per day** per asserted creator ID; unusable creator IDs fall back to the caller address. Ten per minute accommodates a writer revising a few pieces while stopping a burst of a thousand threshold probes. Two hundred per day permits sustained manual use while limiting automated exploration beyond the short burst window. These are operational choices, not measured optimal limits. The starter already provides this per-creator key; no optional stretch work is claimed.
+
+The in-memory counters reset on restart and are not shared between processes. An attacker can rotate unauthenticated creator IDs. A production deployment would need authenticated identities and shared storage.
+
+Actual real-GPT-2 HTTP output from `run_attacks.py --flood 15`, invoked by `collect_part2_evidence.py::main`:
+
+```text
+200 200 200 200 200 200 200 200 200 200 429 429 429 429 429
+```
+
+The dated flood report is in `results/`. `results/part2_instrumentation.json` captures health, three additional successful submissions, an invalid request, and all 19 new audit events. `/health` reported `rate_limiting: true`. `GET /log` returned all 13 decisions and six rejections: five 429s and one 400. Each decision contains timestamp, content ID, creator ID, guess, both scores, combined score, label, and status. Route rejections and unavailable-model responses are now logged; the existing 429 handler logs limiter rejections without a duplicate entry.
+
+Reproduce on a fresh local server with `python collect_part2_evidence.py`. This loads the original GPT-2 model, starts a temporary loopback HTTP server, invokes the provided flood runner, verifies the log, and shuts down the server. The contract tests use mocked model scores; this separate HTTP evidence uses the real model.
+
+## Attack Run ? Before
+
+**Pending: staff `attacks.csv` and `attacks_malformed_requests.csv`.** The flood test is an instrumentation check, not the official attack run. No attack verdicts or failure diagnoses can honestly be assigned without the inputs and their stated targets.
+
+The following ten actual audit entries demonstrate instrumentation only. Seven decisions and three rejected requests are included; they are from the flood run, not the absent staff attack set. The final submission must replace or supplement this extract with interesting staff-run failures.
+
+```jsonl
+{"combined_score": 0.3312, "content_id": "0b3bf1b6-f9cb-4ce4-b2f7-870f47946c46", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "2a879b7c-752b-4a23-8046-496406661dbd", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "f8d721ed-0c86-4463-a82c-1be8297dddf0", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "efc5384a-0913-4152-8a01-b4c4e9fc3e8c", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "abde4080-fa39-42ea-9688-25f528349f1f", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "4943447e-abbe-49a0-91f8-154acfbdaa50", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"combined_score": 0.3312, "content_id": "619a7be3-3e67-447b-a06e-f78a10adc664", "creator_id": "flood_tester", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2588, "status": "decided", "style_score": 0.5, "timestamp": "2026-11-08T03:39:19+00:00"}
+{"creator_id": "flood_tester", "event": "rejected", "limit": "10 per 1 minute", "reason": "rate_limited", "status": "rejected", "timestamp": "2026-11-08T03:39:20+00:00"}
+{"creator_id": "flood_tester", "event": "rejected", "limit": "10 per 1 minute", "reason": "rate_limited", "status": "rejected", "timestamp": "2026-11-08T03:39:20+00:00"}
+{"creator_id": "flood_tester", "event": "rejected", "limit": "10 per 1 minute", "reason": "rate_limited", "status": "rejected", "timestamp": "2026-11-08T03:39:20+00:00"}
+```
+
+## Run Log and Verdicts
+
+No criterion is claimed MET from the eight contract tests. Those tests establish implementation behavior with substituted detector scores; they do not satisfy the full frozen evaluation corpus or the three-trial protocol.
+
+| Original criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. False positives | At most 1 AI guess in 20 independently human-written samples, including 5 formal | Not run | Not run | Not run | NOT EVALUATED |
+| 2. Score spread | AI mean minus human mean at least 0.20 on 10 word-count-matched pairs | Not run | Not run | Not run | NOT EVALUATED |
+| 3. Label coverage | Three frozen texts retain designated labels; 1,001-score sweep | Not run | Not run | Not run | NOT EVALUATED |
+| 4. Appeals | Ten valid appeals preserve decisions; ten unknown IDs return 404 | Not run | Not run | Not run | NOT EVALUATED |
+| 5. Bad input | Complete fixed matrix: JSON 4xx, zero detector calls/events; inclusive text boundary | Not run | Not run | Not run | NOT EVALUATED |
+
+Criteria 1 and 2 lack the required independently human-written corpus and matched AI examples. The two public-domain excerpts already in `samples.json` are insufficient for those targets. Generated examples must not be called the student's writing. Criteria 3?5 still need evaluation scenarios replacing the supplied placeholders and three recorded runs. These are missing measurements, not evidence that the service passed or failed a target.
+
+Verification completed: `python test.py` reported **9 passed, 0 failed**. `python -m unittest test_service -v` reported **8 passed**. Coverage includes validation without detector calls, an inclusive 20,000-character boundary, label boundaries, appeal history, detector failure, limiter behavior, rejection logging, creator isolation, and all nine decision fields. Validation cases reset limiter counters individually so a preceding malformed request does not mask validation with a 429; the separate flood test deliberately preserves counters.
+
+## The Improvement
+
+**Not selected or applied.** The assignment requires a diagnosis from the complete before run before changing one thing. Only the authorized limiter and logging instruments have changed; detector, stylometry, weights, thresholds, labels, and validation behavior remain as in Part 1. There is no after attack or evaluation result yet. Choosing a threshold now would contaminate the requested baseline.
+
+Once the staff files and evaluation corpus are available: freeze fixtures, run the complete staff set with `python run_attacks.py --set <folder> --label before`, complete all five scenarios and three trials with `python run_eval.py --label before`, judge each attack against its target, diagnose every miss, commit the baseline, apply one justified improvement, and rerun both commands using `--label after`.
+
+## What's Still Broken
+
+The main remaining gap is evidence: the official attack set, evaluation corpus, all five three-trial scenarios, attack-by-attack verdicts, diagnoses, and the measured improvement are outstanding. No claim is made that there are no surviving attacks. Implementation stops at the instruments to preserve the required before/after comparison until those inputs are available.
+
+Known Part 1 limitations still apply: predictable human prose can score as AI, unusual generated prose can evade the detector, and the first 400 tokens may miss later text. These are hypotheses and existing calibration observations, not diagnoses of the missing staff run. Rate limits can be bypassed with rotated creator IDs and disappear on restart.
+
+In production I would favor fewer confident accusations, accepting that more AI-generated text would remain unflagged. Writers bear the cost of false accusations; the platform bears the cost of weaker detection, so any adverse decision needs human review and a usable appeal path.
+
+### How I Used AI ? Part 2
+
+Codex inspected the assignment and repository, enabled the starter rate limiter, added route-rejection logging, adapted and extended contract tests, and captured real-model HTTP evidence. Codex wrote this progress report; the student has not independently verified it in this session. The original criteria remain AI-authored as disclosed above. No staff attacks, human-authored corpus, evaluation outcomes, or measured improvement have been fabricated. Git commit messages have no AI co-author trailers, as requested; that does not remove this required disclosure of AI assistance.
