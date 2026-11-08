@@ -117,6 +117,23 @@ if config.RATE_LIMITING_ENABLED:
 
 # ── The worked example. Already works. Don't edit. ────────────────────────────
 
+@app.after_request
+def audit_route_rejection(response):
+    """Record refused submissions/appeals; the limiter already records 429s."""
+    if request.path in ("/submit", "/appeal") and response.status_code >= 400 and response.status_code != 429:
+        payload = request.get_json(silent=True)
+        payload = payload if isinstance(payload, dict) else {}
+        error = response.get_json(silent=True) or {}
+        audit.log_rejection(
+            creator_id=payload.get("creator_id", "unknown"),
+            reason=error.get("error", "request_failed"),
+            route=request.path,
+            http_status=response.status_code,
+            content_id=payload.get("content_id"),
+        )
+    return response
+
+
 @app.post("/ping")
 def ping():
     """
@@ -151,7 +168,7 @@ def health():
 # ── YOU BUILD THIS ────────────────────────────────────────────────────────────
 
 @app.post("/submit")
-# @limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
+@limiter.limit(f"{config.RATE_LIMIT_PER_MINUTE}/minute;{config.RATE_LIMIT_PER_DAY}/day")
 def submit():
     """Validate a submission, run both signals, record the decision, and return its label."""
     import detector
