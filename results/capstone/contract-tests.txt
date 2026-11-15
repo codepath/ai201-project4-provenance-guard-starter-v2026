@@ -1,0 +1,55 @@
+test_all_label_boundaries (test_service.ServiceTests.test_all_label_boundaries) ... ok
+test_bad_input_never_calls_detector (test_service.ServiceTests.test_bad_input_never_calls_detector) ... ok
+test_detector_failure_has_no_decision (test_service.ServiceTests.test_detector_failure_has_no_decision) ... [2026-11-15 11:15:17,180] ERROR in app: Detector unavailable
+Traceback (most recent call last):
+  File "C:\Users\munsakad\Downloads\AI201 Capstone\app.py", line 192, in submit
+    model_score = detector.model_signal(text)
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1167, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1171, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1226, in _execute_mock_call
+    raise effect
+detector.DetectorUnavailable: offline
+ok
+test_inclusive_text_limit (test_service.ServiceTests.test_inclusive_text_limit) ... ok
+test_invalid_appeals (test_service.ServiceTests.test_invalid_appeals) ... ok
+test_rate_limit_and_rejection_audit (test_service.ServiceTests.test_rate_limit_and_rejection_audit) ... ok
+test_style_measures_vary (test_service.ServiceTests.test_style_measures_vary) ... ok
+test_submit_appeal_audit (test_service.ServiceTests.test_submit_appeal_audit) ... ok
+test_dashboard_does_not_pollute_traces (test_capstone.TelemetryTests.test_dashboard_does_not_pollute_traces) ... ok
+test_failed_input_is_correlated_once (test_capstone.TelemetryTests.test_failed_input_is_correlated_once) ... ok
+test_log_output_is_not_recursively_copied (test_capstone.TelemetryTests.test_log_output_is_not_recursively_copied) ... ok
+test_model_failure_is_logged (test_capstone.TelemetryTests.test_model_failure_is_logged) ... [2026-11-15 11:15:18,360] ERROR in app: Detector unavailable
+Traceback (most recent call last):
+  File "C:\Users\munsakad\Downloads\AI201 Capstone\app.py", line 192, in submit
+    model_score = detector.model_signal(text)
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1167, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1171, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1226, in _execute_mock_call
+    raise effect
+detector.DetectorUnavailable: fixture
+ok
+test_no_prose_in_request_telemetry (test_capstone.TelemetryTests.test_no_prose_in_request_telemetry) ... ok
+test_rate_limit_is_logged (test_capstone.TelemetryTests.test_rate_limit_is_logged) ... ok
+test_write_failure_keeps_response_and_reports_loss (test_capstone.TelemetryTests.test_write_failure_keeps_response_and_reports_loss) ... [2026-11-15 11:15:18,510] ERROR in telemetry: Request telemetry could not be persisted
+Traceback (most recent call last):
+  File "C:\Users\munsakad\Downloads\AI201 Capstone\telemetry.py", line 88, in finish_trace
+    with TRACE_PATH.open('a', encoding='utf-8') as stream:
+         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\munsakad\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\munsakad\\AppData\\Local\\Temp\\tmp8e5ue8r8'
+ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.529s
+
+OK

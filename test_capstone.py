@@ -53,7 +53,8 @@ class TelemetryTests(unittest.TestCase):
 
     def test_dashboard_does_not_pollute_traces(self):
         for route in ['/','/ops/traces','/ops/export','/static/capstone.js','/static/capstone.css']:
-            self.assertEqual(self.client.get(route).status_code,200)
+            with self.client.get(route) as response:
+                self.assertEqual(response.status_code,200)
         self.assertEqual(telemetry.read_traces(),[])
 
     def test_log_output_is_not_recursively_copied(self):

@@ -49,11 +49,12 @@ try:
             'home_http':home.status_code,'home_has_title':'Provenance Guard' in home.text,
             'ping':ping.json(),'invalid_http':invalid.status_code,
             'real_model_http':decision.status_code,'real_model_output':decision.json(),
-            'first_real_request_seconds':elapsed,'assets':assets,'request_traces':rows,
+            'first_real_request_seconds':elapsed,'assets':assets,
+            'request_traces':[r for r in rows if r['request_id'] in {ping.headers['X-Request-ID'],invalid.headers['X-Request-ID'],decision.headers['X-Request-ID']}],
             'visual_browser_qa':'Unavailable; no visual verification claimed'}
     path=root/'results'/'capstone'/'clean-checkout.json'
     path.write_text(json.dumps(result,indent=2),encoding='utf-8')
-    print(json.dumps(result,indent=2))
+    print(json.dumps({k:v for k,v in result.items() if k!='request_traces'},indent=2))
 finally:
     process.terminate()
     process.wait(timeout=20)

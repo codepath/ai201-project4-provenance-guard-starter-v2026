@@ -1,0 +1,2236 @@
+{
+  "source_commit": "0aa9b0b1dcfc16610989780096a737b16de0a5aa",
+  "source_clean_clone": true,
+  "checkout": "C:\\Users\\munsakad\\AppData\\Local\\Temp\\ai201-capstone-check-5g0rjuyd\\checkout",
+  "start_command": "C:\\Users\\munsakad\\Downloads\\ai201-project4-provenance-guard-starter-v2026\\.venv\\Scripts\\python.exe capstone.py --port 5051",
+  "environment": "Existing installed Python packages reused; fresh dependency installation NOT tested.",
+  "packages": {
+    "Flask": "3.1.3",
+    "Flask-Limiter": "3.12",
+    "requests": "2.34.2",
+    "transformers": "4.57.6",
+    "torch": "2.15.0",
+    "certifi": "2026.10.23"
+  },
+  "home_http": 200,
+  "home_has_title": true,
+  "ping": {
+    "ok": true,
+    "service": "provenance-guard",
+    "you_sent": "clean checkout"
+  },
+  "invalid_http": 400,
+  "real_model_http": 200,
+  "real_model_output": {
+    "confidence": 0.608,
+    "content_id": "eac6a202-da16-436e-82e8-5c81863643dc",
+    "guess": "unsure",
+    "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+    "model_score": 0.5974,
+    "status": "decided",
+    "style_score": 0.6329
+  },
+  "first_real_request_seconds": 15.941760800080374,
+  "assets": {
+    "/static/capstone.css": 200,
+    "/static/capstone.js": 200,
+    "/ops/traces": 200,
+    "/ops/export": 200
+  },
+  "request_traces": [
+    {
+      "cpu_ms": 5421.875,
+      "input": {
+        "body_bytes": 376,
+        "creator_id": "warmup-beccb696e2ff4b97ab883803c0f7cf28",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "720f9b07-2e8e-4a86-9cb2-c396503abd66",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "2f67cd25-472d-4edd-902e-7b58aa0652ac",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.5553,
+        "combine_ms": 0.0122,
+        "model_ms": 68612.968,
+        "style_ms": 0.7128
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:05:22.812669+00:00",
+      "wall_ms": 68674.0805
+    },
+    {
+      "cpu_ms": 171.875,
+      "input": {
+        "body_bytes": 380,
+        "creator_id": "before-1-0-b7c5f9225b1b4de1938cef29ac559294",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "795e8f7d-bc1d-45ef-98b3-2457dd8a8344",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "4bb91dd9-cff0-4471-99bf-9ed7ba3ef582",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.8541,
+        "combine_ms": 0.019,
+        "model_ms": 267.8633,
+        "style_ms": 0.383
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:31.512853+00:00",
+      "wall_ms": 271.5439
+    },
+    {
+      "cpu_ms": 281.25,
+      "input": {
+        "body_bytes": 324,
+        "creator_id": "before-1-1-da1df4769d884f3b91968d15d3410ae0",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "4804a4fa-49f1-432e-b55f-3e78acf0b4eb",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "72908545-08e2-4b86-b335-f5eb91d585ad",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.9257,
+        "combine_ms": 0.0135,
+        "model_ms": 325.945,
+        "style_ms": 0.466
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:31.790635+00:00",
+      "wall_ms": 329.5833
+    },
+    {
+      "cpu_ms": 218.75,
+      "input": {
+        "body_bytes": 303,
+        "creator_id": "before-1-2-1d1ed1e5493e45e4878aeeafd0a5ae04",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "9d02f561-d05b-4344-aa14-dd90d8f8fd9b",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "e242b166-3aa2-403b-aa24-cea716e2bf0a",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.3911,
+        "combine_ms": 0.0141,
+        "model_ms": 289.18,
+        "style_ms": 0.3574
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.125309+00:00",
+      "wall_ms": 293.0834
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 128,
+        "entries_omitted": true
+      },
+      "request_id": "dc8d6c50-f132-430c-a527-12e20bcdad47",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.505734+00:00",
+      "wall_ms": 17.0589
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "795e8f7d-bc1d-45ef-98b3-2457dd8a8344",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "795e8f7d-bc1d-45ef-98b3-2457dd8a8344",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "594b40f9-d0a9-42ea-9769-a7797511144f",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.541506+00:00",
+      "wall_ms": 4.3082
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 129,
+        "entries_omitted": true
+      },
+      "request_id": "afd7efac-2758-4b43-824b-b7dac77d65c1",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.572978+00:00",
+      "wall_ms": 21.1714
+    },
+    {
+      "cpu_ms": 156.25,
+      "input": {
+        "body_bytes": 380,
+        "creator_id": "before-2-0-f89fb3cc0bce4acb9793f09587ab8580",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "de0ef575-a915-4457-b321-0a4867f5f524",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "d49936c5-3b7d-47d0-91c1-17ba5b94e5f5",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.6732,
+        "combine_ms": 0.0143,
+        "model_ms": 245.3362,
+        "style_ms": 0.3389
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.628414+00:00",
+      "wall_ms": 248.5405
+    },
+    {
+      "cpu_ms": 109.375,
+      "input": {
+        "body_bytes": 324,
+        "creator_id": "before-2-1-cb9f9a97631c4c7c9e7759a1ad0d1cf2",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "5caafcbc-77da-4e82-b4ac-c0fc4f122dd4",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "37112184-3d37-4fef-89a3-28050034ea2d",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.2412,
+        "combine_ms": 0.0084,
+        "model_ms": 299.9243,
+        "style_ms": 0.2134
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:32.894197+00:00",
+      "wall_ms": 303.1403
+    },
+    {
+      "cpu_ms": 140.625,
+      "input": {
+        "body_bytes": 303,
+        "creator_id": "before-2-2-945509eda4174e1a863938facc7f4b95",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "899090dd-64cf-4863-9a7b-430e5787a44b",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "25936e43-47e4-42d3-9307-41f36491594b",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.8155,
+        "combine_ms": 0.0131,
+        "model_ms": 298.5684,
+        "style_ms": 0.3412
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:33.204147+00:00",
+      "wall_ms": 303.374
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 137,
+        "entries_omitted": true
+      },
+      "request_id": "a5c93188-4501-4c37-ba21-fb13057e45c8",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:33.608671+00:00",
+      "wall_ms": 33.2263
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "de0ef575-a915-4457-b321-0a4867f5f524",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "de0ef575-a915-4457-b321-0a4867f5f524",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "bfd0dc52-08d8-4e65-b1e7-004ccdc63202",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:33.651718+00:00",
+      "wall_ms": 4.5035
+    },
+    {
+      "cpu_ms": 15.625,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 138,
+        "entries_omitted": true
+      },
+      "request_id": "0ec03685-d769-4b94-9aec-8ce8b42af3ae",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:33.679669+00:00",
+      "wall_ms": 33.5366
+    },
+    {
+      "cpu_ms": 187.5,
+      "input": {
+        "body_bytes": 380,
+        "creator_id": "before-3-0-1ee576ce85bb465a9da7e247fb3da2a1",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "04046a76-6182-4018-af88-ba991a3699a1",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "97784949-b697-4659-9a48-dc274d66174f",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.9025,
+        "combine_ms": 0.0108,
+        "model_ms": 314.5602,
+        "style_ms": 0.2325
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:33.763032+00:00",
+      "wall_ms": 318.2979
+    },
+    {
+      "cpu_ms": 390.625,
+      "input": {
+        "body_bytes": 324,
+        "creator_id": "before-3-1-43c0220e3eb34e6bbdb04ce4c16f14a0",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "e96b947e-c2c4-4875-bdc7-ecc1e64e2a7a",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "99bafc7d-b5c6-4e68-9ab7-2d948289bd35",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.8518,
+        "combine_ms": 0.0138,
+        "model_ms": 434.2486,
+        "style_ms": 0.4602
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:34.097955+00:00",
+      "wall_ms": 438.7313
+    },
+    {
+      "cpu_ms": 140.625,
+      "input": {
+        "body_bytes": 303,
+        "creator_id": "before-3-2-d26a27d24f314e1987d135f944448215",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "07a1dddf-2035-4de3-ac5a-af7329fbb913",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "95ac5ca3-902f-445e-b015-b5b41ccbc8f5",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.4884,
+        "combine_ms": 0.0086,
+        "model_ms": 309.1182,
+        "style_ms": 0.2581
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:34.554462+00:00",
+      "wall_ms": 317.8225
+    },
+    {
+      "cpu_ms": 15.625,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 146,
+        "entries_omitted": true
+      },
+      "request_id": "538df4c3-d0d5-433c-b668-5c0233e9911e",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:34.968439+00:00",
+      "wall_ms": 22.9218
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "04046a76-6182-4018-af88-ba991a3699a1",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "04046a76-6182-4018-af88-ba991a3699a1",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "abfff33a-3030-4111-9f09-4d67b24ad1c9",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:34.999915+00:00",
+      "wall_ms": 3.9259
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 147,
+        "entries_omitted": true
+      },
+      "request_id": "32377069-70e8-485b-9eb0-c4632646d416",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:35.030545+00:00",
+      "wall_ms": 21.4712
+    },
+    {
+      "cpu_ms": 203.125,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-b5a16b105b1d4d54927b968cb0cd9d4d",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "441d657c-d76f-4248-b2a5-452ed150a867",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "7bb19a95-d277-457d-b4de-60a92b216196",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.98,
+        "combine_ms": 0.0295,
+        "model_ms": 242.0212,
+        "style_ms": 0.646
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:35.080931+00:00",
+      "wall_ms": 248.5115
+    },
+    {
+      "cpu_ms": 125.0,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-e19af6248bb34205a6f71e0f368dd35e",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "1615c334-5918-44b1-b7bd-aa30d6ee81bd",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "d3f1b194-9d88-4887-b59a-6bb9222f9974",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.0834,
+        "combine_ms": 0.0135,
+        "model_ms": 313.4966,
+        "style_ms": 0.4297
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:35.397615+00:00",
+      "wall_ms": 332.5442
+    },
+    {
+      "cpu_ms": 218.75,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-6e1f3ab0be21412983ec5f1811af0548",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "4edeaa58-88c6-4a48-9ecb-f1f0570322bc",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "f48ab587-316f-4252-aff5-fc7373d28183",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.8108,
+        "combine_ms": 0.0131,
+        "model_ms": 274.8029,
+        "style_ms": 0.3361
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:35.760810+00:00",
+      "wall_ms": 278.8388
+    },
+    {
+      "cpu_ms": 203.125,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-ee0c107443ef4f0b858711c17de5f54f",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "315be0c6-f43d-4a0b-bde2-31875a7f1712",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "f3b81909-21aa-42a6-9a21-97634e2b5067",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.4298,
+        "combine_ms": 0.0083,
+        "model_ms": 247.0606,
+        "style_ms": 0.2305
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:36.075170+00:00",
+      "wall_ms": 250.3059
+    },
+    {
+      "cpu_ms": 125.0,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-e85f7e1bc0014067b87ac8dac723ae01",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "8ca7305d-4b7d-481b-bcee-cb555f57439a",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "8038ee27-71ba-49ae-9745-b84d4e34dda8",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 4.9898,
+        "combine_ms": 0.0188,
+        "model_ms": 308.0331,
+        "style_ms": 0.5014
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:36.350174+00:00",
+      "wall_ms": 316.0143
+    },
+    {
+      "cpu_ms": 140.625,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-f3b9bae9b7b94a0fbcf12021e1438140",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "77f4d7a9-45d3-491a-ad55-8fab5bb37a29",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "02d38d00-1aaf-4476-9d56-69aca96b25e1",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.382,
+        "combine_ms": 0.0075,
+        "model_ms": 299.6305,
+        "style_ms": 0.1992
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:36.727396+00:00",
+      "wall_ms": 302.7386
+    },
+    {
+      "cpu_ms": 62.5,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-2cebae1c8d324ff18ea96ec7c168bfe8",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "a41af819-3b49-43d5-9488-54115a1709fb",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "74f5801f-8038-44b1-bacb-b21bdf761da1",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.0,
+        "combine_ms": 0.0127,
+        "model_ms": 264.3063,
+        "style_ms": 0.3131
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:37.065620+00:00",
+      "wall_ms": 277.2616
+    },
+    {
+      "cpu_ms": 171.875,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-173f05a653cd4973a78042476ad50c6d",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "31cfa7cc-9745-41e2-81e4-91a86f5263e3",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "d0141e02-0c52-4cea-97a4-b25671a8311d",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.1091,
+        "combine_ms": 0.0139,
+        "model_ms": 323.1201,
+        "style_ms": 0.3665
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:37.369918+00:00",
+      "wall_ms": 326.7878
+    },
+    {
+      "cpu_ms": 109.375,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-6264ba932c014667b75667270df3f70c",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "9aa53100-2d49-4e2e-9d6d-6a3942fb3942",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "d852df48-c6c8-416f-acc9-8a63b5b2ac0d",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.8505,
+        "combine_ms": 0.0135,
+        "model_ms": 291.7487,
+        "style_ms": 0.3495
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:37.726388+00:00",
+      "wall_ms": 296.039
+    },
+    {
+      "cpu_ms": 171.875,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-06ce3b7078fd45a2b187f9dc6a8a340c",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "576c9c18-a773-4692-ad7d-d284fee4d277",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "5cc9653c-a5bf-4c3d-bd46-c4439cc81090",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.3357,
+        "combine_ms": 0.0147,
+        "model_ms": 272.9675,
+        "style_ms": 0.4413
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:06:38.061294+00:00",
+      "wall_ms": 277.0578
+    },
+    {
+      "cpu_ms": 4640.625,
+      "input": {
+        "body_bytes": 376,
+        "creator_id": "warmup-a4128a13bd304d3094687a5ff186b12a",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "e1d8a9f7-e379-4c20-b75f-68106276365a",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "3acb219e-7c0d-4d4c-a6a3-45bb74f9cafc",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.2191,
+        "combine_ms": 0.0186,
+        "model_ms": 64707.3568,
+        "style_ms": 1.389
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:10:33.959538+00:00",
+      "wall_ms": 64732.8986
+    },
+    {
+      "cpu_ms": 343.75,
+      "input": {
+        "body_bytes": 379,
+        "creator_id": "after-1-0-8f2f542343e64c3f97e84e5c3fbb3bf5",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "1443242a-42c5-4159-8b49-05107c6a626f",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "4c687d5c-c5bc-4cf1-87de-12fcb0faa7f9",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.2269,
+        "combine_ms": 0.0152,
+        "model_ms": 365.792,
+        "style_ms": 0.5355
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:38.707071+00:00",
+      "wall_ms": 371.694
+    },
+    {
+      "cpu_ms": 343.75,
+      "input": {
+        "body_bytes": 323,
+        "creator_id": "after-1-1-5be1f4f57eb14d558c5fb789f3732f54",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "e8c27194-032a-4071-ac37-c0c414eb0326",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "47ff7359-f3d2-4660-9863-ef07515b3dbb",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.3627,
+        "combine_ms": 0.0197,
+        "model_ms": 440.0329,
+        "style_ms": 0.5229
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:39.107009+00:00",
+      "wall_ms": 448.1138
+    },
+    {
+      "cpu_ms": 78.125,
+      "input": {
+        "body_bytes": 302,
+        "creator_id": "after-1-2-0001f158583a492c8943197d0ee474db",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "817f7999-36de-44f1-8dc0-c0a5cefc5304",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "1739bf40-3798-475e-97dc-e195cfd77d1d",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.9211,
+        "combine_ms": 0.01,
+        "model_ms": 277.1166,
+        "style_ms": 0.2889
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:39.565010+00:00",
+      "wall_ms": 280.7264
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 7,
+        "json_type": "NoneType"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_json",
+        "message": "Send a JSON object."
+      },
+      "request_id": "757b347a-4379-4720-9b0a-843b076834e6",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:39.853061+00:00",
+      "wall_ms": 1.2357
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 58,
+        "creator_id": "missing-d34ec712b62b4b5e8c685ce0eb487df4",
+        "fields": [
+          "creator_id"
+        ],
+        "json_type": "dict"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_text",
+        "message": "text must be a nonblank string."
+      },
+      "request_id": "520a9210-1775-4f33-b8aa-96bfbc573d5c",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:39.865269+00:00",
+      "wall_ms": 0.7004
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 67,
+        "creator_id": " ",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 36,
+        "text_sha256": "eb0d9c7623d32e27e5ff53482ea305345835a21faa14022921cb4e2cf04d2a1c"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_creator",
+        "message": "creator_id must contain 1-200 characters and cannot be blank."
+      },
+      "request_id": "2f434d4a-7b28-4ade-a350-0bbbe4ec47b7",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:39.875820+00:00",
+      "wall_ms": 1.2503
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 20072,
+        "creator_id": "oversize-2dfa9fef13074877a4aab462ea1cb612",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 20001,
+        "text_sha256": "991b716ebf8586a3b931be8ad3dd6d0979eb1049e05eeb714dbedbb06696ee3f"
+      },
+      "method": "POST",
+      "output": {
+        "error": "text_too_large",
+        "message": "text must not exceed 20000 characters."
+      },
+      "request_id": "65e75e93-f142-482a-b865-319bf38fd726",
+      "route": "/submit",
+      "stages": {},
+      "status": 413,
+      "timestamp": "2026-11-15T16:11:39.886932+00:00",
+      "wall_ms": 1.0187
+    },
+    {
+      "cpu_ms": 15.625,
+      "input": {
+        "body_bytes": 96,
+        "content_id": "4a26a292-a8db-4093-b66f-46139b0ee123",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 25,
+        "reasoning_sha256": "1aa53bcd5bdf98ad3179bb1bd177780b643fe04e0ef49d6ae0763384f2714c30"
+      },
+      "method": "POST",
+      "output": {
+        "error": "content_not_found",
+        "message": "No submission has that content_id."
+      },
+      "request_id": "b626f1de-a868-4359-8215-e6e526dd97b6",
+      "route": "/appeal",
+      "stages": {},
+      "status": 404,
+      "timestamp": "2026-11-15T16:11:39.898383+00:00",
+      "wall_ms": 21.9174
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 166,
+        "entries_omitted": true
+      },
+      "request_id": "4a16222e-55ea-443d-98cc-8924170c3da2",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:39.933998+00:00",
+      "wall_ms": 22.7493
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "1443242a-42c5-4159-8b49-05107c6a626f",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "1443242a-42c5-4159-8b49-05107c6a626f",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "2310f179-e815-40ec-9ba4-654a4e7a6f13",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:39.966219+00:00",
+      "wall_ms": 3.9619
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 167,
+        "entries_omitted": true
+      },
+      "request_id": "40a8da62-d7bc-421d-9e13-54741c224df6",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:39.978973+00:00",
+      "wall_ms": 21.5741
+    },
+    {
+      "cpu_ms": 109.375,
+      "input": {
+        "body_bytes": 379,
+        "creator_id": "after-2-0-a006745272b14a19a8c1f0a015490e05",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "3300ab04-8a92-4e3f-a746-7032e556845b",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "422716a3-debe-4358-9149-7c05525d2732",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.3437,
+        "combine_ms": 0.0145,
+        "model_ms": 232.2291,
+        "style_ms": 0.4182
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:40.036201+00:00",
+      "wall_ms": 236.8357
+    },
+    {
+      "cpu_ms": 328.125,
+      "input": {
+        "body_bytes": 323,
+        "creator_id": "after-2-1-629d20e534be40809ca412615037aae4",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "06307302-4a8c-4423-bcae-94eeb7a9b8dd",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "0cf7dd42-f90b-490f-8b99-e819af49a992",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.5691,
+        "combine_ms": 0.0091,
+        "model_ms": 327.5978,
+        "style_ms": 0.2782
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:40.283243+00:00",
+      "wall_ms": 330.817
+    },
+    {
+      "cpu_ms": 125.0,
+      "input": {
+        "body_bytes": 302,
+        "creator_id": "after-2-2-77958049b3b44d6d918756fbf5935c80",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "5d58d372-03a3-48db-bb3d-6d1d5ac3a8c0",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "98254031-955d-4bdf-828a-3ed85d4ce707",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.4952,
+        "combine_ms": 0.0144,
+        "model_ms": 320.12,
+        "style_ms": 0.4594
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:40.621920+00:00",
+      "wall_ms": 325.403
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 7,
+        "json_type": "NoneType"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_json",
+        "message": "Send a JSON object."
+      },
+      "request_id": "ea19c8ce-53bb-4cb3-b57b-ff725cf4cd58",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:40.955651+00:00",
+      "wall_ms": 1.1159
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 58,
+        "creator_id": "missing-0d5f83955b0947b3aa53235605480f1b",
+        "fields": [
+          "creator_id"
+        ],
+        "json_type": "dict"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_text",
+        "message": "text must be a nonblank string."
+      },
+      "request_id": "cb2fcdc4-68c8-4169-88ac-33bd066d20e5",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:40.965384+00:00",
+      "wall_ms": 0.3783
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 67,
+        "creator_id": " ",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 36,
+        "text_sha256": "eb0d9c7623d32e27e5ff53482ea305345835a21faa14022921cb4e2cf04d2a1c"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_creator",
+        "message": "creator_id must contain 1-200 characters and cannot be blank."
+      },
+      "request_id": "e0d4eb8b-ab8c-48c8-9e56-a6939e724220",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:40.991758+00:00",
+      "wall_ms": 1.2188
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 20072,
+        "creator_id": "oversize-5324b59b6bb645ca97dc1165c8c10078",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 20001,
+        "text_sha256": "991b716ebf8586a3b931be8ad3dd6d0979eb1049e05eeb714dbedbb06696ee3f"
+      },
+      "method": "POST",
+      "output": {
+        "error": "text_too_large",
+        "message": "text must not exceed 20000 characters."
+      },
+      "request_id": "a511aeea-8ee9-4d64-8021-ccb8ac16857c",
+      "route": "/submit",
+      "stages": {},
+      "status": 413,
+      "timestamp": "2026-11-15T16:11:41.003483+00:00",
+      "wall_ms": 1.2038
+    },
+    {
+      "cpu_ms": 15.625,
+      "input": {
+        "body_bytes": 96,
+        "content_id": "c05f8a44-a3d3-4430-9ac2-f55d7d0e8a0a",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 25,
+        "reasoning_sha256": "1aa53bcd5bdf98ad3179bb1bd177780b643fe04e0ef49d6ae0763384f2714c30"
+      },
+      "method": "POST",
+      "output": {
+        "error": "content_not_found",
+        "message": "No submission has that content_id."
+      },
+      "request_id": "16e2cd3e-8a01-4085-8780-cd09f9064166",
+      "route": "/appeal",
+      "stages": {},
+      "status": 404,
+      "timestamp": "2026-11-15T16:11:41.013664+00:00",
+      "wall_ms": 24.5259
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 175,
+        "entries_omitted": true
+      },
+      "request_id": "5e82203e-0a5e-4ae5-b9ac-034eabce71ef",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:41.048968+00:00",
+      "wall_ms": 20.8637
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "3300ab04-8a92-4e3f-a746-7032e556845b",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "3300ab04-8a92-4e3f-a746-7032e556845b",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "d73ab412-9562-41b4-bf98-66cc17577a53",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:41.078736+00:00",
+      "wall_ms": 4.3196
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 176,
+        "entries_omitted": true
+      },
+      "request_id": "f79c3974-452a-45dc-9a36-fed692e8f096",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:41.090620+00:00",
+      "wall_ms": 27.3657
+    },
+    {
+      "cpu_ms": 203.125,
+      "input": {
+        "body_bytes": 379,
+        "creator_id": "after-3-0-4a26a1e2811f41bd845627b3c263cf55",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "c5edfcd3-1c0d-4b4c-a55e-91a32d7df062",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "7c8cbc70-34d8-426e-b248-182d85abc957",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.3538,
+        "combine_ms": 0.3052,
+        "model_ms": 421.9317,
+        "style_ms": 0.4243
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:41.158807+00:00",
+      "wall_ms": 426.6826
+    },
+    {
+      "cpu_ms": 156.25,
+      "input": {
+        "body_bytes": 323,
+        "creator_id": "after-3-1-6f57b20c085d499bb2c9b8eeb9da8b12",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "8eee429b-8b1f-4956-b855-278a7973df76",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "2a792c9b-c75e-4529-bf2f-97ff29b343ca",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.5718,
+        "combine_ms": 0.0119,
+        "model_ms": 451.2876,
+        "style_ms": 0.3234
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:41.594695+00:00",
+      "wall_ms": 454.6999
+    },
+    {
+      "cpu_ms": 156.25,
+      "input": {
+        "body_bytes": 302,
+        "creator_id": "after-3-2-e9dd5495f8634be4ab13044eecaa8430",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "3718bc5d-8f90-4ef6-ae15-d2f912c70cf1",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "0464d179-07ea-40d8-a1a1-a7f58141b0b1",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.6704,
+        "combine_ms": 0.0189,
+        "model_ms": 268.6305,
+        "style_ms": 0.9645
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.055973+00:00",
+      "wall_ms": 274.31
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 7,
+        "json_type": "NoneType"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_json",
+        "message": "Send a JSON object."
+      },
+      "request_id": "8f9c9900-560d-49e2-9081-7c15ff21eb21",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:42.362491+00:00",
+      "wall_ms": 1.2823
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 58,
+        "creator_id": "missing-7a82c87f4b90470f9b13dd72ec8e185c",
+        "fields": [
+          "creator_id"
+        ],
+        "json_type": "dict"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_text",
+        "message": "text must be a nonblank string."
+      },
+      "request_id": "0c32e7fb-a7fe-44c6-8ccc-d909abafceea",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:42.374438+00:00",
+      "wall_ms": 0.8355
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 67,
+        "creator_id": " ",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 36,
+        "text_sha256": "eb0d9c7623d32e27e5ff53482ea305345835a21faa14022921cb4e2cf04d2a1c"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_creator",
+        "message": "creator_id must contain 1-200 characters and cannot be blank."
+      },
+      "request_id": "2f20d6c6-5f9e-4344-865a-1dd009c465ef",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:11:42.386175+00:00",
+      "wall_ms": 2.2282
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 20072,
+        "creator_id": "oversize-cd37c4679ba84658973f12d702eb7320",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 20001,
+        "text_sha256": "991b716ebf8586a3b931be8ad3dd6d0979eb1049e05eeb714dbedbb06696ee3f"
+      },
+      "method": "POST",
+      "output": {
+        "error": "text_too_large",
+        "message": "text must not exceed 20000 characters."
+      },
+      "request_id": "cf598836-15ad-4466-9173-f7036f49f48f",
+      "route": "/submit",
+      "stages": {},
+      "status": 413,
+      "timestamp": "2026-11-15T16:11:42.399716+00:00",
+      "wall_ms": 0.8061
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 96,
+        "content_id": "593dc26f-8320-4847-b472-ccb663756caf",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 25,
+        "reasoning_sha256": "1aa53bcd5bdf98ad3179bb1bd177780b643fe04e0ef49d6ae0763384f2714c30"
+      },
+      "method": "POST",
+      "output": {
+        "error": "content_not_found",
+        "message": "No submission has that content_id."
+      },
+      "request_id": "c29afdbe-e793-423e-8c9f-1da993c0731a",
+      "route": "/appeal",
+      "stages": {},
+      "status": 404,
+      "timestamp": "2026-11-15T16:11:42.409305+00:00",
+      "wall_ms": 21.5283
+    },
+    {
+      "cpu_ms": 15.625,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 184,
+        "entries_omitted": true
+      },
+      "request_id": "6c87ee77-ac38-497d-9a1e-c12c02faceb7",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.440259+00:00",
+      "wall_ms": 19.9367
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 131,
+        "content_id": "c5edfcd3-1c0d-4b4c-a55e-91a32d7df062",
+        "fields": [
+          "content_id",
+          "reasoning"
+        ],
+        "json_type": "dict",
+        "reasoning_characters": 60,
+        "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"
+      },
+      "method": "POST",
+      "output": {
+        "content_id": "c5edfcd3-1c0d-4b4c-a55e-91a32d7df062",
+        "message": "Your appeal was recorded. This submission is now under review.",
+        "status": "under_review"
+      },
+      "request_id": "62e38e38-00e6-4bad-9368-6aae1d1c1744",
+      "route": "/appeal",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.468055+00:00",
+      "wall_ms": 3.2411
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": null,
+        "json_type": "NoneType"
+      },
+      "method": "GET",
+      "output": {
+        "count": 185,
+        "entries_omitted": true
+      },
+      "request_id": "cdb18338-0ad5-48ec-8ee9-0cc3a229611c",
+      "route": "/log",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.479668+00:00",
+      "wall_ms": 25.244
+    },
+    {
+      "cpu_ms": 171.875,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-e9a2fc50769342438c887e5a925f151c",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "709615ea-f79a-4c82-be28-f35c5d531a33",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "766f532a-24a6-4a15-954d-da274e7c5ec1",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 3.7861,
+        "combine_ms": 0.017,
+        "model_ms": 322.3064,
+        "style_ms": 0.4606
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.565186+00:00",
+      "wall_ms": 328.2183
+    },
+    {
+      "cpu_ms": 109.375,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-a068a249c5b34481b2a862e4c9e64fe2",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "82351367-c6d8-45d8-a772-ad7dc8b8f3eb",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "cd19280f-0471-4a2f-8985-3112b397225b",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.7733,
+        "combine_ms": 0.0911,
+        "model_ms": 309.2909,
+        "style_ms": 0.4562
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:42.932677+00:00",
+      "wall_ms": 315.437
+    },
+    {
+      "cpu_ms": 93.75,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-8b6754f217214c5b88fe74623d05906c",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "c4f73cd5-e109-403f-9eb6-72a7c7891f66",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "e27e2e63-7030-465e-bc6d-a7288d3cac57",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 16.9631,
+        "combine_ms": 0.0111,
+        "model_ms": 284.5539,
+        "style_ms": 0.2802
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:43.309008+00:00",
+      "wall_ms": 303.5248
+    },
+    {
+      "cpu_ms": 93.75,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-0908fdef896b4eccafa6ac5d6d865eba",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "2a93ded6-83e9-405c-91f4-5e136783ea3f",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "7ca025df-25af-4b1c-b724-ab767ca82aec",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.3803,
+        "combine_ms": 0.0082,
+        "model_ms": 267.2387,
+        "style_ms": 0.223
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:43.676517+00:00",
+      "wall_ms": 270.2951
+    },
+    {
+      "cpu_ms": 78.125,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-912a38f4f46648018fb5d2dccbd09528",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "e5fe1c6a-838e-41f7-b10e-827a53fb1c88",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "4243d054-a886-4b70-b1d3-4b85177a44b2",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 1.9043,
+        "combine_ms": 0.0097,
+        "model_ms": 268.6224,
+        "style_ms": 0.2308
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:43.980766+00:00",
+      "wall_ms": 272.1315
+    },
+    {
+      "cpu_ms": 156.25,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-e1b5c65e41564b4684683ae2b7758433",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "bfa3da78-0369-48cc-bd82-5b11d3a78705",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "f0aca56f-2703-4b59-8056-7dc733fecafd",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 15.2643,
+        "combine_ms": 0.011,
+        "model_ms": 374.7415,
+        "style_ms": 0.281
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:44.289732+00:00",
+      "wall_ms": 394.7118
+    },
+    {
+      "cpu_ms": 375.0,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-9aace47f49d04ccc977002bc8b776c1d",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "1b1164ea-f83e-4820-8439-b7533b97c873",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "9cd46e3f-ced4-4dbe-9212-e1e665c21435",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.084,
+        "combine_ms": 0.0501,
+        "model_ms": 425.6696,
+        "style_ms": 0.5029
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:44.756046+00:00",
+      "wall_ms": 430.2664
+    },
+    {
+      "cpu_ms": 234.375,
+      "input": {
+        "body_bytes": 318,
+        "creator_id": "cost-326e124b78de489282d68c228f608894",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 251,
+        "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.4983,
+        "content_id": "fe5d48c7-13bf-4256-8c55-4b45618c1917",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.4599,
+        "status": "decided",
+        "style_score": 0.5879
+      },
+      "request_id": "eab54dcc-213e-415a-bdd9-33fb79cbd502",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 4.7282,
+        "combine_ms": 0.0593,
+        "model_ms": 482.3455,
+        "style_ms": 0.886
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:45.239283+00:00",
+      "wall_ms": 490.0235
+    },
+    {
+      "cpu_ms": 421.875,
+      "input": {
+        "body_bytes": 297,
+        "creator_id": "cost-380ca9e5e67e4487b4953324d302c121",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 230,
+        "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.2426,
+        "content_id": "ea6debbc-1dfd-42d2-936b-ae23535a4ad8",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.2769,
+        "status": "decided",
+        "style_score": 0.1627
+      },
+      "request_id": "615678be-a893-420b-83d5-2a7f6829038a",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.058,
+        "combine_ms": 0.0201,
+        "model_ms": 463.3547,
+        "style_ms": 0.6144
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:45.796880+00:00",
+      "wall_ms": 467.9323
+    },
+    {
+      "cpu_ms": 437.5,
+      "input": {
+        "body_bytes": 374,
+        "creator_id": "cost-86962802122548639c773d4351b468c0",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 307,
+        "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.6105,
+        "content_id": "f4434ade-3007-4eae-bc81-57f6acccb26e",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6042,
+        "status": "decided",
+        "style_score": 0.6252
+      },
+      "request_id": "b2d55558-4fb8-4d59-83ad-d3319dcdb534",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 2.1002,
+        "combine_ms": 0.0146,
+        "model_ms": 457.0508,
+        "style_ms": 0.4281
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:11:46.308182+00:00",
+      "wall_ms": 461.5083
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 29,
+        "fields": [
+          "message"
+        ],
+        "json_type": "dict"
+      },
+      "method": "POST",
+      "output": {
+        "ok": true,
+        "service": "provenance-guard",
+        "you_sent": "clean checkout"
+      },
+      "request_id": "ecfcf79e-617a-40d5-8463-3875d0475db3",
+      "route": "/ping",
+      "stages": {},
+      "status": 200,
+      "timestamp": "2026-11-15T16:14:35.232112+00:00",
+      "wall_ms": 0.2915
+    },
+    {
+      "cpu_ms": 0.0,
+      "input": {
+        "body_bytes": 2,
+        "fields": [],
+        "json_type": "dict"
+      },
+      "method": "POST",
+      "output": {
+        "error": "invalid_text",
+        "message": "text must be a nonblank string."
+      },
+      "request_id": "edcf50d6-79f3-4ad8-9a15-ac181028310e",
+      "route": "/submit",
+      "stages": {},
+      "status": 400,
+      "timestamp": "2026-11-15T16:14:35.237459+00:00",
+      "wall_ms": 86.6053
+    },
+    {
+      "cpu_ms": 2875.0,
+      "input": {
+        "body_bytes": 215,
+        "creator_id": "clean-checkout-fixture",
+        "fields": [
+          "creator_id",
+          "text"
+        ],
+        "json_type": "dict",
+        "text_characters": 163,
+        "text_sha256": "b485f5f14b3b5fc0128cea1e8fa1b26f878e3ad694b5fb32380745906a8d2b19"
+      },
+      "method": "POST",
+      "output": {
+        "confidence": 0.608,
+        "content_id": "eac6a202-da16-436e-82e8-5c81863643dc",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.5974,
+        "status": "decided",
+        "style_score": 0.6329
+      },
+      "request_id": "dde92774-81c2-4c74-8902-8b45d12590bc",
+      "route": "/submit",
+      "stages": {
+        "audit_ms": 4.4769,
+        "combine_ms": 0.0356,
+        "model_ms": 15926.7333,
+        "style_ms": 1.2845
+      },
+      "status": 200,
+      "timestamp": "2026-11-15T16:14:35.333941+00:00",
+      "wall_ms": 15933.8513
+    }
+  ],
+  "visual_browser_qa": "Unavailable; no visual verification claimed"
+}

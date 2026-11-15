@@ -284,6 +284,10 @@ The service binds to `127.0.0.1:5050`, disables the debugger and serves one requ
 at a time. The Windows launcher can reuse the existing sibling environment;
 standalone environment setup and the full package freeze are documented.
 No remote deployment, repository push or course submission is claimed.
+`results/capstone/clean-checkout.json` records a local clean clone of committed
+source starting on port 5051, serving the dashboard/assets, rejecting invalid
+input with a trace, and scoring a new real-model submission. It reuses the
+installed Python environment; a fresh dependency installation was not tested.
 
 **Instrumentation**
 
@@ -351,6 +355,10 @@ deterministic inference explains repeated scores. Criteria 1, 3 and 4 share each
 trial's three successful requests because the properties concern the same runs.
 Each trial also has five distinct invalid cases and one complete appeal workflow.
 This is operational validation, not an authorship accuracy evaluation.
+The eight original service contract tests and seven new operational tests also
+pass (15 total), including simulated 503, 429 and trace-write failure; their
+output is in `results/capstone/contract-tests.txt`. JavaScript syntax validation
+also passed with `node --check static/capstone.js`.
 
 Before improvement:
 
