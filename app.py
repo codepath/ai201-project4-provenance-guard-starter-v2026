@@ -26,6 +26,8 @@ Routes:
 
 import uuid
 
+from telemetry import stage
+
 from flask import Flask, jsonify, request
 
 import audit
@@ -186,19 +188,23 @@ def submit():
     if len(text) > config.MAX_TEXT_LENGTH:
         return jsonify(error="text_too_large", message="text must not exceed 20000 characters."), 413
     try:
-        model_score = detector.model_signal(text)
+        with stage("model"):
+            model_score = detector.model_signal(text)
     except detector.DetectorUnavailable:
         app.logger.exception("Detector unavailable")
         return jsonify(error="detector_unavailable", message="The local detector is unavailable. Please try again after setup."), 503
     except ValueError:
         return jsonify(error="text_too_short", message="Please submit a few sentences so the detector can score the text."), 400
-    style_score = stylometry.style_signal(text)
-    confidence = scoring.combine_signals(model_score, style_score)
-    guess, label = scoring.score_to_label(confidence)
+    with stage("style"):
+        style_score = stylometry.style_signal(text)
+    with stage("combine"):
+        confidence = scoring.combine_signals(model_score, style_score)
+        guess, label = scoring.score_to_label(confidence)
     content_id = str(uuid.uuid4())
-    audit.log_decision(content_id=content_id, creator_id=creator,
-                       guess=guess, model_score=model_score, style_score=style_score,
-                       combined_score=confidence, label=label)
+    with stage("audit"):
+        audit.log_decision(content_id=content_id, creator_id=creator,
+                           guess=guess, model_score=model_score, style_score=style_score,
+                           combined_score=confidence, label=label)
     return jsonify(content_id=content_id, guess=guess, confidence=confidence,
                    label=label, model_score=model_score, style_score=style_score,
                    status="decided")
