@@ -13,8 +13,8 @@ from flask import g, has_request_context, request
 
 TRACE_PATH = Path(os.getenv('CAPSTONE_TRACE_PATH', Path(__file__).parent / 'logs' / 'requests.jsonl'))
 _lock = threading.Lock()
-# Baseline records successful responses only; evaluation will expose the gap.
-INCLUDE_FAILURES = False
+# Include unsuccessful responses: baseline trials exposed missing rejection traces.
+INCLUDE_FAILURES = True
 
 
 @contextmanager
