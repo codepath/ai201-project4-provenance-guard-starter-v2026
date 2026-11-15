@@ -255,3 +255,263 @@ Ran the actual `python app.py` entry point as a separate process on a free loopb
 The environment check was rerun: **9 passed, 0 failed**. The contract suite was rerun: **8 passed**. Its logged `DetectorUnavailable` traceback is intentional fault injection: that test verifies the 503 response and absence of a decision.
 
 These live checks support the implemented limiter, logging, validation, scoring-response contract, and appeal path. They do not establish authorship accuracy, the 200/day limit over a whole day, minute-window recovery, distributed limiter behavior, or completion of the absent official attack set and full five-criterion evaluation. The temporary service process was stopped after verification. Codex wrote and executed this regression harness and recorded the evidence.
+
+## Capstone
+
+**What This Extends**
+
+This extends the existing Provenance Guard at `d0efd19`, preserving its GPT-2
+signal, stylometry, combination rule, thresholds, submission API and manual
+appeal workflow. The extension adds a local operational run path, request-level
+JSONL telemetry, stage timing, measured compute costs and an operator dashboard.
+The folder `AI201 Capstone` is a linked worktree of the original repository on
+`capstone/observability`; its shared history makes the extension inspectable.
+Original project criteria are preserved in `criteria-project4.md`.
+
+**The Shape**
+
+Shape A — deploy and instrument. Scope was recorded in `SCOPE.md` before running
+the criteria. Out of scope: a replacement detector, altered thresholds,
+new retrieval/search systems, automated review decisions, authentication and
+public hosting. The UI is an operator view of the operational layer and existing
+workflow. Declared stretch: latency breakdown across the existing scoring stages.
+
+**Running It**
+
+Path B — local with logs. See [RUNNING.md](RUNNING.md). Start with
+`python capstone.py` after environment setup, or double-click `Start Capstone.cmd`.
+The service binds to `127.0.0.1:5050`, disables the debugger and serves one request
+at a time. The Windows launcher can reuse the existing sibling environment;
+standalone environment setup and the full package freeze are documented.
+No remote deployment, repository push or course submission is claimed.
+
+**Instrumentation**
+
+`telemetry.install` in `telemetry.py` records UTC timestamp, generated request ID,
+HTTP method/route, input summary (type, field names, lengths and SHA-256 rather
+than full prose), output JSON, response status, wall milliseconds, process CPU
+milliseconds and stage milliseconds. The response includes `X-Request-ID`.
+The unchanged audit log holds decisions and appeals separately. `/log` telemetry
+summarizes its count rather than recursively copying history. Dashboard/assets
+are excluded so observing the system does not dominate its measurements.
+Traces are appended to `logs/requests.jsonl`; latest-500 views and JSONL export
+are available in the dashboard. This is single-process local persistence, not
+a tamper-proof log or a multiworker observability platform.
+
+Eleven actual post-improvement records follow, including rejected inputs:
+
+```jsonl
+{"cpu_ms": 4640.625, "input": {"body_bytes": 376, "creator_id": "warmup-a4128a13bd304d3094687a5ff186b12a", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 307, "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"}, "method": "POST", "output": {"confidence": 0.6105, "content_id": "e1d8a9f7-e379-4c20-b75f-68106276365a", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.6042, "status": "decided", "style_score": 0.6252}, "request_id": "3acb219e-7c0d-4d4c-a6a3-45bb74f9cafc", "route": "/submit", "stages": {"audit_ms": 2.2191, "combine_ms": 0.0186, "model_ms": 64707.3568, "style_ms": 1.389}, "status": 200, "timestamp": "2026-11-15T16:10:33.959538+00:00", "wall_ms": 64732.8986}
+{"cpu_ms": 343.75, "input": {"body_bytes": 379, "creator_id": "after-1-0-8f2f542343e64c3f97e84e5c3fbb3bf5", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 307, "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"}, "method": "POST", "output": {"confidence": 0.6105, "content_id": "1443242a-42c5-4159-8b49-05107c6a626f", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.6042, "status": "decided", "style_score": 0.6252}, "request_id": "4c687d5c-c5bc-4cf1-87de-12fcb0faa7f9", "route": "/submit", "stages": {"audit_ms": 2.2269, "combine_ms": 0.0152, "model_ms": 365.792, "style_ms": 0.5355}, "status": 200, "timestamp": "2026-11-15T16:11:38.707071+00:00", "wall_ms": 371.694}
+{"cpu_ms": 343.75, "input": {"body_bytes": 323, "creator_id": "after-1-1-5be1f4f57eb14d558c5fb789f3732f54", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 251, "text_sha256": "c448ea5bedd2cade083e2939cd4fd7f19b2bd8412a7bdf2657f89a8e3056680c"}, "method": "POST", "output": {"confidence": 0.4983, "content_id": "e8c27194-032a-4071-ac37-c0c414eb0326", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.4599, "status": "decided", "style_score": 0.5879}, "request_id": "47ff7359-f3d2-4660-9863-ef07515b3dbb", "route": "/submit", "stages": {"audit_ms": 2.3627, "combine_ms": 0.0197, "model_ms": 440.0329, "style_ms": 0.5229}, "status": 200, "timestamp": "2026-11-15T16:11:39.107009+00:00", "wall_ms": 448.1138}
+{"cpu_ms": 78.125, "input": {"body_bytes": 302, "creator_id": "after-1-2-0001f158583a492c8943197d0ee474db", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 230, "text_sha256": "2f25b0fbc178a0b7d441d6cc0af501180a7153218e2a6ff2516accf5c1ae5145"}, "method": "POST", "output": {"confidence": 0.2426, "content_id": "817f7999-36de-44f1-8dc0-c0a5cefc5304", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.2769, "status": "decided", "style_score": 0.1627}, "request_id": "1739bf40-3798-475e-97dc-e195cfd77d1d", "route": "/submit", "stages": {"audit_ms": 1.9211, "combine_ms": 0.01, "model_ms": 277.1166, "style_ms": 0.2889}, "status": 200, "timestamp": "2026-11-15T16:11:39.565010+00:00", "wall_ms": 280.7264}
+{"cpu_ms": 0.0, "input": {"body_bytes": 7, "json_type": "NoneType"}, "method": "POST", "output": {"error": "invalid_json", "message": "Send a JSON object."}, "request_id": "757b347a-4379-4720-9b0a-843b076834e6", "route": "/submit", "stages": {}, "status": 400, "timestamp": "2026-11-15T16:11:39.853061+00:00", "wall_ms": 1.2357}
+{"cpu_ms": 0.0, "input": {"body_bytes": 58, "creator_id": "missing-d34ec712b62b4b5e8c685ce0eb487df4", "fields": ["creator_id"], "json_type": "dict"}, "method": "POST", "output": {"error": "invalid_text", "message": "text must be a nonblank string."}, "request_id": "520a9210-1775-4f33-b8aa-96bfbc573d5c", "route": "/submit", "stages": {}, "status": 400, "timestamp": "2026-11-15T16:11:39.865269+00:00", "wall_ms": 0.7004}
+{"cpu_ms": 0.0, "input": {"body_bytes": 67, "creator_id": " ", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 36, "text_sha256": "eb0d9c7623d32e27e5ff53482ea305345835a21faa14022921cb4e2cf04d2a1c"}, "method": "POST", "output": {"error": "invalid_creator", "message": "creator_id must contain 1-200 characters and cannot be blank."}, "request_id": "2f434d4a-7b28-4ade-a350-0bbbe4ec47b7", "route": "/submit", "stages": {}, "status": 400, "timestamp": "2026-11-15T16:11:39.875820+00:00", "wall_ms": 1.2503}
+{"cpu_ms": 0.0, "input": {"body_bytes": 20072, "creator_id": "oversize-2dfa9fef13074877a4aab462ea1cb612", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 20001, "text_sha256": "991b716ebf8586a3b931be8ad3dd6d0979eb1049e05eeb714dbedbb06696ee3f"}, "method": "POST", "output": {"error": "text_too_large", "message": "text must not exceed 20000 characters."}, "request_id": "65e75e93-f142-482a-b865-319bf38fd726", "route": "/submit", "stages": {}, "status": 413, "timestamp": "2026-11-15T16:11:39.886932+00:00", "wall_ms": 1.0187}
+{"cpu_ms": 15.625, "input": {"body_bytes": 96, "content_id": "4a26a292-a8db-4093-b66f-46139b0ee123", "fields": ["content_id", "reasoning"], "json_type": "dict", "reasoning_characters": 25, "reasoning_sha256": "1aa53bcd5bdf98ad3179bb1bd177780b643fe04e0ef49d6ae0763384f2714c30"}, "method": "POST", "output": {"error": "content_not_found", "message": "No submission has that content_id."}, "request_id": "b626f1de-a868-4359-8215-e6e526dd97b6", "route": "/appeal", "stages": {}, "status": 404, "timestamp": "2026-11-15T16:11:39.898383+00:00", "wall_ms": 21.9174}
+{"cpu_ms": 0.0, "input": {"body_bytes": 131, "content_id": "1443242a-42c5-4159-8b49-05107c6a626f", "fields": ["content_id", "reasoning"], "json_type": "dict", "reasoning_characters": 60, "reasoning_sha256": "df95f9a0ace0d29530f7ea8da711e280379e38d26f8f36cf1d54d36467f720ed"}, "method": "POST", "output": {"content_id": "1443242a-42c5-4159-8b49-05107c6a626f", "message": "Your appeal was recorded. This submission is now under review.", "status": "under_review"}, "request_id": "2310f179-e815-40ec-9ba4-654a4e7a6f13", "route": "/appeal", "stages": {}, "status": 200, "timestamp": "2026-11-15T16:11:39.966219+00:00", "wall_ms": 3.9619}
+{"cpu_ms": 109.375, "input": {"body_bytes": 379, "creator_id": "after-2-0-a006745272b14a19a8c1f0a015490e05", "fields": ["creator_id", "text"], "json_type": "dict", "text_characters": 307, "text_sha256": "8080c74eac66ef8d1fe2b2568c8a975c8786987f4a79d21990dfd4b9076301e4"}, "method": "POST", "output": {"confidence": 0.6105, "content_id": "3300ab04-8a92-4e3f-a746-7032e556845b", "guess": "unsure", "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.", "model_score": 0.6042, "status": "decided", "style_score": 0.6252}, "request_id": "422716a3-debe-4358-9149-7c05525d2732", "route": "/submit", "stages": {"audit_ms": 2.3437, "combine_ms": 0.0145, "model_ms": 232.2291, "style_ms": 0.4182}, "status": 200, "timestamp": "2026-11-15T16:11:40.036201+00:00", "wall_ms": 236.8357}
+```
+
+The complete original response objects and per-trial trace snapshots are in
+`results/capstone/before.json` and `after.json`. Failed runs are retained; no
+successes were substituted for errors. Disk-write failure is covered separately
+by an isolated operational contract test and exposes `X-Telemetry-Status`.
+
+**What It Costs**
+
+Ten real, warm `/submit` requests after the fix averaged **0.2171875 seconds of
+process CPU** and **0.3734049 seconds of server wall time** per request.
+The before-fix ten-run measurements were 0.1531250 CPU
+seconds and 0.2906100 wall seconds. These are separate
+batches on one laptop, not evidence that failure logging caused a CPU change.
+`time.process_time` and `time.perf_counter` surround each handler; the evaluator
+correlates each response to its persisted trace and averages the ten samples.
+No hosted model API is called, so measured API spend is $0. Electricity,
+hardware depreciation, setup and model download are not priced here.
+
+At 100 people/day and one warm submission each: 100 × 0.2171875 =
+**21.71875 CPU seconds/day**, and 100 × 0.3734049 =
+**37.34049 seconds/day of serial handler wall time**. This is arithmetic
+under the stated workload, not a load-capacity claim. Initial real-model requests
+took 68.696s before and
+64.748s after restart (client elapsed, including
+initialization). Cold initialization is excluded from the warm latency target.
+Trace persistence, network transfer and time queued before the handler are
+excluded from server wall time; client timings include HTTP overhead.
+
+**Run Log and Verdicts**
+
+Criteria were committed at `da9969a`, before the first results commit `35460ab`.
+Five targets were held unchanged. `evaluate_capstone.py::run` issued new HTTP
+requests against real GPT-2 for every trial; it did not replay responses or mock
+model scores. Three varied texts are reused as controlled fixtures across trials;
+deterministic inference explains repeated scores. Criteria 1, 3 and 4 share each
+trial's three successful requests because the properties concern the same runs.
+Each trial also has five distinct invalid cases and one complete appeal workflow.
+This is operational validation, not an authorship accuracy evaluation.
+
+Before improvement:
+
+| Criterion | Target per trial | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Successful request trace | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 2. Rejected request trace | 5/5 | 0/5 | 0/5 | 0/5 | MISSED |
+| 3. Stage attribution | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 4. Warm local latency | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 5. Original workflow preserved | 1/1 | 1/1 | 1/1 | 1/1 | MET |
+
+Criterion 2 MISSED in every trial. The initial telemetry implementation
+explicitly filtered out HTTP statuses >=400 in `telemetry.install::finish_trace`.
+The original routes correctly rejected each invalid case, and their existing
+rejection audit still worked, but the new request telemetry omitted them. This
+is a response-filter mechanism, not a detector failure. The initial design's
+success-only coverage and planned coverage improvement were disclosed in scope.
+Criteria 1, 3, 4 and 5 MET their stated targets; they do not establish accuracy.
+
+Actual output supporting each criterion, trial 1 after the fix:
+
+1. `app.py::submit` and `telemetry.install::finish_trace`, correlated response:
+
+```json
+{
+  "route": "/submit",
+  "status": 200,
+  "request_id": "4c687d5c-c5bc-4cf1-87de-12fcb0faa7f9",
+  "client_ms": 381.4882,
+  "output": {
+    "confidence": 0.6105,
+    "content_id": "1443242a-42c5-4159-8b49-05107c6a626f",
+    "guess": "unsure",
+    "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+    "model_score": 0.6042,
+    "status": "decided",
+    "style_score": 0.6252
+  }
+}
+```
+
+2. `app.py::submit` through `evaluate_capstone.py::run`, malformed JSON:
+
+```json
+{
+  "route": "/submit",
+  "status": 400,
+  "request_id": "757b347a-4379-4720-9b0a-843b076834e6",
+  "client_ms": 11.2119,
+  "output": {
+    "error": "invalid_json",
+    "message": "Send a JSON object."
+  }
+}
+```
+
+3. `telemetry.stage`, actual stage measurements from that submission:
+
+```json
+{
+  "request_id": "4c687d5c-c5bc-4cf1-87de-12fcb0faa7f9",
+  "wall_ms": 371.694,
+  "stages": {
+    "audit_ms": 2.2269,
+    "combine_ms": 0.0152,
+    "model_ms": 365.792,
+    "style_ms": 0.5355
+  }
+}
+```
+
+4. `evaluate_capstone.py::run`, three client-measured warm elapsed times:
+
+```json
+{
+  "client_ms": [
+    381.4882,
+    477.3239,
+    288.9295
+  ]
+}
+```
+
+5. `app.py::appeal`, actual response; the evaluator independently compares the
+original decided event before/after the appeal and checks the appended event:
+
+```json
+{
+  "route": "/appeal",
+  "status": 200,
+  "request_id": "2310f179-e815-40ec-9ba4-654a4e7a6f13",
+  "client_ms": 11.898,
+  "output": {
+    "content_id": "1443242a-42c5-4159-8b49-05107c6a626f",
+    "message": "Your appeal was recorded. This submission is now under review.",
+    "status": "under_review"
+  }
+}
+```
+
+**The Improvement**
+
+One measured change: include unsuccessful responses in the request telemetry.
+Commit `c7fdbcd` changes `INCLUDE_FAILURES` from false to true. It preserves the
+original rejection status and message, scoring and decision log. After restarting,
+the entire evaluation ran again, three trials per criterion plus ten cost runs:
+
+| Criterion | Target per trial | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Successful request trace | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 2. Rejected request trace | 5/5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Stage attribution | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 4. Warm local latency | 3/3 | 3/3 | 3/3 | 3/3 | MET |
+| 5. Original workflow preserved | 1/1 | 1/1 | 1/1 | 1/1 | MET |
+
+Both sets side by side:
+
+| Criterion | Before: trials 1 / 2 / 3 | After: trials 1 / 2 / 3 | Change |
+|---|---|---|---|
+| 1. Successful request trace (out of 3) | 3 / 3 / 3 | 3 / 3 / 3 | MET → MET |
+| 2. Rejected request trace (out of 5) | 0 / 0 / 0 | 5 / 5 / 5 | MISSED → MET |
+| 3. Stage attribution (out of 3) | 3 / 3 / 3 | 3 / 3 / 3 | MET → MET |
+| 4. Warm local latency (out of 3) | 3 / 3 / 3 | 3 / 3 / 3 | MET → MET |
+| 5. Original workflow preserved (out of 1) | 1 / 1 / 1 | 1 / 1 / 1 | MET → MET |
+
+The change recovered all 15 missing invalid-request traces in the repeated
+trials while the four other targets remained met. Rejected request logging adds
+disk writes for errors, an intentional visibility cost. Stage timings show where
+time went; these trials do not establish concurrent throughput or disk-failure
+durability. Contract tests use explicit mocks for model failure/rate limiting and
+are separate from this real-model evidence.
+
+**What's Still Broken**
+
+All five final targets were met, but the 5,000ms warm latency limit is loose for
+these short fixtures. Next evaluation would tighten it to 1,000ms and add texts
+near the 400-token cap; current results are retained against the original target.
+The initial 65–69s model startup is substantial. The first operational follow-up
+would be explicit model warm-up/readiness so a writer can see initialization
+before submitting; it was left out to keep this capstone bounded.
+
+Logging is unrotated and unauthenticated; in-memory rate limits reset at restart.
+The last-500 dashboard does not show all-time totals. CPU attribution relies on
+the serial single-process run path. No concurrency, recovery under full disk,
+public hosting or security hardening claim is made. GPT-2 predictability and
+style are uncalibrated authorship heuristics; errors and uneven treatment of
+plain-language writers remain unresolved. Appeals only record review requests.
+Browser access was unavailable during authoring, so visual and interactive
+browser QA remains unverified; HTTP assets and contract behavior are checked.
+
+**How I Used AI**
+
+1. The initial request asked AI to create the strongest capstone from prior
+AI201 work. The assistant initially proposed combining several projects; after
+reading the supplied assignment, the implementation changed to a bounded
+operational extension of Provenance Guard in the existing repository history.
+2. The assistant requested student-authored criteria. The user explicitly replied
+“write them and make them acceptable.” AI then drafted all five criteria, wrote
+the extension and evaluator, collected actual outputs and generated this report
+from those outputs. The missing-error-trace diagnosis led to the recorded filter
+fix and full rerun. No student-authored criteria, unaided diagnosis or personal
+reflection is claimed. **This does not satisfy the assignment's unaided criteria
+requirement.** The student needs to review, disclose and defend this work; later
+editing cannot retroactively establish unaided pre-evaluation authorship.
