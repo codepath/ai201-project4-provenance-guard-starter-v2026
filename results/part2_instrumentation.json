@@ -1,0 +1,249 @@
+{
+  "health": {
+    "detector_loaded": true,
+    "detector_model": "gpt2",
+    "log_entries": 34,
+    "ok": true,
+    "rate_limiting": true
+  },
+  "submissions": [
+    {
+      "status": 200,
+      "response": {
+        "confidence": 0.6878,
+        "content_id": "6c656198-b61c-4379-89f4-8312d4bf571c",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.7081,
+        "status": "decided",
+        "style_score": 0.6403
+      }
+    },
+    {
+      "status": 200,
+      "response": {
+        "confidence": 0.6017,
+        "content_id": "2a28d9be-6531-4e28-93e6-abd23af1958d",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6453,
+        "status": "decided",
+        "style_score": 0.5
+      }
+    },
+    {
+      "status": 200,
+      "response": {
+        "confidence": 0.614,
+        "content_id": "f45424ab-2104-4840-ad20-b23c340c681c",
+        "guess": "unsure",
+        "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+        "model_score": 0.6629,
+        "status": "decided",
+        "style_score": 0.5
+      }
+    }
+  ],
+  "invalid_request": {
+    "status": 400,
+    "response": {
+      "error": "invalid_text",
+      "message": "text must be a nonblank string."
+    }
+  },
+  "audit_entries": [
+    {
+      "combined_score": 0.3312,
+      "content_id": "0b3bf1b6-f9cb-4ce4-b2f7-870f47946c46",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "2a879b7c-752b-4a23-8046-496406661dbd",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "f8d721ed-0c86-4463-a82c-1be8297dddf0",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "efc5384a-0913-4152-8a01-b4c4e9fc3e8c",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "abde4080-fa39-42ea-9688-25f528349f1f",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "4943447e-abbe-49a0-91f8-154acfbdaa50",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "619a7be3-3e67-447b-a06e-f78a10adc664",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "b4daf185-dc45-4ad6-9e2d-16beab78969b",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:19+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "a056c125-a856-4591-9d5c-0a9a5c043005",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "combined_score": 0.3312,
+      "content_id": "7728d45e-f8c5-40b8-b833-83f293dc8b84",
+      "creator_id": "flood_tester",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.2588,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "combined_score": 0.6878,
+      "content_id": "6c656198-b61c-4379-89f4-8312d4bf571c",
+      "creator_id": "part2-log-check-0",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.7081,
+      "status": "decided",
+      "style_score": 0.6403,
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "combined_score": 0.6017,
+      "content_id": "2a28d9be-6531-4e28-93e6-abd23af1958d",
+      "creator_id": "part2-log-check-1",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.6453,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:20+00:00"
+    },
+    {
+      "combined_score": 0.614,
+      "content_id": "f45424ab-2104-4840-ad20-b23c340c681c",
+      "creator_id": "part2-log-check-2",
+      "guess": "unsure",
+      "label": "We cannot reliably tell how this writing was created. This is not an accusation; the writer can request a review.",
+      "model_score": 0.6629,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-08T03:39:21+00:00"
+    },
+    {
+      "content_id": null,
+      "creator_id": "part2-invalid",
+      "event": "rejected",
+      "http_status": 400,
+      "reason": "invalid_text",
+      "route": "/submit",
+      "status": "rejected",
+      "timestamp": "2026-11-08T03:39:21+00:00"
+    }
+  ]
+}

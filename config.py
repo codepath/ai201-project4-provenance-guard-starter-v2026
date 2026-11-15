@@ -54,8 +54,8 @@ DETECTOR_MAX_TOKENS = 400
 # down BEFORE you code it, and to put the numbers in your README. Whatever you
 # decide, it goes here.
 
-WEIGHT_MODEL_SIGNAL = 0.5
-WEIGHT_STYLE_SIGNAL = 0.5
+WEIGHT_MODEL_SIGNAL = 0.7
+WEIGHT_STYLE_SIGNAL = 0.3
 
 
 # ─── Thresholds (Milestone 5) ────────────────────────────────────────────────
@@ -71,8 +71,8 @@ WEIGHT_STYLE_SIGNAL = 0.5
 # getting through. There is no setting that avoids the trade — only settings
 # that decide who pays for it.
 
-HUMAN_THRESHOLD = 0.35
-AI_THRESHOLD = 0.65
+HUMAN_THRESHOLD = 0.20
+AI_THRESHOLD = 0.80
 
 # ⚠️ One thing that catches people out in Milestone 5. A weighted average can
 # only land between its two inputs — so while `style_signal` is still the stub
@@ -92,7 +92,7 @@ AI_THRESHOLD = 0.65
 # an hour, and a script sending a thousand variations to map your thresholds.
 # Your README has to say why your numbers and not others.
 
-RATE_LIMITING_ENABLED = os.getenv("AI201_RATE_LIMITS", "0") == "1"
+RATE_LIMITING_ENABLED = os.getenv("AI201_RATE_LIMITS", "1") == "1"
 
 RATE_LIMIT_PER_MINUTE = 10
 RATE_LIMIT_PER_DAY = 200
@@ -108,3 +108,8 @@ RATE_LIMIT_STORAGE = "memory://"
 LOG_DIR = ROOT / "logs"
 AUDIT_LOG = LOG_DIR / "audit.jsonl"
 RESULTS_DIR = ROOT / "results"
+
+MAX_TEXT_LENGTH = 20_000
+MAX_CREATOR_LENGTH = 200
+MAX_REASONING_LENGTH = 5_000
+DISAGREEMENT_THRESHOLD = 0.5
