@@ -42,63 +42,71 @@ Two things worth knowing before you pick numbers:
   a **miss**.
 
 ---
-## 1.
+## 1. False positives: plain human writing is rarely called AI
 
-<!-- Your criterion. It must name a number. -->
+Of 10 plainly-written pieces I wrote myself (short sentences, common words, the
+kind of writing signal one is most likely to over-read), **at most 1 gets the
+high-confidence AI label** — and that has to hold in each of three trials, not
+on average.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** On a writing site, a wrong accusation costs a real person
+their credibility, while a missed detection costs the site a little. So I
+tolerate one wrong accusation in ten at the very most. I picked plain writing
+as the test set on purpose, because that is the writing this detector is most
+likely to get wrong; testing on easy human text would make the target
+meaningless.
 
 ---
 
-## 3.
+## 2. Score spread: clearly-AI and clearly-human text score far apart
 
-<!-- Your criterion. -->
+Across 5 clearly-AI and 5 clearly-human samples, the **mean combined score of
+the AI set is at least 0.30 higher than the mean of the human set.**
 
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** If the two groups sit within 0.30 of each other, the
+thresholds are splitting hairs and the labels are close to coin flips. 0.30 is
+roughly one full label band (the unsure band is 0.30 wide), so a gap that size
+means clearly-AI and clearly-human text usually land in different labels.
 
 ---
 
-## 5.
+## 3. Label coverage: all three labels are reachable
 
-<!-- Your criterion. -->
+In a set of 12 varied submissions, **each of the three labels (human, unsure,
+AI) is produced at least once** — and none of them is produced by more than 9
+of the 12.
 
+**Why this target:** A label nothing can produce is dead code, and a service
+that answers "unsure" to nearly everything is not making decisions. The upper
+cap of 9 of 12 stops me from "passing" with one label that swallows
+everything.
 
+---
 
-**Why this target:**
+## 4. The appeal path always changes status and always gets recorded
 
+For **10 of 10 appeals** on a real content_id: the response is HTTP 200, the
+status is `under_review`, and the audit log gains exactly one `appeal` entry for
+that content_id. For an unknown content_id: HTTP 404 and **0** new log
+entries claiming an appeal happened.
 
+**Why this target:** The appeal is the only thing between a wrong accusation
+and nothing at all, so it has to be 100%, not "usually". A silent failure here
+is the worst bug in the service, because the writer believes they were heard.
+
+---
+
+## 5. Bad input never crashes the service
+
+For 6 malformed inputs (missing `text`, empty `text`, whitespace-only `text`,
+non-string `text`, a body that isn't a JSON object, and 50,000 characters of
+text), **0 return a 5xx**, and every one returns a JSON body with an `error`
+field and a 4xx status. `/ping` still answers afterwards.
+
+**Why this target:** A crash on malformed input is one of the most common real
+failures, and an attacker finds it first. Rejecting with a clear 4xx is the
+whole job; the number is zero because even one 500 means a request can take the
+handler down.
 
 ---
 
