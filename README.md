@@ -859,3 +859,34 @@ land in "unsure" instead of "AI".
 ---
 
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
+
+
+---
+
+## Capstone
+
+**What This Extends**
+
+Provenance Guard, my unit 7 and 8 project: a Flask service that scores a text
+with two signals (a local GPT-2 model and a stylometry measure), combines them,
+and returns one of three labels. What's new in this unit is the operational
+layer, not the detection: it now runs under `gunicorn` from a single documented
+command, writes one structured log line for every request (including rejected,
+rate-limited and failed ones) with per-stage timings, and has a measured cost
+per run.
+
+**The Shape**
+
+Shape A, deploy and instrument, on Path B (local with logs). I'm not hosting it:
+`torch` plus the GPT-2 weights need roughly 750 MB to 1.35 GB in memory and a
+free host gives 512 MB, so it would be killed before serving a request.
+
+Out of scope, decided before building: I am not fixing the 14 evasion attacks
+that got through in unit 8, not adding a third signal, not retuning thresholds
+or the combining rule, not hosting it on a paid tier, and not changing what
+`/submit` returns.
+
+**Stretch features declared before building** (so they count if present):
+a latency breakdown across the stages of one request, a load observation at
+about ten times normal rate, and a second measured improvement. Not attempting
+"both run paths", since a host can't hold the model.
