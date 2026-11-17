@@ -163,8 +163,13 @@ def model_signal(text: str) -> float:
 
 
 def warm_up() -> str:
-    """Load the model without scoring anything. Run this before class."""
+    """Load the model and run one throwaway score, so the first real request
+    doesn't pay for the model's first forward pass (about 2.5 s and ~570 MB)."""
     _load()
+    try:
+        model_signal("The quick brown fox jumps over the lazy dog near the old river bank today.")
+    except Exception:
+        pass  # warming up must never stop the service starting
     return f"{config.DETECTOR_MODEL} loaded and ready."
 
 

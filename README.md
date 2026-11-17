@@ -906,3 +906,35 @@ request takes about 80 ms once the model is warm, so one worker can in theory
 do roughly 700 a minute. The only slow request was the first of the session
 (2.3 s), which is the model's first forward pass even after the warm-up load.
 I did not push to the point where it fails, so I don't know where that is.
+
+**Cost per run**
+
+Nothing here calls a paid service, so the cost is compute and memory
+(`measure_cost.py`, results in `results/cost_after.txt`). One gunicorn worker
+sits at about 930 MB resident once warm. A request takes about 90 ms wall time
+and about 460 ms of CPU time; the CPU figure is larger because torch spreads
+the work across several cores. At 60 requests a minute that is roughly 28 CPU
+seconds a minute on a laptop with spare cores. The memory is the real cost: it
+is why a 512 MB free host can't run this and why I run only one worker.
+
+**Second improvement: warm the first forward pass**
+
+*Problem:* the load run showed one slow request, the first of the session
+(2.3 s). `warm_up()` loaded the model but never ran it, so the first real
+request paid for the first forward pass.
+
+*Change:* `detector.warm_up()` now also scores one throwaway sentence.
+
+*Before and after* (`results/cost_before.txt`, `results/cost_after.txt`):
+
+| | Before | After |
+|---|---|---|
+| First request | 2.80 s | 0.08 s |
+| Worker memory after warm-up | 342 MB | 830 MB |
+| Worker memory after 51 requests | 918 MB | 934 MB |
+
+The first request is now as fast as the rest. The memory shows what that
+slowness was: loading the weights only took the worker to 342 MB, and the first
+forward pass pulled in about 570 MB more. That memory isn't saved, only moved
+to startup, so the service now starts slower and heavier and a host would hit
+its memory limit at boot instead of on the first user. These are single runs on one laptop, not three trials.
