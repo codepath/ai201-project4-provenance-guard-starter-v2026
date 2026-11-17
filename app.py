@@ -25,14 +25,65 @@ Routes:
     GET  /health      is the service up, and is the model loaded
 """
 
+import json
+import time
 import uuid
+from contextlib import contextmanager
+from datetime import datetime, timezone
 
-from flask import Flask, jsonify, request
+from flask import Flask, g, jsonify, request
 
 import audit
 import config
 
 app = Flask(__name__)
+
+
+# ── Request log (capstone) ────────────────────────────────────────────────────
+# One JSON line per request in logs/requests.jsonl: accepted, rejected,
+# rate-limited or failed. Separate from the audit log, which records decisions.
+# Never logs the submitted text, only its length.
+
+@app.before_request
+def _start_request():
+    g.t0 = time.perf_counter()
+    g.stages = {}
+    g.creator_id = None
+    g.text_chars = None
+
+
+@contextmanager
+def _stage(name):
+    """Time one stage of the request, in milliseconds."""
+    t = time.perf_counter()
+    try:
+        yield
+    finally:
+        g.stages[name] = round((time.perf_counter() - t) * 1000, 1)
+
+
+@app.after_request
+def _log_request(response):
+    try:
+        t0 = getattr(g, "t0", None)
+        entry = {
+            "ts": datetime.now(timezone.utc).isoformat(timespec="milliseconds"),
+            "method": request.method,
+            "path": request.path,
+            "status": response.status_code,
+            "total_ms": round((time.perf_counter() - t0) * 1000, 1) if t0 else None,
+            "stages_ms": getattr(g, "stages", {}),
+            "creator_id": getattr(g, "creator_id", None),
+            "text_chars": getattr(g, "text_chars", None),
+        }
+        if response.status_code >= 400 and response.is_json:
+            entry["error"] = (response.get_json(silent=True) or {}).get("error")
+        config.LOG_DIR.mkdir(exist_ok=True)
+        with open(config.REQUEST_LOG, "a", encoding="utf-8") as f:
+            f.write(json.dumps(entry) + "\n")
+    except Exception:  # logging must never break a response
+        pass
+    return response
 
 
 # ── Rate limiting — UNIT 8 ────────────────────────────────────────────────────
@@ -181,6 +232,7 @@ def submit():
         return _bad_request("unknown", "invalid_creator_id",
                             "creator_id must be a non-empty string.")
     creator_id = creator_id.strip()
+    g.creator_id = creator_id
 
     text = payload.get("text")
     if text is None:
@@ -189,33 +241,38 @@ def submit():
         return _bad_request(creator_id, "invalid_text", "'text' must be a string.")
     if not text.strip():
         return _bad_request(creator_id, "empty_text", "'text' is empty.")
+    g.text_chars = len(text)
     if len(text) > config.MAX_TEXT_CHARS:
         return _bad_request(creator_id, "text_too_long",
                             f"'text' is over {config.MAX_TEXT_CHARS} characters.", 413)
 
     try:
-        model_score = detector.model_signal(text)
+        with _stage("model_signal"):
+            model_score = detector.model_signal(text)
     except ValueError as exc:  # too short to score
         return _bad_request(creator_id, "text_too_short", str(exc), 422)
     except detector.DetectorUnavailable as exc:
         audit.log_rejection(creator_id=creator_id, reason="detector_unavailable")
         return jsonify({"error": "detector_unavailable", "message": str(exc)}), 503
 
-    style_score = stylometry.style_signal(text)
-    combined = scoring.combine_signals(model_score, style_score)
-    guess, label = scoring.score_to_label(combined)
+    with _stage("style_signal"):
+        style_score = stylometry.style_signal(text)
+    with _stage("combine"):
+        combined = scoring.combine_signals(model_score, style_score)
+        guess, label = scoring.score_to_label(combined)
 
     content_id = str(uuid.uuid4())
-    audit.log_decision(
-        content_id=content_id,
-        creator_id=creator_id,
-        guess=guess,
-        model_score=model_score,
-        style_score=style_score,
-        combined_score=combined,
-        label=label,
-        status="decided",
-    )
+    with _stage("audit_write"):
+        audit.log_decision(
+            content_id=content_id,
+            creator_id=creator_id,
+            guess=guess,
+            model_score=model_score,
+            style_score=style_score,
+            combined_score=combined,
+            label=label,
+            status="decided",
+        )
     return jsonify({
         "content_id": content_id,
         "guess": guess,
