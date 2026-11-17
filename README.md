@@ -62,6 +62,16 @@
 
 ---
 
+## Stretch Feature Declared Before Building
+
+**Declared:** `GET /content/<content_id>`, which returns one item's current
+status (`decided` or `under_review`), its label and its scores. I am declaring
+this in a commit before I write the endpoint. A third signal and a
+verified-human path are not attempted.
+
+
+---
+
 ## Signals and Scoring
 
 <!-- For each signal: what property it measures, why that might differ between

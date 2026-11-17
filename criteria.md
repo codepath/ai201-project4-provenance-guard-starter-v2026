@@ -49,6 +49,8 @@ kind of writing signal one is most likely to over-read), **at most 1 gets the
 high-confidence AI label** — and that has to hold in each of three trials, not
 on average.
 
+**How to check:** Run `python check_criteria.py`. It submits the 10 plain paragraphs in `calibration.py` (the `PLAIN` list) to `POST /submit` and counts responses where `guess` is `"ai"`. Run it three times; every run must print 1 or fewer.
+
 **Why this target:** On a writing site, a wrong accusation costs a real person
 their credibility, while a missed detection costs the site a little. So I
 tolerate one wrong accusation in ten at the very most. I picked plain writing
@@ -63,6 +65,8 @@ meaningless.
 Across 5 clearly-AI and 5 clearly-human samples, the **mean combined score of
 the AI set is at least 0.30 higher than the mean of the human set.**
 
+**How to check:** Submit the 5 texts in `calibration.py::AI` and the 5 in `calibration.py::HUMAN` to `POST /submit`, average each group's `combined_score`, and subtract. `check_criteria.py` prints it as check 2.
+
 **Why this target:** If the two groups sit within 0.30 of each other, the
 thresholds are splitting hairs and the labels are close to coin flips. 0.30 is
 roughly one full label band (the unsure band is 0.30 wide), so a gap that size
@@ -76,9 +80,11 @@ In a set of 12 varied submissions, **each of the three labels (human, unsure,
 AI) is produced at least once** — and none of them is produced by more than 9
 of the 12.
 
+**How to check:** Submit the first three texts of each of `AI`, `HUMAN`, `PLAIN` and `EDITED` in `calibration.py` (12 total) to `POST /submit`, then count the `guess` values (`human`, `unsure`, `ai`). Each must appear at least once and none more than 9 times. `check_criteria.py` prints it as check 3.
+
 **Why this target:** A label nothing can produce is dead code, and a service
-that answers "unsure" to nearly everything is not making decisions. The upper
-cap of 9 of 12 stops me from "passing" with one label that swallows
+that answers "unsure" to nearly everything is not making decisions. With the unsure band at 0.35-0.80 it would be easy to land everything there and
+never use the human or AI label. The upper cap of 9 of 12 stops me from "passing" with one label that swallows
 everything.
 
 ---
@@ -89,6 +95,8 @@ For **10 of 10 appeals** on a real content_id: the response is HTTP 200, the
 status is `under_review`, and the audit log gains exactly one `appeal` entry for
 that content_id. For an unknown content_id: HTTP 404 and **0** new log
 entries claiming an appeal happened.
+
+**How to check:** Submit 10 texts, then `POST /appeal` with each returned `content_id` and a reasoning string. Check the HTTP code, the `status` field, and count `event: "appeal"` entries for that id in `GET /log`. Then appeal with `content_id: "no-such-id"` and confirm a 404 and no new appeal entry. `check_criteria.py` prints it as check 4.
 
 **Why this target:** The appeal is the only thing between a wrong accusation
 and nothing at all, so it has to be 100%, not "usually". A silent failure here
@@ -102,6 +110,8 @@ For 6 malformed inputs (missing `text`, empty `text`, whitespace-only `text`,
 non-string `text`, a body that isn't a JSON object, and 50,000 characters of
 text), **0 return a 5xx**, and every one returns a JSON body with an `error`
 field and a 4xx status. `/ping` still answers afterwards.
+
+**How to check:** `POST /submit` with each of the six bodies listed above and record each status code and whether the JSON has an `error` field; then `POST /ping` and confirm 200. `check_criteria.py` prints it as check 5.
 
 **Why this target:** A crash on malformed input is one of the most common real
 failures, and an attacker finds it first. Rejecting with a clear 4xx is the
