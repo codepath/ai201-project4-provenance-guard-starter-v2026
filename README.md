@@ -890,3 +890,19 @@ or the combining rule, not hosting it on a paid tier, and not changing what
 a latency breakdown across the stages of one request, a load observation at
 about ten times normal rate, and a second measured improvement. Not attempting
 "both run paths", since a host can't hold the model.
+
+**What I measured**
+
+*Latency breakdown (stretch).* Each request writes one line to
+`logs/requests.jsonl` with per-stage milliseconds. Over 66 successful requests
+the model signal is about 98% of the time (median 77.5 of 78.8 ms); stylometry,
+combining and the audit write together are under 1 ms. If it needs to be faster,
+only the model matters. Evidence: `results/load_2026-11-16.md`.
+
+*Load at about 10x normal (stretch).* I took normal as 6 submissions a minute
+and sent 60 a minute for a minute (`load_test.py`). All 60 returned 200, median
+0.08 s, p95 0.12 s. At this size the service did not strain, because one
+request takes about 80 ms once the model is warm, so one worker can in theory
+do roughly 700 a minute. The only slow request was the first of the session
+(2.3 s), which is the model's first forward pass even after the warm-up load.
+I did not push to the point where it fails, so I don't know where that is.
