@@ -1045,8 +1045,8 @@ warm-up in `results/cost_after.txt`), so the service starts heavier and a host
 would hit its memory limit at boot. And in this run criterion 5 was MISSED,
 on CPU, in two of three trials.
 
-*Second improvement (stretch), aimed at criterion 5.* My first guess was that
-the warm-up had caused the CPU rise. I tested that and it was wrong. I
+*Second improvement (stretch), aimed at criterion 5.* The first possible cause
+I considered was that the warm-up had caused the CPU rise. I tested that and it was wrong. I
 alternated the code with and without the warm-up over five rounds of 30
 requests (`diagnostics/diag_cpu.py`): median CPU per request was 0.446 s
 without it and 0.436 s with it, indistinguishable. The two misses were noise
@@ -1143,17 +1143,19 @@ warned me that the brief says to write them myself and that my earlier
 measurements meant they were not blind. I reviewed them and told it to write
 them into `criteria.md` as drafted, so the wording is Claude's and I did not
 change it. `criteria.md` notes that some measurements existed first. Criterion 5
-sat close to what I had measured, and then really did fail in one run.
+sat close to what I had measured, and then really did fail, in two of three
+trials of one run.
 
 *Moment 2: the CPU miss.* I asked Claude to diagnose why criterion 5 missed.
-It first guessed the warm-up change had caused it. Instead of accepting that
-it ran an alternating before-and-after test, which showed the warm-up made no
-difference, and then a thread-count test, which found the real cause. I asked
+It listed the warm-up change as one possible cause, and said it wanted to
+test one explanation before writing it down. It ran an alternating
+before-and-after test, which showed the warm-up made no difference, and then a
+thread-count test, which found the real cause. I asked
 it to make the 4-thread change and re-run all five criteria. I kept its
 statement that the reason for the extra CPU is an inference, and it is worded
 that way above.
 
-*A mistake.* I had Claude push the capstone commits to a new, separate
-repository. The brief says to use the same repository as the system I'm
-extending, so I had it put them back in this repo, where the earlier history
-lives.
+*A detour.* I first decided the capstone needed its own repository and had
+Claude push the commits to a new one. I then read the brief, which says to use
+the same repository as the system I'm extending and not to recreate it, so I
+had Claude put the work back in this repo, where the earlier history lives.
