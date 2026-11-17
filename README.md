@@ -70,6 +70,51 @@ this in a commit before I write the endpoint. A third signal and a
 verified-human path are not attempted.
 
 
+**What it changed:** There is now a read-only way to see where an item stands
+without reading the whole log. Status is derived from the append-only audit log
+(`decided` until an appeal entry exists, then `under_review`), so nothing in
+`/submit`, `/appeal` or the log format changed. Unknown ids return 404.
+
+Before the appeal:
+
+```bash
+$ curl http://127.0.0.1:5000/content/78086c78-5cf5-4e93-add5-1a41e6678a56
+```
+
+```json
+{
+  "appeals": 0,
+  "combined_score": 0.8552,
+  "content_id": "78086c78-5cf5-4e93-add5-1a41e6678a56",
+  "creator_id": "writer-42",
+  "guess": "ai",
+  "label": "This looks like it may have been written with an AI tool. Our checks are not perfect, and we can be wrong. If you wrote this yourself, please appeal and a person will review it.",
+  "model_score": 0.9371,
+  "status": "decided",
+  "style_score": 0.7324
+}
+```
+
+After the appeal (note `status` and `appeals`):
+
+```bash
+$ curl http://127.0.0.1:5000/content/78086c78-5cf5-4e93-add5-1a41e6678a56
+```
+
+```json
+{
+  "appeals": 1,
+  "combined_score": 0.8552,
+  "content_id": "78086c78-5cf5-4e93-add5-1a41e6678a56",
+  "creator_id": "writer-42",
+  "guess": "ai",
+  "label": "This looks like it may have been written with an AI tool. Our checks are not perfect, and we can be wrong. If you wrote this yourself, please appeal and a person will review it.",
+  "model_score": 0.9371,
+  "status": "under_review",
+  "style_score": 0.7324
+}
+```
+
 ---
 
 ## Signals and Scoring

@@ -20,6 +20,7 @@ Routes:
     POST /ping        the worked example. Already works. Don't edit it
     POST /submit      ← YOU BUILD THIS (Milestone 3, 4, 5)
     POST /appeal      ← YOU BUILD THIS (Milestone 5)
+    GET  /content/<id> one item's current status (stretch)
     GET  /log         the audit log. Already works
     GET  /health      is the service up, and is the model loaded
 """
@@ -265,6 +266,34 @@ def appeal():
         "content_id": content_id,
         "status": "under_review",
         "message": "Thank you. Your appeal has been recorded and a person will review it.",
+    })
+
+
+@app.get("/content/<content_id>")
+def get_content(content_id):
+    """
+    One item's current status (stretch feature).
+
+    The log is append-only, so the status is derived: `decided` until an appeal
+    entry exists for the id, then `under_review`.
+    """
+    entries = audit.entries_for(content_id)
+    decisions = [e for e in entries if e.get("event") != "appeal"]
+    if not decisions:
+        return jsonify({"error": "unknown_content_id",
+                        "message": f"No submission found with content_id {content_id!r}."}), 404
+    d = decisions[0]
+    appeals = [e for e in entries if e.get("event") == "appeal"]
+    return jsonify({
+        "content_id": content_id,
+        "creator_id": d.get("creator_id"),
+        "status": "under_review" if appeals else d.get("status", "decided"),
+        "guess": d.get("guess"),
+        "label": d.get("label"),
+        "model_score": d.get("model_score"),
+        "style_score": d.get("style_score"),
+        "combined_score": d.get("combined_score"),
+        "appeals": len(appeals),
     })
 
 
