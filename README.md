@@ -938,3 +938,7 @@ slowness was: loading the weights only took the worker to 342 MB, and the first
 forward pass pulled in about 570 MB more. That memory isn't saved, only moved
 to startup, so the service now starts slower and heavier and a host would hit
 its memory limit at boot instead of on the first user. These are single runs on one laptop, not three trials.
+
+**Criteria re-check after the warm-up change.** I re-ran `check_criteria.py`
+three times after changing `warm_up()`. All five criteria passed in all three
+trials: [results/criteria_check_after_warmup.md](results/criteria_check_after_warmup.md).
