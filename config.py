@@ -115,7 +115,8 @@ RATE_LIMIT_STORAGE = "memory://"
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
 
-LOG_DIR = ROOT / "logs"
+# AI201_LOG_DIR lets a test run write its logs somewhere throwaway.
+LOG_DIR = Path(os.getenv("AI201_LOG_DIR", ROOT / "logs"))
 AUDIT_LOG = LOG_DIR / "audit.jsonl"
 REQUEST_LOG = LOG_DIR / "requests.jsonl"
 RESULTS_DIR = ROOT / "results"
