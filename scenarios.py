@@ -92,6 +92,7 @@ SCENARIOS = [
         # `appeal: True` makes run_eval.py appeal every content_id that comes
         # back, read the status back through GET /content/<id>, and finish with
         # one appeal against an id that doesn't exist (must 404, record nothing).
+        # Ten texts, because criterion 4 says 10 of 10 appeals.
         "appeal": True,
         "texts": [
             "I burned the toast again. Third time this week! Honestly, I think the toaster hates me - or maybe I just can't stop reading my phone while it's going. Anyway, the smoke alarm went off, the dog lost his mind, and my neighbor (the one with the leaf blower) waved at me through the window like nothing was wrong.",
@@ -99,6 +100,11 @@ SCENARIOS = [
             "Look, the bus was late, again; that's not news. What got me was the driver, who apologized to every single person as they climbed on - even the guy who yelled. Weird how that stuck with me all day? I kept thinking about it during the meeting, which, by the way, could have been an email.",
             "We lost to Dunmore 3-2 on Saturday. Rain, mud, a ref who clearly needed glasses. Marcus scored in the 88th and then slipped on the celebration (face first, honestly spectacular). Coach said nothing for ten minutes, then bought everyone fries. That's why I love this team.",
             'Nobody tells you how loud a newborn is at 3 a.m. Or how quiet the house gets right after. I stood in the hallway holding her, not daring to move, and listened to the fridge hum; strange, but it was the best minute of that whole week.',
+            'Artificial intelligence is transforming the way organizations operate in the modern world. It is important to note that this technology offers numerous benefits across a wide range of industries. Additionally, it enables businesses to improve efficiency and make data-driven decisions. Overall, the integration of artificial intelligence represents a significant opportunity for growth and innovation.',
+            'Climate change is one of the most pressing challenges facing humanity today. It is caused by the increase of greenhouse gases in the atmosphere, which leads to rising global temperatures. Furthermore, it has a significant impact on ecosystems, economies, and communities around the world. Therefore, it is essential that governments and individuals work together to address this important issue.',
+            'Effective communication is a key factor in the success of any team. It allows team members to share ideas, resolve conflicts, and work toward common goals. In addition, strong communication skills help to build trust and foster a positive work environment. Consequently, organizations should prioritize the development of these skills among their employees.',
+            'Regular exercise provides a wide variety of benefits for both physical and mental health. It helps to strengthen the heart, improve mood, and reduce the risk of chronic diseases. Moreover, it can enhance sleep quality and increase overall energy levels. For these reasons, it is important to incorporate physical activity into your daily routine.',
+            "The importance of education cannot be overstated in today's society. It provides individuals with the knowledge and skills needed to succeed in their careers and personal lives. Additionally, education promotes critical thinking and encourages lifelong learning. As a result, investing in education is essential for building a prosperous and equitable future.",
         ],
     },
     {
