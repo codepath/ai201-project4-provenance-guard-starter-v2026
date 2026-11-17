@@ -203,6 +203,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--label", required=True, help="e.g. before or after")
     ap.add_argument("--trials", type=int, default=3)
+    ap.add_argument("--detector-from", metavar="REF",
+                    help="use detector.py as it was at REF (for the 'before' run, "
+                         "the commit before the warm-up change)")
     a = ap.parse_args()
 
     results = []
@@ -210,6 +213,9 @@ def main():
         tmp = Path(t)
         clone = tmp / "clone"
         subprocess.run(["git", "clone", "-q", str(ROOT), str(clone)], check=True)
+        if a.detector_from:
+            subprocess.run(["git", "checkout", "-q", a.detector_from, "--", "detector.py"],
+                           cwd=clone, check=True)
         head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=clone,
                               capture_output=True, text=True).stdout.strip()
         for n in range(1, a.trials + 1):
@@ -244,7 +250,8 @@ def write_report(a, head, results):
     out = ROOT / "results" / f"capstone_run_{a.label}.md"
     L = [f"# Capstone criteria run: {a.label}", "",
          f"- Produced by: `run_capstone_criteria.py::main` ({a.trials} trials)",
-         f"- Code under test: clean clone at commit `{head}`",
+         f"- Code under test: clean clone at commit `{head}`"
+         + (f", with `detector.py` taken from `{a.detector_from}`" if a.detector_from else ""),
          f"- Run: {datetime.now():%Y-%m-%d %H:%M}",
          "- Each trial starts fresh gunicorn servers with RUNNING.md's command, logs in a throwaway dir", "",
          "| Criterion | Target | " + " | ".join(f"Run {i}" for i in range(1, a.trials + 1)) + " | Verdict |",
