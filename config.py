@@ -46,6 +46,12 @@ DETECTOR_MODEL = os.getenv("AI201_DETECTOR_MODEL", "gpt2")
 # 300 words, which is enough for the signal to mean something.
 DETECTOR_MAX_TOKENS = 400
 
+# How many threads torch uses for one forward pass. The default is every core,
+# which on this laptop costs about 0.42 CPU-seconds per request for 0.075 s of
+# wall time. 4 threads cost about 0.31 CPU-seconds for the same speed (capstone
+# diagnosis of criterion 5). 0 means leave torch's default.
+TORCH_THREADS = int(os.getenv("AI201_TORCH_THREADS", "4"))
+
 
 # ─── Scoring (Milestone 4) ───────────────────────────────────────────────────
 # How much each signal counts toward the combined score.
