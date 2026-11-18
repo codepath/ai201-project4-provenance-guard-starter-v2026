@@ -1,0 +1,1875 @@
+{
+  "count": 189,
+  "entries": [
+    {
+      "combined_score": null,
+      "content_id": "94b6ba11-f60b-42c7-a5d9-bd1ab3d57960",
+      "creator_id": "student001",
+      "guess": "pending",
+      "label": "unsure",
+      "model_score": 0.0895,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T07:21:59+00:00"
+    },
+    {
+      "combined_score": 0.7341500000000001,
+      "content_id": "9c2bb743-957c-44ad-98aa-3d6704a6dc63",
+      "creator_id": "student001",
+      "guess": "pending",
+      "label": "unsure",
+      "model_score": 0.7683,
+      "status": "decided",
+      "style_score": 0.7000000000000001,
+      "timestamp": "2026-11-15T07:59:40+00:00"
+    },
+    {
+      "combined_score": 0.7341500000000001,
+      "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+      "creator_id": "student001",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.7683,
+      "status": "decided",
+      "style_score": 0.7000000000000001,
+      "timestamp": "2026-11-15T08:21:04+00:00"
+    },
+    {
+      "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+      "creator_id": "student001",
+      "event": "appeal",
+      "reasoning": "I wrote this passage myself and request a human review.",
+      "status": "under_review",
+      "timestamp": "2026-11-15T08:41:35+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "266c1c12-f9c9-4c98-8bcb-f8f19c5d2859",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "5325d2ae-7f49-49eb-afb9-3692d41e918c",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "17bce04a-a53b-4821-adb1-496d5c0a95f0",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "b146b6a0-a2b9-410c-a3d8-82954d1d5ad6",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "f0682e9d-cd00-4807-bf91-5d5332eb715f",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "cd242e8c-b43d-4c59-b065-9a1c91e60c34",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "f1928762-ded3-4a0e-a184-e848b42142ba",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "289febab-d5dc-4316-9f11-2a8499632bdd",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "c86a41c4-07ca-44e9-be98-8957570c6ef7",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:42+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "221a4010-7582-4119-94d6-52c1f24396bb",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "combined_score": 0.3132191145950838,
+      "content_id": "b046399c-61fb-4a25-9f67-a0cf897842fe",
+      "creator_id": "flood_tester",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2587,
+      "status": "decided",
+      "style_score": 0.3677382291901676,
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "creator_id": "flood_tester",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:17:43+00:00"
+    },
+    {
+      "creator_id": "invalid_test_001",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:33:44+00:00"
+    },
+    {
+      "creator_id": "invalid_test_002",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:33:44+00:00"
+    },
+    {
+      "combined_score": 0.3667252921151383,
+      "content_id": "7572280c-2c6a-4b49-9f63-de0085797829",
+      "creator_id": "attacker_EV01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.1635,
+      "status": "decided",
+      "style_score": 0.5699505842302767,
+      "timestamp": "2026-11-15T22:41:57+00:00"
+    },
+    {
+      "combined_score": 0.45598809004783203,
+      "content_id": "7bf1f62a-a5f8-461a-ac8a-873cbd4044ce",
+      "creator_id": "attacker_EV02",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.31767618009566406,
+      "timestamp": "2026-11-15T22:41:57+00:00"
+    },
+    {
+      "combined_score": 0.5689524020561879,
+      "content_id": "e3f6a3e3-4c1f-4968-b43f-4130d9a80b89",
+      "creator_id": "attacker_EV03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6662,
+      "status": "decided",
+      "style_score": 0.47170480411237586,
+      "timestamp": "2026-11-15T22:41:57+00:00"
+    },
+    {
+      "combined_score": 0.5848344388622175,
+      "content_id": "ff39061f-6022-40bf-9339-7c0e76cf4e18",
+      "creator_id": "attacker_EV04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6114,
+      "status": "decided",
+      "style_score": 0.558268877724435,
+      "timestamp": "2026-11-15T22:41:58+00:00"
+    },
+    {
+      "combined_score": 0.3630970065048201,
+      "content_id": "ad1567bb-b632-43b3-b25e-7b1459dbe082",
+      "creator_id": "attacker_EV05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.3212,
+      "status": "decided",
+      "style_score": 0.40499401300964016,
+      "timestamp": "2026-11-15T22:41:58+00:00"
+    },
+    {
+      "combined_score": 0.46569782608695653,
+      "content_id": "68c7d593-8742-49af-a0fb-ab3a8b56780f",
+      "creator_id": "attacker_EV06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5727,
+      "status": "decided",
+      "style_score": 0.3586956521739131,
+      "timestamp": "2026-11-15T22:41:58+00:00"
+    },
+    {
+      "combined_score": 0.5851962199312715,
+      "content_id": "75c58e76-d7d0-47c7-8fec-78325f35bc7d",
+      "creator_id": "attacker_EV07",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5862,
+      "status": "decided",
+      "style_score": 0.584192439862543,
+      "timestamp": "2026-11-15T22:41:59+00:00"
+    },
+    {
+      "combined_score": 0.3421262145875635,
+      "content_id": "c91e7244-edae-4f33-9810-9b3fe244a7f5",
+      "creator_id": "attacker_EV08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2452,
+      "status": "decided",
+      "style_score": 0.439052429175127,
+      "timestamp": "2026-11-15T22:41:59+00:00"
+    },
+    {
+      "combined_score": 0.5879910935795517,
+      "content_id": "5f811e70-204e-4c1a-aa39-ea5bbb091ca2",
+      "creator_id": "attacker_EV09",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.7042,
+      "status": "decided",
+      "style_score": 0.4717821871591033,
+      "timestamp": "2026-11-15T22:41:59+00:00"
+    },
+    {
+      "combined_score": 0.8577098654028323,
+      "content_id": "0d83582f-c191-4ccb-983e-96c7c109f966",
+      "creator_id": "attacker_EV10",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9792,
+      "status": "decided",
+      "style_score": 0.7362197308056647,
+      "timestamp": "2026-11-15T22:41:59+00:00"
+    },
+    {
+      "combined_score": 0.5820138519168392,
+      "content_id": "a02c679c-1d3c-4c47-aca6-ee91187db418",
+      "creator_id": "attacker_FP01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6175,
+      "status": "decided",
+      "style_score": 0.5465277038336782,
+      "timestamp": "2026-11-15T22:42:00+00:00"
+    },
+    {
+      "combined_score": 0.675783015325087,
+      "content_id": "688145ee-d5e0-425b-af0e-da546464526c",
+      "creator_id": "attacker_FP02",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.7387,
+      "status": "decided",
+      "style_score": 0.612866030650174,
+      "timestamp": "2026-11-15T22:42:00+00:00"
+    },
+    {
+      "combined_score": 0.6992574760165613,
+      "content_id": "2b86f4ec-de44-4b9b-b765-ad7c79e627c7",
+      "creator_id": "attacker_FP03",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8051,
+      "status": "decided",
+      "style_score": 0.5934149520331226,
+      "timestamp": "2026-11-15T22:42:00+00:00"
+    },
+    {
+      "combined_score": 0.676415198237335,
+      "content_id": "132cb1ab-98c1-4a67-b7f4-42087940b65e",
+      "creator_id": "attacker_FP04",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8329,
+      "status": "decided",
+      "style_score": 0.5199303964746699,
+      "timestamp": "2026-11-15T22:42:00+00:00"
+    },
+    {
+      "combined_score": 0.7136258991742646,
+      "content_id": "c495babd-40a2-4c88-9b4e-1c382c66f922",
+      "creator_id": "attacker_FP05",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8005,
+      "status": "decided",
+      "style_score": 0.6267517983485292,
+      "timestamp": "2026-11-15T22:42:01+00:00"
+    },
+    {
+      "combined_score": 0.6953185014279366,
+      "content_id": "b6fad040-e8a7-4998-8e51-5393fa8cd212",
+      "creator_id": "attacker_FP06",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8814,
+      "status": "decided",
+      "style_score": 0.5092370028558734,
+      "timestamp": "2026-11-15T22:42:01+00:00"
+    },
+    {
+      "combined_score": 0.6918625631589213,
+      "content_id": "0569d7d0-3290-44eb-9513-b418bc9fd4c6",
+      "creator_id": "attacker_FP07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8816,
+      "status": "decided",
+      "style_score": 0.5021251263178426,
+      "timestamp": "2026-11-15T22:42:01+00:00"
+    },
+    {
+      "combined_score": 0.2973145496846301,
+      "content_id": "5eca80f0-5b8d-4d85-9bad-b205f631990a",
+      "creator_id": "attacker_FP08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.3223,
+      "status": "decided",
+      "style_score": 0.27232909936926025,
+      "timestamp": "2026-11-15T22:42:01+00:00"
+    },
+    {
+      "combined_score": 0.42821497505372585,
+      "content_id": "b20c0f90-73c8-44b1-9ffa-9360f3dae21e",
+      "creator_id": "attacker_PI01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4625,
+      "status": "decided",
+      "style_score": 0.39392995010745163,
+      "timestamp": "2026-11-15T22:42:01+00:00"
+    },
+    {
+      "combined_score": 0.27504231204521196,
+      "content_id": "567182d6-0458-4866-8800-b2a956358c8d",
+      "creator_id": "attacker_PI02",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2044,
+      "status": "decided",
+      "style_score": 0.34568462409042394,
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "combined_score": 0.5581561749572328,
+      "content_id": "05f4dc75-ef73-483e-8d1e-f3c54d39eebd",
+      "creator_id": "attacker_PI03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.5220123499144654,
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "combined_score": 0.5073118043333615,
+      "content_id": "556c6e47-607b-47be-8a22-ab7751f27741",
+      "creator_id": "attacker_PI04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4998,
+      "status": "decided",
+      "style_score": 0.5148236086667232,
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "combined_score": 0.4803714687570503,
+      "content_id": "31c557c8-0e7d-41dd-bf75-99e73a9570d2",
+      "creator_id": "attacker_PI05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6401,
+      "status": "decided",
+      "style_score": 0.32064293751410056,
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "combined_score": 0.5544687533824668,
+      "content_id": "82c8e71b-7f7e-425c-87ca-af78c73d4c61",
+      "creator_id": "attacker_PI06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5583,
+      "status": "decided",
+      "style_score": 0.5506375067649335,
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "creator_id": "attacker_MF01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "creator_id": "attacker_MF02",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:02+00:00"
+    },
+    {
+      "combined_score": 0.3333333333333333,
+      "content_id": "29509311-6715-4fd0-aebd-cb37b71eca0a",
+      "creator_id": "attacker_MF03",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0,
+      "status": "decided",
+      "style_score": 0.6666666666666666,
+      "timestamp": "2026-11-15T22:42:03+00:00"
+    },
+    {
+      "combined_score": 0.2556,
+      "content_id": "a5cd0e2e-c5bf-405f-be48-bacba8be6119",
+      "creator_id": "attacker_MF04",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0112,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:42:03+00:00"
+    },
+    {
+      "creator_id": "attacker_MF05",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:03+00:00"
+    },
+    {
+      "creator_id": "attacker_MF06",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:03+00:00"
+    },
+    {
+      "combined_score": 0.7032,
+      "content_id": "78a0fb89-3c87-45cc-8ba9-479185dd2b32",
+      "creator_id": "attacker_MF07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9064,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:42:03+00:00"
+    },
+    {
+      "combined_score": 0.8889971252981523,
+      "content_id": "c2747143-1c21-4717-a1d6-54c8f335a802",
+      "creator_id": "attacker_MF08",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9876,
+      "status": "decided",
+      "style_score": 0.7903942505963047,
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "combined_score": 0.422780303030303,
+      "content_id": "9ee77fab-3ee2-4bb4-9fa2-a3b95021d255",
+      "creator_id": "",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.2395,
+      "status": "decided",
+      "style_score": 0.6060606060606061,
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ03",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ04",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ05",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "combined_score": 0.24682222222222225,
+      "content_id": "0d5d3564-13f0-40e2-b45b-7774bb0b1232",
+      "creator_id": "",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0492,
+      "status": "decided",
+      "style_score": 0.4444444444444445,
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ12",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "c685e98e-9b4d-4655-b56c-c32102c45f02",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:04+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "eea458c3-05a6-41c9-9c0f-fa73fff42470",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "e38ede9c-8109-4d35-b08a-851a9e2e0b38",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "c8224799-f361-4aab-968f-19440c6c5999",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "17c6a5cc-1156-4ce1-b063-a5d5278fe9ef",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "6651f48c-7075-4f1c-99be-6cafc23089aa",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "50f45e05-1054-4a61-9360-ebc9fdda3209",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "9aab1d12-ea14-4549-8a70-0ba131fc44b1",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "27e55204-0528-499d-8487-6d7324a5d8c3",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "5abcb654-8f74-4375-b723-a90231c85bf9",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:42:05+00:00"
+    },
+    {
+      "combined_score": 0.3667252921151383,
+      "content_id": "0426697f-6a99-49e9-aa88-e366c03154db",
+      "creator_id": "attacker_EV01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.1635,
+      "status": "decided",
+      "style_score": 0.5699505842302767,
+      "timestamp": "2026-11-15T22:44:06+00:00"
+    },
+    {
+      "combined_score": 0.45598809004783203,
+      "content_id": "4795ba0e-8497-4e8a-af6a-34feefdf8dd4",
+      "creator_id": "attacker_EV02",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.31767618009566406,
+      "timestamp": "2026-11-15T22:44:07+00:00"
+    },
+    {
+      "combined_score": 0.5689524020561879,
+      "content_id": "d6bc683a-7df8-4713-a98e-03bd965c6588",
+      "creator_id": "attacker_EV03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6662,
+      "status": "decided",
+      "style_score": 0.47170480411237586,
+      "timestamp": "2026-11-15T22:44:07+00:00"
+    },
+    {
+      "combined_score": 0.5848344388622175,
+      "content_id": "c9cf9f81-bf5d-4dea-815a-eddad3f6ddd9",
+      "creator_id": "attacker_EV04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6114,
+      "status": "decided",
+      "style_score": 0.558268877724435,
+      "timestamp": "2026-11-15T22:44:07+00:00"
+    },
+    {
+      "combined_score": 0.3630970065048201,
+      "content_id": "85e25cc4-7495-46e1-b325-d706dfe88e50",
+      "creator_id": "attacker_EV05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.3212,
+      "status": "decided",
+      "style_score": 0.40499401300964016,
+      "timestamp": "2026-11-15T22:44:07+00:00"
+    },
+    {
+      "combined_score": 0.46569782608695653,
+      "content_id": "58ea8125-e22c-416a-b844-fe037f0b4aa1",
+      "creator_id": "attacker_EV06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5727,
+      "status": "decided",
+      "style_score": 0.3586956521739131,
+      "timestamp": "2026-11-15T22:44:08+00:00"
+    },
+    {
+      "combined_score": 0.5851962199312715,
+      "content_id": "36d0edc5-a590-4d91-b4eb-374f1f18a24b",
+      "creator_id": "attacker_EV07",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5862,
+      "status": "decided",
+      "style_score": 0.584192439862543,
+      "timestamp": "2026-11-15T22:44:08+00:00"
+    },
+    {
+      "combined_score": 0.3421262145875635,
+      "content_id": "f128b8f2-5a55-4787-9db1-685e03bf3de7",
+      "creator_id": "attacker_EV08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2452,
+      "status": "decided",
+      "style_score": 0.439052429175127,
+      "timestamp": "2026-11-15T22:44:08+00:00"
+    },
+    {
+      "combined_score": 0.5879910935795517,
+      "content_id": "eb7d26fb-0fa0-4cf9-b3be-ceba24bdb81a",
+      "creator_id": "attacker_EV09",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.7042,
+      "status": "decided",
+      "style_score": 0.4717821871591033,
+      "timestamp": "2026-11-15T22:44:09+00:00"
+    },
+    {
+      "combined_score": 0.8577098654028323,
+      "content_id": "6cdaaf5f-d1b8-4fcc-8d41-b7b2e35abb3b",
+      "creator_id": "attacker_EV10",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9792,
+      "status": "decided",
+      "style_score": 0.7362197308056647,
+      "timestamp": "2026-11-15T22:44:09+00:00"
+    },
+    {
+      "combined_score": 0.5820138519168392,
+      "content_id": "89893298-f870-4028-9e8d-3da251cc5d1c",
+      "creator_id": "attacker_FP01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6175,
+      "status": "decided",
+      "style_score": 0.5465277038336782,
+      "timestamp": "2026-11-15T22:44:09+00:00"
+    },
+    {
+      "combined_score": 0.675783015325087,
+      "content_id": "56d3a778-4875-401f-b5f5-4f8218489e8e",
+      "creator_id": "attacker_FP02",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.7387,
+      "status": "decided",
+      "style_score": 0.612866030650174,
+      "timestamp": "2026-11-15T22:44:10+00:00"
+    },
+    {
+      "combined_score": 0.6992574760165613,
+      "content_id": "9626affc-55b3-4e2f-b371-85b22b955ceb",
+      "creator_id": "attacker_FP03",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8051,
+      "status": "decided",
+      "style_score": 0.5934149520331226,
+      "timestamp": "2026-11-15T22:44:10+00:00"
+    },
+    {
+      "combined_score": 0.676415198237335,
+      "content_id": "ca92d8c9-eb3a-4a46-950d-eb80d2dc3b22",
+      "creator_id": "attacker_FP04",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8329,
+      "status": "decided",
+      "style_score": 0.5199303964746699,
+      "timestamp": "2026-11-15T22:44:10+00:00"
+    },
+    {
+      "combined_score": 0.7136258991742646,
+      "content_id": "5e0757a5-7444-4783-9066-20c225b649c4",
+      "creator_id": "attacker_FP05",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8005,
+      "status": "decided",
+      "style_score": 0.6267517983485292,
+      "timestamp": "2026-11-15T22:44:10+00:00"
+    },
+    {
+      "combined_score": 0.6953185014279366,
+      "content_id": "c780f8e2-7a92-46c1-af44-b18aad3860af",
+      "creator_id": "attacker_FP06",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8814,
+      "status": "decided",
+      "style_score": 0.5092370028558734,
+      "timestamp": "2026-11-15T22:44:11+00:00"
+    },
+    {
+      "combined_score": 0.6918625631589213,
+      "content_id": "12a95d14-d063-44f9-a723-470e1d12fe69",
+      "creator_id": "attacker_FP07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8816,
+      "status": "decided",
+      "style_score": 0.5021251263178426,
+      "timestamp": "2026-11-15T22:44:11+00:00"
+    },
+    {
+      "combined_score": 0.2973145496846301,
+      "content_id": "06aad5da-ba91-4ee7-95f8-8a4dd635b6fc",
+      "creator_id": "attacker_FP08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.3223,
+      "status": "decided",
+      "style_score": 0.27232909936926025,
+      "timestamp": "2026-11-15T22:44:11+00:00"
+    },
+    {
+      "combined_score": 0.42821497505372585,
+      "content_id": "44f2e6a0-b970-4022-b19a-d13842085694",
+      "creator_id": "attacker_PI01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4625,
+      "status": "decided",
+      "style_score": 0.39392995010745163,
+      "timestamp": "2026-11-15T22:44:11+00:00"
+    },
+    {
+      "combined_score": 0.27504231204521196,
+      "content_id": "d2c3cb5c-c612-4ef3-b63b-92996cbde6cf",
+      "creator_id": "attacker_PI02",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2044,
+      "status": "decided",
+      "style_score": 0.34568462409042394,
+      "timestamp": "2026-11-15T22:44:11+00:00"
+    },
+    {
+      "combined_score": 0.5581561749572328,
+      "content_id": "81382d86-7840-4229-97c8-592edc404659",
+      "creator_id": "attacker_PI03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.5220123499144654,
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "combined_score": 0.5073118043333615,
+      "content_id": "2733dbfe-ad58-41a0-914a-f33191b81e59",
+      "creator_id": "attacker_PI04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4998,
+      "status": "decided",
+      "style_score": 0.5148236086667232,
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "combined_score": 0.4803714687570503,
+      "content_id": "2e363450-475a-4076-9a93-4764ba3b8ea2",
+      "creator_id": "attacker_PI05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6401,
+      "status": "decided",
+      "style_score": 0.32064293751410056,
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "combined_score": 0.5544687533824668,
+      "content_id": "ca1659f9-5e17-4d45-81c2-143b6b9c0a50",
+      "creator_id": "attacker_PI06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5583,
+      "status": "decided",
+      "style_score": 0.5506375067649335,
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF02",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "combined_score": 0.3333333333333333,
+      "content_id": "b8201191-5de3-4595-b946-9dbd63e428ad",
+      "creator_id": "attacker_MF03",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0,
+      "status": "decided",
+      "style_score": 0.6666666666666666,
+      "timestamp": "2026-11-15T22:44:12+00:00"
+    },
+    {
+      "combined_score": 0.2556,
+      "content_id": "6ff20b73-1b09-4a49-9c1a-c265c1c626af",
+      "creator_id": "attacker_MF04",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0112,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:44:13+00:00"
+    },
+    {
+      "creator_id": "attacker_MF05",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:13+00:00"
+    },
+    {
+      "creator_id": "attacker_MF06",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:13+00:00"
+    },
+    {
+      "combined_score": 0.7032,
+      "content_id": "6d6624f5-258e-482e-8f0d-ed3b6e96bf64",
+      "creator_id": "attacker_MF07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9064,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:44:13+00:00"
+    },
+    {
+      "combined_score": 0.8889971252981523,
+      "content_id": "5018f5f2-5d37-497b-be6a-192b356c8ba7",
+      "creator_id": "attacker_MF08",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9876,
+      "status": "decided",
+      "style_score": 0.7903942505963047,
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "combined_score": 0.422780303030303,
+      "content_id": "cac1e239-a0a1-4d77-adad-0550661394a1",
+      "creator_id": "",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.2395,
+      "status": "decided",
+      "style_score": 0.6060606060606061,
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ03",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ04",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ05",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "combined_score": 0.24682222222222225,
+      "content_id": "55ae623f-56f9-46a6-beb4-6da521528cc3",
+      "creator_id": "",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0492,
+      "status": "decided",
+      "style_score": 0.4444444444444445,
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ12",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "a9a52338-3141-4db3-9923-fee25c9c0848",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "9d161c55-c6dd-45e5-ba6a-138d679be7ea",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "a5ffafb6-61d1-4ded-93b6-f454b4456053",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "a0366389-f11c-48a2-b612-6bc5d5f8727b",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "24f8f01d-f347-4873-8701-e9a3196f373c",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "955344c7-1368-4f69-ae43-7f9bb97caa7d",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "a80811cd-e8c1-4c11-bbab-1aae86c9b6d3",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "0ec5952d-f1b7-4052-a2b4-e132ef42a8d8",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "1b966f06-b885-4066-af36-be249850ded9",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "52e6a770-d88a-45b6-92e1-d78e90394cc6",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:44:15+00:00"
+    },
+    {
+      "combined_score": 0.3667252921151383,
+      "content_id": "fa661518-9b37-4ba7-b336-438beffac238",
+      "creator_id": "attacker_EV01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.1635,
+      "status": "decided",
+      "style_score": 0.5699505842302767,
+      "timestamp": "2026-11-15T22:46:05+00:00"
+    },
+    {
+      "combined_score": 0.45598809004783203,
+      "content_id": "b4278312-4c76-4ce0-b740-3aef49d903ff",
+      "creator_id": "attacker_EV02",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.31767618009566406,
+      "timestamp": "2026-11-15T22:46:06+00:00"
+    },
+    {
+      "combined_score": 0.5689524020561879,
+      "content_id": "4495d555-cced-409e-9dae-2801eab00921",
+      "creator_id": "attacker_EV03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6662,
+      "status": "decided",
+      "style_score": 0.47170480411237586,
+      "timestamp": "2026-11-15T22:46:06+00:00"
+    },
+    {
+      "combined_score": 0.5848344388622175,
+      "content_id": "c6508c62-dc83-4b43-93fe-4d87abfdfe6c",
+      "creator_id": "attacker_EV04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6114,
+      "status": "decided",
+      "style_score": 0.558268877724435,
+      "timestamp": "2026-11-15T22:46:06+00:00"
+    },
+    {
+      "combined_score": 0.3630970065048201,
+      "content_id": "dac98fb1-cd5a-4fdf-8bff-7a4541c899ef",
+      "creator_id": "attacker_EV05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.3212,
+      "status": "decided",
+      "style_score": 0.40499401300964016,
+      "timestamp": "2026-11-15T22:46:07+00:00"
+    },
+    {
+      "combined_score": 0.46569782608695653,
+      "content_id": "bdf611ba-9d73-463b-a721-7bd1a293af7e",
+      "creator_id": "attacker_EV06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5727,
+      "status": "decided",
+      "style_score": 0.3586956521739131,
+      "timestamp": "2026-11-15T22:46:07+00:00"
+    },
+    {
+      "combined_score": 0.5851962199312715,
+      "content_id": "4ec81e0a-f68c-478e-87fc-f4a8b2cc7206",
+      "creator_id": "attacker_EV07",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5862,
+      "status": "decided",
+      "style_score": 0.584192439862543,
+      "timestamp": "2026-11-15T22:46:07+00:00"
+    },
+    {
+      "combined_score": 0.3421262145875635,
+      "content_id": "77acda4f-3279-4f40-9b16-8d51b112cbc5",
+      "creator_id": "attacker_EV08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2452,
+      "status": "decided",
+      "style_score": 0.439052429175127,
+      "timestamp": "2026-11-15T22:46:07+00:00"
+    },
+    {
+      "combined_score": 0.5879910935795517,
+      "content_id": "5920fabd-cb11-4e9e-8a00-4cae1b8104c2",
+      "creator_id": "attacker_EV09",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.7042,
+      "status": "decided",
+      "style_score": 0.4717821871591033,
+      "timestamp": "2026-11-15T22:46:08+00:00"
+    },
+    {
+      "combined_score": 0.8577098654028323,
+      "content_id": "559cbf9c-4876-495d-a9e6-485372ef1db1",
+      "creator_id": "attacker_EV10",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9792,
+      "status": "decided",
+      "style_score": 0.7362197308056647,
+      "timestamp": "2026-11-15T22:46:08+00:00"
+    },
+    {
+      "combined_score": 0.5820138519168392,
+      "content_id": "6aba6183-dbc9-4d30-b664-fd4e22ce53ec",
+      "creator_id": "attacker_FP01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6175,
+      "status": "decided",
+      "style_score": 0.5465277038336782,
+      "timestamp": "2026-11-15T22:46:08+00:00"
+    },
+    {
+      "combined_score": 0.675783015325087,
+      "content_id": "8124dec3-8397-4866-99a9-7a57aefbb01c",
+      "creator_id": "attacker_FP02",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.7387,
+      "status": "decided",
+      "style_score": 0.612866030650174,
+      "timestamp": "2026-11-15T22:46:09+00:00"
+    },
+    {
+      "combined_score": 0.6992574760165613,
+      "content_id": "63f6e579-9a9d-4ccc-ab7e-2f1e8c3c23f3",
+      "creator_id": "attacker_FP03",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8051,
+      "status": "decided",
+      "style_score": 0.5934149520331226,
+      "timestamp": "2026-11-15T22:46:09+00:00"
+    },
+    {
+      "combined_score": 0.676415198237335,
+      "content_id": "d11934ed-5da3-4f01-8183-66aaf8f0db3d",
+      "creator_id": "attacker_FP04",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8329,
+      "status": "decided",
+      "style_score": 0.5199303964746699,
+      "timestamp": "2026-11-15T22:46:09+00:00"
+    },
+    {
+      "combined_score": 0.7136258991742646,
+      "content_id": "6a3875c9-32aa-4c8b-8a75-6f09ade1fda3",
+      "creator_id": "attacker_FP05",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8005,
+      "status": "decided",
+      "style_score": 0.6267517983485292,
+      "timestamp": "2026-11-15T22:46:10+00:00"
+    },
+    {
+      "combined_score": 0.6953185014279366,
+      "content_id": "237d7ea2-4720-4274-9a01-ad891b0ea111",
+      "creator_id": "attacker_FP06",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8814,
+      "status": "decided",
+      "style_score": 0.5092370028558734,
+      "timestamp": "2026-11-15T22:46:10+00:00"
+    },
+    {
+      "combined_score": 0.6918625631589213,
+      "content_id": "c17347b3-21ec-4ec1-9ff5-73f778d7e347",
+      "creator_id": "attacker_FP07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.8816,
+      "status": "decided",
+      "style_score": 0.5021251263178426,
+      "timestamp": "2026-11-15T22:46:10+00:00"
+    },
+    {
+      "combined_score": 0.2973145496846301,
+      "content_id": "9d28a049-9347-4b6e-9eba-1b1f6cbc5b93",
+      "creator_id": "attacker_FP08",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.3223,
+      "status": "decided",
+      "style_score": 0.27232909936926025,
+      "timestamp": "2026-11-15T22:46:10+00:00"
+    },
+    {
+      "combined_score": 0.42821497505372585,
+      "content_id": "e75d557d-3305-4907-8df4-4e301ac4276e",
+      "creator_id": "attacker_PI01",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4625,
+      "status": "decided",
+      "style_score": 0.39392995010745163,
+      "timestamp": "2026-11-15T22:46:11+00:00"
+    },
+    {
+      "combined_score": 0.27504231204521196,
+      "content_id": "a8de1bb7-b217-4dfe-9567-69f94a50ddfa",
+      "creator_id": "attacker_PI02",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.2044,
+      "status": "decided",
+      "style_score": 0.34568462409042394,
+      "timestamp": "2026-11-15T22:46:11+00:00"
+    },
+    {
+      "combined_score": 0.5581561749572328,
+      "content_id": "00582958-4eeb-402e-9a87-752cd64b72d9",
+      "creator_id": "attacker_PI03",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5943,
+      "status": "decided",
+      "style_score": 0.5220123499144654,
+      "timestamp": "2026-11-15T22:46:11+00:00"
+    },
+    {
+      "combined_score": 0.5073118043333615,
+      "content_id": "ddcfb530-5013-44f8-90bf-f29c2a901ac7",
+      "creator_id": "attacker_PI04",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.4998,
+      "status": "decided",
+      "style_score": 0.5148236086667232,
+      "timestamp": "2026-11-15T22:46:11+00:00"
+    },
+    {
+      "combined_score": 0.4803714687570503,
+      "content_id": "9febc443-37de-433a-b054-c3dcdcd895a2",
+      "creator_id": "attacker_PI05",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.6401,
+      "status": "decided",
+      "style_score": 0.32064293751410056,
+      "timestamp": "2026-11-15T22:46:11+00:00"
+    },
+    {
+      "combined_score": 0.5544687533824668,
+      "content_id": "68f8015d-7766-415c-ab4e-fbc543138ef1",
+      "creator_id": "attacker_PI06",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.5583,
+      "status": "decided",
+      "style_score": 0.5506375067649335,
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF02",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "combined_score": 0.3333333333333333,
+      "content_id": "61c38b6a-30e7-4081-9727-3a468ed82c96",
+      "creator_id": "attacker_MF03",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0,
+      "status": "decided",
+      "style_score": 0.6666666666666666,
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "combined_score": 0.2556,
+      "content_id": "fd121b58-41a9-4402-8239-6af810f066c0",
+      "creator_id": "attacker_MF04",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0112,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF05",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "creator_id": "attacker_MF06",
+      "event": "rejected",
+      "reason": "text_too_short",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "combined_score": 0.7032,
+      "content_id": "a5819851-2da2-424f-923d-ba14e55384f4",
+      "creator_id": "attacker_MF07",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9064,
+      "status": "decided",
+      "style_score": 0.5,
+      "timestamp": "2026-11-15T22:46:12+00:00"
+    },
+    {
+      "combined_score": 0.8889971252981523,
+      "content_id": "4178a9cc-59e0-4579-8c6d-ecf96df342d0",
+      "creator_id": "attacker_MF08",
+      "guess": "ai",
+      "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+      "model_score": 0.9876,
+      "status": "decided",
+      "style_score": 0.7903942505963047,
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ01",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "combined_score": 0.422780303030303,
+      "content_id": "bda24eda-e818-40bc-b569-2f0c63bf6d9d",
+      "creator_id": "",
+      "guess": "unsure",
+      "label": "We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result.",
+      "model_score": 0.2395,
+      "status": "decided",
+      "style_score": 0.6060606060606061,
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ03",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ04",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ05",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:13+00:00"
+    },
+    {
+      "combined_score": 0.24682222222222225,
+      "content_id": "0abc3ffd-1ea8-4e31-85de-9a07ee5afae5",
+      "creator_id": "",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0492,
+      "status": "decided",
+      "style_score": 0.4444444444444445,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "",
+      "event": "rejected",
+      "reason": "invalid_json",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "attacker_RQ12",
+      "event": "rejected",
+      "reason": "missing_or_empty_text",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "a07d97a7-9985-440f-8ca6-c9fd65827213",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "200a5682-866a-47f2-9782-7ba2bcb1e6ca",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "23d266c2-5795-4072-a036-5ae7a2ee952b",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "c3b1a385-0ef8-43f0-b70b-6f832588ffd8",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "7793c057-561e-430a-b491-d26478c11191",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "6e9bda6f-38ec-4626-b733-8b1746bad307",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "19c80a50-58fc-4120-a8bd-7adfea32ed50",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "8e526e5c-2b51-4748-ac72-a7a95525fb66",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "8f8ae476-55b9-4224-a91f-76c312ea80d5",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "combined_score": 0.31064629629629625,
+      "content_id": "b5ce5b53-1c7a-4f0b-a424-e93be7ebfc3f",
+      "creator_id": "attacker_flood",
+      "guess": "human",
+      "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+      "model_score": 0.0287,
+      "status": "decided",
+      "style_score": 0.5925925925925926,
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    },
+    {
+      "creator_id": "attacker_flood",
+      "event": "rejected",
+      "limit": "10 per 1 minute",
+      "reason": "rate_limited",
+      "status": "rejected",
+      "timestamp": "2026-11-15T22:46:14+00:00"
+    }
+  ]
+}

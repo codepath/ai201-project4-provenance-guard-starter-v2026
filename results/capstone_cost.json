@@ -1,0 +1,52 @@
+[
+  {
+    "run": 1,
+    "http_status": 200,
+    "duration_seconds": 0.0909
+  },
+  {
+    "run": 2,
+    "http_status": 200,
+    "duration_seconds": 0.0509
+  },
+  {
+    "run": 3,
+    "http_status": 200,
+    "duration_seconds": 0.0469
+  },
+  {
+    "run": 4,
+    "http_status": 200,
+    "duration_seconds": 0.0515
+  },
+  {
+    "run": 5,
+    "http_status": 200,
+    "duration_seconds": 0.0535
+  },
+  {
+    "run": 6,
+    "http_status": 200,
+    "duration_seconds": 0.0542
+  },
+  {
+    "run": 7,
+    "http_status": 200,
+    "duration_seconds": 0.057
+  },
+  {
+    "run": 8,
+    "http_status": 200,
+    "duration_seconds": 0.0569
+  },
+  {
+    "run": 9,
+    "http_status": 200,
+    "duration_seconds": 0.0595
+  },
+  {
+    "run": 10,
+    "http_status": 200,
+    "duration_seconds": 0.0507
+  }
+]

@@ -1,3 +1,4 @@
+
 # Acceptance criteria — Provenance Guard
 
 Five criteria that say what "working" means for this service, written in unit 7
@@ -43,61 +44,59 @@ Two things worth knowing before you pick numbers:
 
 ---
 ## 1.
-
-<!-- Your criterion. It must name a number. -->
+Zero false positives among 10 human-written samples in each of three trials.
 
 
 
 **Why this target:**
-
+Human writing is creative work, and incorrectly attributing it to AI denies the writer proper credit.
 
 
 ---
 
 ## 2.
 
-<!-- Your criterion. -->
+When I test Provenance Guard using 3 human-written samples and 3 AI-generated samples, I should have a minimum average score difference of 0.50, with AI scoring higher and the target must be met in 3 trials. 
 
 
 
 **Why this target:**
-
+I chose this target because human writing naturally contains variations and imperfections while AI writing sound so mechanical 
 
 
 ---
 
 ## 3.
-
-<!-- Your criterion. -->
+At least one submission must produce each of the three labels in every trial, across three trials.
 
 
 
 **Why this target:**
-
+I chose this target because in the face of insufficient evidence, it is better to acknowledge uncertainty than present an unreliable conclusion as fact.
 
 
 ---
 
 ## 4.
 
-<!-- Your criterion. -->
+There should be 3 valid appeals per trial. All 3 must be recorded in the audit log and must have the status under_review and the requirement must hold across 3 trials. 
 
 
 
 **Why this target:**
-
+I chose this target because every appeal should receive fair consideration based on the merits presented by the writer. 
 
 
 ---
 
 ## 5.
 
-<!-- Your criterion. -->
+There should be test for two invalid submissions: one with empty text and one with the text field missing. Both must return HTTP 400 and must not produce a classification decision and Both tests must pass in each of three trials.
 
 
 
 **Why this target:**
-
+I chose this target because there is no information for the system to make any decision.
 
 
 ---
@@ -132,3 +131,41 @@ Two things worth knowing before you pick numbers:
      A number you missed stays where it is, gets diagnosed, and gets a fix
      attempted. That's where the points are.
      ───────────────────────────────────────────────────────────────────────── -->
+
+
+## Unit 9 Capstone Acceptance Criteria
+
+1. Oversized Submission Validation
+
+When a user submits text exceeding 10,000 characters, the system should return HTTP 400 with the error code `submission_too_large`.
+
+**Why this target:** This prevents excessive processing and protects system resources.
+
+
+2. Unsupported Control Character Validation
+
+When a submission contains an unsupported control character such as `\\x00`, the system should return HTTP 400 with the error code `unsupported_control_character`.
+
+**Why this target:** This prevents malformed inputs from reaching the classification model.
+
+
+3. Punctuation-Only Submission Validation
+
+When a user submits punctuation-only text such as `!!! ??? ###`, the system should return HTTP 400 with the error code `no_meaningful_words`.
+
+**Why this target:** The submission contains no alphabetic content suitable for meaningful classification.
+
+
+4. Valid Submission Processing
+
+For each of three trials, a valid submission containing at least three words and no prohibited characters should return HTTP 200 and include a classification result.
+
+**Why this target:** The new validation rules should not prevent legitimate submissions from being classified.
+
+
+5. Structured Operational Logging
+
+In each of three trials, submit one valid request and one invalid request. Both requests must generate operational log records containing a timestamp, input character count, HTTP status, and execution duration in milliseconds.
+
+**Why this target:** Recording successful and rejected requests helps monitor performance, investigate failures, and provide evidence of system behavior.
+

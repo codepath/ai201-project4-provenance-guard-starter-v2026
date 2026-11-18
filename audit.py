@@ -155,3 +155,21 @@ def clear() -> int:
 def entries_for(content_id: str) -> list[dict]:
     """Every entry touching one content id, in order."""
     return [e for e in read_entries() if e.get("content_id") == content_id]
+
+
+def log_operation(
+    creator_id: str,
+    input_chars: int | None,
+    http_status: int,
+    duration_ms: float,
+) -> dict:
+    """Record the outcome and duration of a submission request."""
+    return _append({
+        "timestamp": _now(),
+        "event": "capstone_request",
+        "creator_id": creator_id if isinstance(creator_id, str) else "",
+        "input": {"character_count": input_chars},
+        "output": {"http_status": http_status},
+        "duration_ms": duration_ms,
+        "status": "completed" if http_status < 400 else "rejected",
+    })

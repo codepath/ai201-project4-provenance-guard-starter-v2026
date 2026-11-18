@@ -1,0 +1,122 @@
+[
+  {
+    "trial": 1,
+    "criterion": "oversized",
+    "creator_id": "baseline_9ebfa6b9fd28",
+    "http_status": 400,
+    "error": "submission_too_large",
+    "guess": null,
+    "duration_seconds": 0.013,
+    "passed": true
+  },
+  {
+    "trial": 1,
+    "criterion": "control_character",
+    "creator_id": "baseline_1a29b11af930",
+    "http_status": 400,
+    "error": "unsupported_control_character",
+    "guess": null,
+    "duration_seconds": 0.006,
+    "passed": true
+  },
+  {
+    "trial": 1,
+    "criterion": "punctuation_only",
+    "creator_id": "baseline_1315e88916ff",
+    "http_status": 400,
+    "error": "no_meaningful_words",
+    "guess": null,
+    "duration_seconds": 0.01,
+    "passed": true
+  },
+  {
+    "trial": 1,
+    "criterion": "valid_submission",
+    "creator_id": "baseline_1fe76cad82c2",
+    "http_status": 200,
+    "error": null,
+    "guess": "human",
+    "duration_seconds": 51.02,
+    "passed": true
+  },
+  {
+    "trial": 2,
+    "criterion": "oversized",
+    "creator_id": "baseline_e6243e7e4540",
+    "http_status": 400,
+    "error": "submission_too_large",
+    "guess": null,
+    "duration_seconds": 0.01,
+    "passed": true
+  },
+  {
+    "trial": 2,
+    "criterion": "control_character",
+    "creator_id": "baseline_aeda1a98d3d9",
+    "http_status": 400,
+    "error": "unsupported_control_character",
+    "guess": null,
+    "duration_seconds": 0.009,
+    "passed": true
+  },
+  {
+    "trial": 2,
+    "criterion": "punctuation_only",
+    "creator_id": "baseline_91896f0adfce",
+    "http_status": 400,
+    "error": "no_meaningful_words",
+    "guess": null,
+    "duration_seconds": 0.012,
+    "passed": true
+  },
+  {
+    "trial": 2,
+    "criterion": "valid_submission",
+    "creator_id": "baseline_a7cf827fc71a",
+    "http_status": 200,
+    "error": null,
+    "guess": "human",
+    "duration_seconds": 0.066,
+    "passed": true
+  },
+  {
+    "trial": 3,
+    "criterion": "oversized",
+    "creator_id": "baseline_b2539e4b185c",
+    "http_status": 400,
+    "error": "submission_too_large",
+    "guess": null,
+    "duration_seconds": 0.011,
+    "passed": true
+  },
+  {
+    "trial": 3,
+    "criterion": "control_character",
+    "creator_id": "baseline_9c04be90b679",
+    "http_status": 400,
+    "error": "unsupported_control_character",
+    "guess": null,
+    "duration_seconds": 0.012,
+    "passed": true
+  },
+  {
+    "trial": 3,
+    "criterion": "punctuation_only",
+    "creator_id": "baseline_c64237f9813c",
+    "http_status": 400,
+    "error": "no_meaningful_words",
+    "guess": null,
+    "duration_seconds": 0.013,
+    "passed": true
+  },
+  {
+    "trial": 3,
+    "criterion": "valid_submission",
+    "creator_id": "baseline_7fdb983936ca",
+    "http_status": 200,
+    "error": null,
+    "guess": "human",
+    "duration_seconds": 0.06,
+    "passed": true
+  }
+]

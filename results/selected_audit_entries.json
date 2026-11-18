@@ -1,0 +1,109 @@
+[
+  {
+    "combined_score": 0.3421262145875635,
+    "content_id": "77acda4f-3279-4f40-9b16-8d51b112cbc5",
+    "creator_id": "attacker_EV08",
+    "guess": "human",
+    "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+    "model_score": 0.2452,
+    "status": "decided",
+    "style_score": 0.439052429175127,
+    "timestamp": "2026-11-15T22:46:07+00:00"
+  },
+  {
+    "combined_score": 0.8577098654028323,
+    "content_id": "559cbf9c-4876-495d-a9e6-485372ef1db1",
+    "creator_id": "attacker_EV10",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.9792,
+    "status": "decided",
+    "style_score": 0.7362197308056647,
+    "timestamp": "2026-11-15T22:46:08+00:00"
+  },
+  {
+    "combined_score": 0.675783015325087,
+    "content_id": "8124dec3-8397-4866-99a9-7a57aefbb01c",
+    "creator_id": "attacker_FP02",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.7387,
+    "status": "decided",
+    "style_score": 0.612866030650174,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.6992574760165613,
+    "content_id": "63f6e579-9a9d-4ccc-ab7e-2f1e8c3c23f3",
+    "creator_id": "attacker_FP03",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8051,
+    "status": "decided",
+    "style_score": 0.5934149520331226,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.676415198237335,
+    "content_id": "d11934ed-5da3-4f01-8183-66aaf8f0db3d",
+    "creator_id": "attacker_FP04",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8329,
+    "status": "decided",
+    "style_score": 0.5199303964746699,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.7136258991742646,
+    "content_id": "6a3875c9-32aa-4c8b-8a75-6f09ade1fda3",
+    "creator_id": "attacker_FP05",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8005,
+    "status": "decided",
+    "style_score": 0.6267517983485292,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.6953185014279366,
+    "content_id": "237d7ea2-4720-4274-9a01-ad891b0ea111",
+    "creator_id": "attacker_FP06",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8814,
+    "status": "decided",
+    "style_score": 0.5092370028558734,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.6918625631589213,
+    "content_id": "c17347b3-21ec-4ec1-9ff5-73f778d7e347",
+    "creator_id": "attacker_FP07",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8816,
+    "status": "decided",
+    "style_score": 0.5021251263178426,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.2556,
+    "content_id": "fd121b58-41a9-4402-8239-6af810f066c0",
+    "creator_id": "attacker_MF04",
+    "guess": "human",
+    "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+    "model_score": 0.0112,
+    "status": "decided",
+    "style_score": 0.5,
+    "timestamp": "2026-11-15T22:46:12+00:00"
+  },
+  {
+    "creator_id": "attacker_flood",
+    "event": "rejected",
+    "limit": "10 per 1 minute",
+    "reason": "rate_limited",
+    "status": "rejected",
+    "timestamp": "2026-11-15T22:46:14+00:00"
+  }
+]

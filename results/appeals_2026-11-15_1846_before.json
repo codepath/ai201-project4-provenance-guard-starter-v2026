@@ -1,0 +1,116 @@
+[
+  {
+    "trial": 1,
+    "results": [
+      {
+        "content_id": "appeal_eval_1_1",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_1_2",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_1_3",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      }
+    ]
+  },
+  {
+    "trial": 2,
+    "results": [
+      {
+        "content_id": "appeal_eval_2_1",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_2_2",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_2_3",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      }
+    ]
+  },
+  {
+    "trial": 3,
+    "results": [
+      {
+        "content_id": "appeal_eval_3_1",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_3_2",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      },
+      {
+        "content_id": "appeal_eval_3_3",
+        "submission_status": 200,
+        "appeal_status": 404,
+        "appeal_response": {
+          "error": "content_not_found",
+          "message": "No submission was found with this content ID."
+        },
+        "passed": false,
+        "audit_verified": false
+      }
+    ]
+  }
+]

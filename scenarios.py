@@ -1,118 +1,95 @@
 """
-What your test runs. ← UNIT 8, MILESTONE 3
+Unit 8 — Provenance Guard acceptance test scenarios.
 
-Each of your five criteria needs something run against it. A criterion about
-false positives needs your own writing. One about label coverage needs inputs
-across the score range. One about the appeal path needs a real content_id.
+Criteria:
+1. Zero false positives among ten human-written samples.
+2. Mean AI score >= mean human score + 0.50.
+3. All three labels must appear.
+4. Appeals are tested separately against /appeal and /log.
+5. Empty and missing text must return HTTP 400.
 
-Working that out is Milestone 3's first step, and this file is where you write
-it down. `run_eval.py` runs everything here three times.
+Source files:
+- human_samples.txt: ten genuinely human-written paragraphs
+- ai_samples.txt: three identified AI-generated paragraphs
 
-Two are filled in as examples. Replace them with what your criteria actually
-need — these are a shape, not a set.
-
-A scenario carries **either** of these:
-
-    "texts"   a list of strings. Each is sent as {"text": ..., "creator_id": ...}
-              with a creator_id made up for you. Use this for most criteria.
-
-    "bodies"  a list of whole request bodies, sent exactly as written. Use this
-              when the malformed request IS the point — empty text, no `text`
-              field at all, something enormous. A bad-input criterion needs it,
-              because you cannot express "the field is missing" as a string.
+Separate paragraphs in each file with a blank line.
 """
+
+from pathlib import Path
+
+
+def load_paragraphs(filename):
+    path = Path(__file__).resolve().parent / filename
+
+    if not path.exists():
+        return []
+
+    return [
+        paragraph.strip()
+        for paragraph in path.read_text(encoding="utf-8").split("\n\n")
+        if paragraph.strip()
+    ]
+
+
+HUMAN_SAMPLES = load_paragraphs("human_samples.txt")
+AI_SAMPLES = load_paragraphs("ai_samples.txt")
+
 
 SCENARIOS = [
     {
-        "name": "my own writing",
+        "name": "human_false_positives",
         "criterion": 1,
-        # ⚠️ PUT YOUR OWN WRITING HERE. Not AI text, not a sample from the web —
-        # things you actually wrote. This is the criterion that matters most and
-        # it's meaningless with someone else's prose.
-        "texts": [
-            "REPLACE ME with a paragraph you wrote yourself.",
-            "REPLACE ME with another one. Ten pieces is the usual number.",
-        ],
+        "texts": HUMAN_SAMPLES[:10],
     },
     {
-        "name": "label coverage",
+        "name": "human_score_separation",
         "criterion": 2,
-        # Inputs spread across your score range, so you can check all three
-        # labels are actually reachable.
-        "texts": [
-            "REPLACE ME with something you're confident is AI-generated.",
-            "REPLACE ME with something you're confident is human-written.",
-            "REPLACE ME with something genuinely borderline.",
+        "texts": HUMAN_SAMPLES[:3],
+    },
+    {
+        "name": "ai_score_separation",
+        "criterion": 2,
+        "texts": AI_SAMPLES[:3],
+    },
+    {
+        "name": "label_coverage",
+        "criterion": 3,
+        "texts": (
+            HUMAN_SAMPLES[:2]
+            + AI_SAMPLES[:2]
+            + HUMAN_SAMPLES[2:3]
+        ),
+    },
+    {
+        "name": "invalid_submissions",
+        "criterion": 5,
+        "bodies": [
+            {"text": "", "creator_id": "eval_empty"},
+            {"creator_id": "eval_missing"},
         ],
     },
-    # A bad-input criterion looks like this. Uncomment and adjust if that's one
-    # of your five — these are raw request bodies, sent exactly as written.
-    #
-    # {
-    #     "name": "bad input",
-    #     "criterion": 3,
-    #     "bodies": [
-    #         {"text": "", "creator_id": "eval_bad_empty"},
-    #         {"creator_id": "eval_bad_missing"},          # no text field at all
-    #         {"text": "word " * 50000, "creator_id": "eval_bad_huge"},
-    #         {"text": None, "creator_id": "eval_bad_null"},
-    #     ],
-    # },
-
-    # TODO: add what your remaining criteria need.
-    #
-    # A criterion about the appeal path can't be tested by sending text alone;
-    # it needs a submission first and then an appeal against the content_id
-    # that came back. You'll need to test that one by hand, or extend this file
-    # and run_eval.py to do it. Saying which you did is part of the write-up.
 ]
 
 
-def validate() -> list[str]:
-    """
-    Complain about anything malformed, before a long run rather than during.
-
-    A "bodies" scenario is deliberately exempt from the empty check — an empty
-    string is the whole point of a bad-input case, and refusing to run one
-    would make that criterion untestable.
-    """
+def validate():
     problems = []
-    for i, scenario in enumerate(SCENARIOS, 1):
-        if not scenario.get("name"):
-            problems.append(f"scenario {i} has no name")
 
-        texts = scenario.get("texts")
-        bodies = scenario.get("bodies")
+    if len(HUMAN_SAMPLES) < 10:
+        problems.append(
+            "human_samples.txt must contain at least 10 "
+            "genuinely human-written paragraphs."
+        )
 
-        if texts and bodies:
+    if len(AI_SAMPLES) < 3:
+        problems.append(
+            "ai_samples.txt must contain at least 3 "
+            "identified AI-generated paragraphs."
+        )
+
+    for scenario in SCENARIOS:
+        if not scenario.get("texts") and not scenario.get("bodies"):
             problems.append(
-                f"scenario {i} ('{scenario.get('name')}') has both texts and "
-                f"bodies — pick one"
+                f"Scenario {scenario['name']} has no inputs."
             )
-            continue
 
-        if bodies:
-            for j, body in enumerate(bodies, 1):
-                if not isinstance(body, dict):
-                    problems.append(
-                        f"scenario {i}, body {j} is not a dict — bodies are whole "
-                        f"request bodies, like {{'text': '', 'creator_id': 'x'}}"
-                    )
-            continue
-
-        if not texts:
-            problems.append(f"scenario {i} has no texts and no bodies")
-            continue
-
-        for j, text in enumerate(texts, 1):
-            if not str(text).strip():
-                problems.append(
-                    f"scenario {i}, text {j} is empty — if an empty submission is what "
-                    f"you're testing, use 'bodies' instead of 'texts'"
-                )
-            elif str(text).startswith("REPLACE ME"):
-                problems.append(
-                    f"scenario {i} ('{scenario.get('name')}'), text {j} is still "
-                    f"the placeholder"
-                )
     return problems

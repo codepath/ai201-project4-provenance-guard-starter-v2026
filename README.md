@@ -1,331 +1,635 @@
-# Provenance Guard
-
-> ### 👋 Start here
->
-> **New to this repo? Read [RUNNING.md](RUNNING.md) first.**
->
-> Once `python test.py` passes, in one terminal:
->
-> ```bash
-> python app.py
-> ```
->
-> and in another:
->
-> ```bash
-> curl -X POST http://127.0.0.1:5000/ping \
->   -H "Content-Type: application/json" \
->   -d '{"message": "hello"}'
-> ```
->
-> That's a web service. Something sent it text and it sent something back.
-> Everything this unit is filling in the middle.
->
-> **The rest of this file is your submission.** Fill it in as you go.
-
----
-
-<!-- ─────────────────────────────────────────────────────────────────────────
-     Unit 7 asks for the first five sections. Unit 8 adds the five below.
-
-     Everything is pasted as TEXT. A pasted curl response gets full credit;
-     a picture of your terminal gets none.
-     ───────────────────────────────────────────────────────────────────────── -->
-
-<!-- ═══════════════════════ UNIT 7 — THE BUILD ═══════════════════════ -->
-
 ## What This Does
 
-<!-- The path a submission takes, from arriving to the label a reader sees.
-     Six or seven steps — this is the trace you wrote in Milestone 1. -->
+Provenance Guard is a Flask-based API that analyzes submitted text for patterns associated with AI-generated writing. It combines a GPT-2 detection signal with writing-style measurements and returns one of three labels: `human`, `unsure`, or `ai`.
 
+The submission process follows these steps:
 
+1. A writer sends text and a creator ID to `POST /submit`.
+2. The application generates a unique content ID.
+3. The GPT-2 detector produces a model score.
+4. The stylometry module measures sentence-length variation, vocabulary diversity, and punctuation density.
+5. The scoring module combines the two signals and assigns a label.
+6. The API returns the classification, explanatory message, and individual scores.
+7. The system records the decision in the audit log.
+
+A writer who disagrees with the classification can submit a reason through `POST /appeal`. The appeal is recorded with the status `under_review` so that a human can review the decision.
+
+The system does not establish who authored a passage. Its output is an indication based on measurable text patterns, not proof of AI use.
 
 ---
 
 ## Signals and Scoring
 
-<!-- For each signal: what property it measures, why that might differ between
-     human and AI writing, and WHAT IT CAN'T SEE.
-
-     The blind spot is not optional. If you can't name it you don't understand
-     the signal yet — and unit 8's attack set is built out of blind spots. -->
-
 ### Signal one — the model signal
 
-**What it measures:**
+**What it measures:** The GPT-2 detector returns a numerical signal associated with AI-generated text. The application uses this as its `model_score`.
 
-**Why that might differ between human and AI writing:**
+**Why that might differ between human and AI writing:** Machine-generated text can contain statistical patterns that differ from those found in human writing. A detector may recognize some of those patterns.
 
-**What it can't see:**
+**What it can't see:** The detector cannot verify authorship, identify the person who wrote the text, or reliably recognize every AI model. Edited AI text and highly structured human writing may produce misleading results.
 
 ### Signal two — the style signal
 
-**What it measures:**
+**What it measures:** The stylometry module calculates three properties:
 
-**Why that might differ between human and AI writing:**
+- Sentence-length spread: how much sentence lengths vary.
+- Type-token ratio: the proportion of distinct words in the text.
+- Punctuation density: the amount of punctuation relative to the number of words.
 
-**What it can't see:**
+The measurements are converted into a combined `style_score` between 0 and 1.
+
+**Why that might differ between human and AI writing:** Some machine-generated passages use repetitive vocabulary, consistent sentence lengths, and regular punctuation patterns. Measuring these features provides another perspective on the writing.
+
+**What it can't see:** Writing style does not establish authorship. Human writers may use repetitive language, and AI-generated text may contain varied sentence structures. Editing, paraphrasing, and short passages can also change these measurements substantially.
 
 ### The combining rule
 
-<!-- Write the rule in words, then give the numbers. What happens when the two
-     signals disagree? -->
-
-**The rule:**
+**The rule:** The system calculates a weighted average of the model score and the style score. Both signals contribute equally.
 
 **The numbers:**
 
-**Where it lives:** `scoring.py::combine_signals`
+`combined_score = (0.50 × model_score) + (0.50 × style_score)`
 
-<!-- ⚠️ The grader checks your code against that line. If your rule lives
-     somewhere else, say where. -->
+The score ranges from 0 to 1. Higher values indicate stronger AI-associated patterns according to this implementation.
+
+**Where it lives:** `scoring.py::combine_signals`
 
 **A case where my two signals split, and what my rule does with it:**
 
+If the model score is 0.80 and the style score is 0.20, the combined score is:
 
+`(0.50 × 0.80) + (0.50 × 0.20) = 0.50`
+
+The result falls into the `unsure` category. Neither signal automatically overrides the other.
+
+This is an illustrative calculation rather than a measured submission.
 
 ---
 
 ## Label Variants
 
-<!-- The exact text of all three labels, as a reader would see them, and the
-     score range each covers.
-
-     Write them for someone who has never heard the word "threshold". -->
-
 | Label | Score range | The exact text a reader sees |
 |---|---|---|
-| high-confidence human |  |  |
-| unsure |  |  |
-| high-confidence AI |  |  |
+| human | 0.00–0.35 | This text shows patterns consistent with human writing, although the system cannot verify who wrote it. |
+| unsure | Above 0.35 and below 0.65 | We cannot reliably determine whether this text was written by a person or generated by AI. No authorship conclusion should be drawn from this result. |
+| ai | 0.65–1.00 | This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship. |
 
 **Why I worded the "unsure" one this way:**
-<!-- It's the hardest of the three. It has to admit uncertainty without
-     sounding like an accusation, because the person reading it may well have
-     written every word themselves. -->
 
+I wanted the message to communicate uncertainty without accusing the writer of using AI. The system analyzes patterns rather than directly observing how a passage was created. An uncertain score should therefore remain inconclusive.
 
+The terms `human` and `ai` are classification labels, not verified authorship findings. The combined score is also not a calibrated probability of AI authorship.
 
 ---
 
 ## Sample Run
 
-<!-- One submission and one appeal, pasted as text: the request, the response,
-     and the log entries. -->
+### A submission
 
-**A submission**
-
-<!-- The response needs content_id, guess, confidence, label, AND both
-     signal scores - model_score and style_score. Unit 8's tools read those
-     two off the response, so leaving them out costs you next unit's
-     diagnostics. -->
+**Request**
 
 ```bash
-$ curl -X POST http://127.0.0.1:5000/submit \
+curl -X POST http://127.0.0.1:5000/submit \
   -H "Content-Type: application/json" \
-  -d '{"text": "...", "creator_id": "..."}'
+  -d '{
+    "text": "The system provides reliable results. The system provides consistent performance. The system provides effective solutions. The system provides reliable support.",
+    "creator_id": "student001"
+  }'
 ```
+
+**Response**
 
 ```json
-
+{
+  "combined_score": 0.7341500000000001,
+  "confidence": 0.7341500000000001,
+  "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+  "guess": "ai",
+  "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+  "model_score": 0.7683,
+  "style_score": 0.7000000000000001
+}
 ```
 
-**An appeal**
+The `confidence` field currently contains the combined AI-associated score. It should not be interpreted as a calibrated probability that the classification is correct.
+
+### An appeal
+
+**Request**
 
 ```bash
-$ curl -X POST http://127.0.0.1:5000/appeal \
+curl -X POST http://127.0.0.1:5000/appeal \
   -H "Content-Type: application/json" \
-  -d '{"content_id": "...", "reasoning": "..."}'
+  -d '{
+    "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+    "reasoning": "I wrote this passage myself and would like a human review."
+  }'
 ```
+
+**Response**
 
 ```json
-
+{
+  "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+  "message": "Your appeal has been received and recorded for human review.",
+  "status": "under_review"
+}
 ```
 
-**What the log shows afterwards**
+### What the log shows afterwards
+
+The submission decision was recorded with the following values:
+
+```json
+{
+  "timestamp": "2026-11-15T08:21:04+00:00",
+  "content_id": "379e1b70-89c1-41a9-82e2-7aa6db6c96b3",
+  "creator_id": "student001",
+  "guess": "ai",
+  "model_score": 0.7683,
+  "style_score": 0.7000000000000001,
+  "combined_score": 0.7341500000000001,
+  "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+  "status": "decided"
+}
+```
+
+To inspect the latest audit records, run:
 
 ```bash
-$ curl "http://127.0.0.1:5000/log?limit=3"
+curl "http://127.0.0.1:5000/log?limit=3"
 ```
 
-```json
-
-```
+**Appeal audit entry:** Paste the actual appeal record from the log here after verifying it in the final tests. The successful API response alone does not establish that the log entry was persisted.
 
 ---
 
-## How I Used AI
+### How I Used AI
 
-**Moment 1**
+I used ChatGPT as a coding assistant throughout this project to help me plan my tests, write Python scripts, troubleshoot errors, and interpret the results. However, I ran the tests myself, examined the outputs, and used the evidence to decide what needed improvement.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+AI was particularly helpful when I developed the evaluation scripts for the five acceptance criteria. It helped me organize the test scenarios, automate repeated trials, and generate reports that I could compare before and after making changes. This saved time and made it easier to identify weaknesses in the detector.
 
-**Moment 2**
+Not everything AI suggested worked correctly. For example, the initial appeal-testing script assumed that the client could provide a content ID. When I ran the script, all nine appeals failed with HTTP 404 errors. After examining the application code, I discovered that the server generates its own content ID for each submission. I corrected the script to use the ID returned by the server, reran the tests, and verified that all nine appeals passed. This experience showed me why AI-generated code must be tested rather than accepted without verification.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+AI also helped me analyze the detector's false positives. The baseline evaluation showed that two out of ten human-written samples were incorrectly classified as AI-generated. Based on the results, I increased the AI classification threshold from 0.65 to 0.75 and repeated the evaluation. The false positives dropped from two to zero. However, the change did not improve the detector's ability to distinguish AI-generated text from human-written text. The score-separation and label-coverage criteria still failed.
 
-<!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
+I chose to keep this limitation visible in my report rather than claim that the detector was fully fixed. The final evaluation met three of the five acceptance criteria, and the attack tests identified additional weaknesses in input validation and evasion resistance.
 
+The most important lesson I learned was that AI can help with coding, testing, and debugging, but its suggestions still require human judgment. I remained responsible for running the experiments, checking the evidence, correcting mistakes, and reporting both successful and unsuccessful results.
 ---
 
 ## Rate Limiting
 
-**My limits:** ___ per minute, ___ per day
+### Configuration
 
-**Why those numbers and not others:**
-<!-- Think about two people: a real writer submitting their own work a few
-     times an hour, and a script sending a thousand variations to map your
-     thresholds. Your numbers have to be liveable for the first and hostile to
-     the second. -->
+I enabled rate limiting in `config.py` and activated the rate-limiting decorator on the `/submit` endpoint in `app.py`.
 
-**What a caller counts as:** <!-- per address, or per creator_id? They fail
-differently — one script can look like a thousand callers, and one household
-can look like one. -->
+The application uses the following limits:
 
-**The run of status codes when I pushed past it:**
+- **10 submissions per minute**
+- **200 submissions per day**
 
-<!-- python run_attacks.py --flood 15 -->
+I selected these limits to allow normal submissions while restricting excessive automated requests. The daily limit provides additional protection against sustained high-volume activity.
 
+### Flood Test
+
+I tested the rate limiter by sending 15 submissions using the same creator ID.
+
+**Command:**
+
+```bash
+python run_attacks.py --flood 15
 ```
 
+**Actual results:**
+
+```text
+200 200 200 200 200 200 200 200 200 200 200 429 429 429 429
 ```
 
----
+| Result | Count |
+|---|---:|
+| Accepted (HTTP 200) | 11 |
+| Rate limited (HTTP 429) | 4 |
+| Total submissions | 15 |
 
-## Attack Run — Before
+The limiter blocked four requests. Although the configured threshold was 10 requests per minute, 11 requests succeeded. This discrepancy requires further investigation.
 
-<!-- Every attack with its outcome and a held-or-broke mark.
-     `run_attacks.py --label before` produces the table. -->
+### Audit Log Verification
 
+I inspected the audit log using:
 
+```bash
+curl "http://127.0.0.1:5000/log?limit=6"
+```
 
-**Ten audit log entries from the run**
-
-<!-- Choose entries that show the interesting failures, not the ten easiest. -->
+The log contained four rejection entries with the following fields:
 
 ```json
-
+{
+  "creator_id": "flood_tester",
+  "event": "rejected",
+  "limit": "10 per 1 minute",
+  "reason": "rate_limited",
+  "status": "rejected",
+  "timestamp": "2026-11-15T22:17:43+00:00"
+}
 ```
 
-**The single worst outcome** — the one I'd least want to explain to a writer
-whose work got caught by it:
+This confirms that the system records requests rejected by the rate limiter.
 
+**Evidence file:** `results/flood_2026-11-15_1717.md`
 
+### Limitations
 
----
+The current rate limiter uses in-memory storage. This is suitable for local testing but is not sufficient for a production system deployed across multiple application instances. A shared storage backend, such as Redis, would be more appropriate for production use.
 
-## Run Log and Verdicts
+## Unit 8 — Milestone 2: Baseline Attack Testing
 
-<!-- Your five criteria across three trials. `run_eval.py --label before`. -->
+56 attacks were executed with no HTTP 5xx errors. Six designated human-written cases (FP02–FP07) were classified as AI. EV08 was classified as human, showing an evasion weakness. MF03, MF04, MF08, and RQ06 exposed input-validation weaknesses. Flood requests 11 and 12 returned HTTP 429, confirming rate limiting.
 
-| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
-
-**Real output from one trial**, pasted as text, naming the file and function
-that produced it:
+### Ten actual audit entries
 
 ```json
-
+[
+  {
+    "combined_score": 0.3421262145875635,
+    "content_id": "77acda4f-3279-4f40-9b16-8d51b112cbc5",
+    "creator_id": "attacker_EV08",
+    "guess": "human",
+    "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+    "model_score": 0.2452,
+    "status": "decided",
+    "style_score": 0.439052429175127,
+    "timestamp": "2026-11-15T22:46:07+00:00"
+  },
+  {
+    "combined_score": 0.8577098654028323,
+    "content_id": "559cbf9c-4876-495d-a9e6-485372ef1db1",
+    "creator_id": "attacker_EV10",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.9792,
+    "status": "decided",
+    "style_score": 0.7362197308056647,
+    "timestamp": "2026-11-15T22:46:08+00:00"
+  },
+  {
+    "combined_score": 0.675783015325087,
+    "content_id": "8124dec3-8397-4866-99a9-7a57aefbb01c",
+    "creator_id": "attacker_FP02",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.7387,
+    "status": "decided",
+    "style_score": 0.612866030650174,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.6992574760165613,
+    "content_id": "63f6e579-9a9d-4ccc-ab7e-2f1e8c3c23f3",
+    "creator_id": "attacker_FP03",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8051,
+    "status": "decided",
+    "style_score": 0.5934149520331226,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.676415198237335,
+    "content_id": "d11934ed-5da3-4f01-8183-66aaf8f0db3d",
+    "creator_id": "attacker_FP04",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8329,
+    "status": "decided",
+    "style_score": 0.5199303964746699,
+    "timestamp": "2026-11-15T22:46:09+00:00"
+  },
+  {
+    "combined_score": 0.7136258991742646,
+    "content_id": "6a3875c9-32aa-4c8b-8a75-6f09ade1fda3",
+    "creator_id": "attacker_FP05",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8005,
+    "status": "decided",
+    "style_score": 0.6267517983485292,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.6953185014279366,
+    "content_id": "237d7ea2-4720-4274-9a01-ad891b0ea111",
+    "creator_id": "attacker_FP06",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8814,
+    "status": "decided",
+    "style_score": 0.5092370028558734,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.6918625631589213,
+    "content_id": "c17347b3-21ec-4ec1-9ff5-73f778d7e347",
+    "creator_id": "attacker_FP07",
+    "guess": "ai",
+    "label": "This text shows patterns associated with AI-generated writing, but this result does not prove AI authorship.",
+    "model_score": 0.8816,
+    "status": "decided",
+    "style_score": 0.5021251263178426,
+    "timestamp": "2026-11-15T22:46:10+00:00"
+  },
+  {
+    "combined_score": 0.2556,
+    "content_id": "fd121b58-41a9-4402-8239-6af810f066c0",
+    "creator_id": "attacker_MF04",
+    "guess": "human",
+    "label": "This text shows patterns consistent with human writing, although the system cannot verify who wrote it.",
+    "model_score": 0.0112,
+    "status": "decided",
+    "style_score": 0.5,
+    "timestamp": "2026-11-15T22:46:12+00:00"
+  },
+  {
+    "creator_id": "attacker_flood",
+    "event": "rejected",
+    "limit": "10 per 1 minute",
+    "reason": "rate_limited",
+    "status": "rejected",
+    "timestamp": "2026-11-15T22:46:14+00:00"
+  }
+]
 ```
 
-**Diagnoses**
+## Unit 8 — Milestone 4: Root Cause Analysis
 
-<!-- For each miss AND each broken attack: the stage and the mechanism.
+### Baseline Acceptance Results
 
-     Your service has five stages: the route, signal one, signal two, the
-     combining rule, and the label mapping.
+The baseline evaluation was conducted on November 15, 2026, using three trials per acceptance criterion.
 
-     Not a diagnosis:  "The evasion attacks got through."
-     A diagnosis:      "Four evasion inputs got through. All four had typos
-                        added to AI-generated text. My second signal measures
-                        word variety, and typos raise word variety — so it read
-                        them as more human. My combining rule weights that
-                        signal at 0.6, so it dragged the whole score down."
+| Criterion | Trial 1 | Trial 2 | Trial 3 | Verdict |
+|---|---|---|---|---|
+| 1. Zero false positives | 2/10 FP | 2/10 FP | 2/10 FP | MISSED |
+| 2. AI-human score separation >= 0.50 | -0.148 | -0.148 | -0.148 | MISSED |
+| 3. All three labels appear | unsure only | unsure only | unsure only | MISSED |
+| 4. Three valid appeals | 3/3 | 3/3 | 3/3 | MET |
+| 5. Invalid submissions return HTTP 400 | 2/2 | 2/2 | 2/2 | MET |
 
-     Look for a pattern. Five failures on one signal is one problem, not five. -->
+### Root Cause 1: False Positives
+
+Two genuinely human-written samples were incorrectly classified as AI-generated in every trial.
+
+The detector combines the GPT-2 model signal and stylometry signal using equal weights.
+
+In one false-positive case:
+
+- Model score: 0.7760
+- Style score: 0.5385
+- Combined score: 0.6573
+- Classification: ai
+
+The combined score exceeded the AI threshold of 0.65.
+
+Relevant code:
+- scoring.py::combine_signals
+- scoring.py::score_to_label
+- config.py::AI_THRESHOLD
+
+### Root Cause 2: Poor Score Separation
+
+The average score for three human-written samples was approximately 0.534.
+
+The average score for three AI-generated samples was approximately 0.386.
+
+The difference was approximately -0.148, below the required +0.50.
+
+This suggests that the current GPT-2 predictability signal and stylometry combination do not reliably distinguish these human and AI samples.
+
+### Root Cause 3: Incomplete Label Coverage
+
+All five samples in the label-coverage scenario received the classification "unsure".
+
+Their combined scores fell between the human threshold of 0.35 and the AI threshold of 0.65.
+
+The classification labels are reachable in the code, but the selected evaluation samples did not exercise all three categories.
+
+### Working Safeguards
+
+The appeal system passed all three trials. Nine valid appeals were accepted and verified in the audit log with status "under_review".
+
+The invalid-input tests also passed. Empty and missing text returned HTTP 400 without classification.
+
+### Planned Improvement
+
+The proposed single improvement is to increase AI_THRESHOLD from 0.65 to 0.75.
+
+The objective is to reduce false accusations against human writers.
+
+This adjustment may also allow more AI-generated text to avoid an AI classification. The trade-off will be evaluated using the same acceptance tests and attack suite.
+
+The original acceptance criteria will not be changed.
+
+### Evidence
+
+- results/run_2026-11-15_1838_before.md
+- results/appeals_2026-11-15_1846_before.json
+- results/appeals_2026-11-15_1852_before.json
 
 
+## Unit 8 — Milestone 5: Improvement Evaluation
 
----
+### Single Change
 
-## The Improvement
+The AI classification threshold was increased from 0.65 to 0.75 in config.py.
 
-**What I changed:**
+No changes were made to the GPT-2 model, stylometry algorithm, signal weights, or human classification threshold.
 
-**Which diagnosis pointed at it:**
+### Before-and-After Results
 
-### Attack Run — After
+| Criterion | Before | After | Outcome |
+|---|---|---|---|
+| Zero human false positives | 2/10 | 0/10 | Improved; MET |
+| AI-human score separation >= 0.50 | -0.148 | -0.148 | Unchanged; MISSED |
+| All three labels appear | unsure only | unsure only | Unchanged; MISSED |
+| Three valid appeals | 3/3 | 3/3 | Unchanged; MET |
+| Invalid submissions return HTTP 400 | 2/2 | 2/2 | Unchanged; MET |
 
-<!-- Same format. `run_attacks.py --label after` -->
+### Attack Testing
+
+The same 56 attack cases were executed before and after the threshold adjustment.
+
+Six designated human samples (FP02-FP07) changed from AI classifications to unsure classifications.
+
+EV08 remained classified as human, demonstrating that AI evasion remains possible.
+
+MF03, MF04, MF08, and RQ06 continued to expose input-validation weaknesses.
+
+The flood test continued to return HTTP 429 for requests 11 and 12.
+
+The attack runner did not automatically determine success or failure for these cases; conclusions were based on manual review of the responses.
+
+### What's Still Broken
+
+The detector does not reliably separate human-written and AI-generated text.
+
+The three AI-generated evaluation samples received lower average scores than the three human-written samples.
+
+The label-coverage scenario produced only unsure classifications.
+
+Some malformed and oversized inputs were accepted.
+
+The detector remains vulnerable to evasion, and a higher AI threshold may allow more AI-generated text to avoid AI classification.
+
+### Trade-off
+
+Increasing the AI threshold reduced false accusations against human writers.
+
+However, it did not improve the underlying detection signals or score separation.
+
+The improvement prioritizes avoiding false accusations over confidently identifying AI-generated writing.
+
+The system should not be used as definitive evidence of authorship.
+
+### Evidence
+
+- results/run_2026-11-15_1838_before.md
+- results/run_2026-11-15_1903_after.md
+- results/attack_run_2026-11-15_1746_before.md
+- results/attack_run_2026-11-15_1907_after.md
+- results/appeals_2026-11-15_1852_before.json
+- results/selected_audit_entries_after.json
+- results/appeals_2026-11-15_1910_after.json
 
 
+## Capstone
 
-**Did it help, and how do I know:**
+**What This Extends**
 
-<!-- Widening the unsure band usually fixes one problem and creates another.
-     Reporting that trade honestly is worth full credit. -->
+This capstone extends the existing Provenance Guard application developed and tested during CodePath AI 201. The application classifies submitted text using model-based and stylometric signals and records classification decisions for auditing.
 
+The Unit 8 attack tests revealed weaknesses in how the application handles malformed and oversized text submissions.
 
+**The Shape**
 
----
+I selected Shape B — Harden Against Failure.
 
-## What's Still Broken
+The extension strengthens input validation for the existing `/submit` endpoint. It focuses on rejecting oversized text, unsupported control characters, and submissions that contain no meaningful words.
 
-<!-- For each attack still getting through and each criterion still missed:
-     what you'd do, and why you stopped. -->
+These requests should produce clear HTTP 400 responses rather than proceed to model inference.
 
+The scope excludes changes to the detection model, classification thresholds, signal weights, appeal workflow, and user interface.
 
+The goal is to improve failure handling without changing the existing classification behavior for valid submissions.
 
-**The trade I'd make if this ran for real:**
+**Running It**
 
-<!-- Two sentences. Fewer wrong accusations means more AI text getting through.
-     Say which way you'd go and WHO PAYS FOR IT. -->
+This capstone uses Path B: local deployment with operational logs.
 
+From the project directory, activate the Python virtual environment and install the pinned dependencies in `requirements-lock.txt`.
 
+Start the application with:
 
-<!-- ═════════════════════════════════════════════════════════════════════
+```bash
+gunicorn --bind 127.0.0.1:5000 --workers 1 --timeout 180 app:app
+```
 
-     SUBMISSION CHECKLIST — unit 7
+The extended startup timeout allows the model dependencies to initialize. A shorter Gunicorn timeout caused a worker timeout during testing.
 
-       [ ] criteria.md has five numbered criteria, each naming a target
-       [ ] Each has a reason underneath
-       [ ] POST /submit returns content_id, guess, confidence, label,
-           model_score and style_score
-       [ ] Two signals that measure DIFFERENT things, each with a named blind spot
-       [ ] Three label variants, all reachable, written out in full
-       [ ] POST /appeal changes status and writes to the log
-       [ ] Signals and Scoring names scoring.py::combine_signals
-       [ ] Sample Run: a submission AND an appeal, as pasted text
-       [ ] At least four new commits
-       [ ] Repository URL submitted — WRITE IT DOWN
+The application runs locally at `http://127.0.0.1:5000`. See `RUNNING.md` for deployment instructions.
 
-     SUBMISSION CHECKLIST — unit 8
+**Instrumentation**
 
-       [ ] Rate limiting on /submit, with your numbers justified
-       [ ] The pasted run of status codes showing 429
-       [ ] Audit log with all nine fields, recording rejections too
-       [ ] The attack set run IN FULL, every input with an outcome
-       [ ] Ten audit log entries pasted as text
-       [ ] Five criteria across three trials
-       [ ] A diagnosis for every miss and every broken attack — stage AND mechanism
-       [ ] One improvement, with Attack Run — After
-       [ ] What's Still Broken, including the production trade
-       [ ] At least four new commits
-       [ ] The SAME repository URL as last unit
+The application records structured JSONL operational events in `logs/audit.jsonl`.
 
-     Do not delete and recreate this repository.
-     ═════════════════════════════════════════════════════════════════════ -->
+Each `capstone_request` event contains a timestamp, creator identifier, input character count, HTTP response status, processing duration in milliseconds, and completion or rejection status.
 
----
+The instrumentation supports debugging, performance measurement, and validation of failure handling.
 
-📖 **How to run this project: [RUNNING.md](RUNNING.md)**
+The application does not need to store the full submitted text in the operational event.
+
+**What It Costs**
+
+I measured ten successful, sequential, warm requests against the local Gunicorn server.
+
+All ten requests returned HTTP 200.
+
+| Measurement | Result |
+|---|---:|
+| Successful requests | 10/10 |
+| Average response time | 0.0572 seconds |
+| Estimated processing time for 100 requests/day | 5.72 seconds |
+| Estimated processing time over 30 days at 100 requests/day | 171.60 seconds |
+
+The daily estimate is calculated as 0.0572 seconds multiplied by 100 requests.
+
+The monthly estimate is calculated as 0.0572 seconds multiplied by 3,000 requests.
+
+These estimates describe cumulative warm request latency, not the time or monetary cost of keeping a server running. They exclude startup, idle resource use, hosting fees, and concurrent traffic. The initial model startup was substantially slower than subsequent requests.
+
+**Run Log and Verdicts**
+
+I committed five measurable acceptance criteria in `criteria.md` before the formal baseline evaluation.
+
+Each criterion was tested three times before and after the measured improvement.
+
+| Acceptance criterion | Baseline trials | After improvement | Verdict |
+|---|---|---|---|
+| Oversized submission returns HTTP 400 | 3/3 | 3/3 | Pass |
+| Unsupported control character returns HTTP 400 | 3/3 | 3/3 | Pass |
+| Punctuation-only submission returns HTTP 400 | 3/3 | 3/3 | Pass |
+| Valid submission returns HTTP 200 and classification | 3/3 | 3/3 | Pass |
+| Structured operational logging | 3/3 | 3/3 | Pass |
+| **Total** | **15/15** | **15/15** | **Pass** |
+
+The first four criteria were evaluated with HTTP requests. The fifth was verified against the JSONL operational records.
+
+An additional check verified the accuracy of 12 baseline log records, including HTTP status, input character count, and nonnegative processing duration. All 12 passed.
+
+The original baseline results were observed before the improvement. The saved `capstone_baseline_before.json` file was copied after the post-improvement run and therefore should not be treated as an independent copy of the original baseline. The original baseline outcomes were observed during testing and are summarized in the evaluation table above; the original baseline JSON file was overwritten.
+
+**The Improvement**
+
+After the baseline passed, I investigated a separate failure mode: what happens when writing an operational audit event fails.
+
+I simulated a disk-write failure by mocking `audit.log_operation` to raise `OSError` during a request.
+
+Before the improvement, all three trials raised `OSError` instead of returning the expected HTTP 400 response.
+
+I then added targeted `OSError` handling around operational logging in the Flask `after_request` hook. The handler reports the logging failure through Flask's error logger while preserving the HTTP response.
+
+I repeated the same simulated failure experiment after the change.
+
+| Resilience experiment | Before | After |
+|---|---|---|
+| Trials preserving HTTP 400 despite logging failure | 0/3 | 3/3 |
+| Success rate | 0% | 100% |
+
+All five acceptance criteria also passed their three post-improvement trials. This supports the conclusion that the targeted resilience change did not regress the tested submission behavior.
+
+**What's Still Broken**
+
+The improvement preserves HTTP responses when operational logging raises `OSError`, but a failed log write can still result in a missing audit record.
+
+The handler does not recover the missing record, retry writes, or provide durable external log storage.
+
+Other exceptions unrelated to `OSError` may still propagate.
+
+The application uses local deployment and has not been evaluated under sustained concurrent traffic or production hosting conditions.
+
+The performance estimates exclude server startup and infrastructure costs.
+
+The extension does not address the underlying accuracy limitations of AI-generated text detection identified during Unit 8.
+
+**How I Used AI**
+
+I used AI assistance to review implementation options, prepare shell commands, inspect test outputs, and help organize the capstone documentation.
+
+I selected the failure-hardening scope and provided the reasoning for my five acceptance criteria.
+
+I ran the experiments locally, reported the observed results, and used the measurements to decide whether a proposed improvement was justified.
+
+When the baseline showed that logging accuracy was already 100%, I did not claim an accuracy improvement. Instead, I tested logging-failure resilience and measured the result before and after the targeted change.
+
+The acceptance criteria were committed before the formal baseline experiments.
