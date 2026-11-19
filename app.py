@@ -31,8 +31,10 @@ from flask import Flask, jsonify, request
 
 import audit
 import config
+import requestlog
 
 app = Flask(__name__)
+requestlog.init_app(app)  # one log line per request, rejected or not
 
 
 # ── Rate limiting — UNIT 8 ────────────────────────────────────────────────────
@@ -104,6 +106,7 @@ if config.RATE_LIMITING_ENABLED:
         payload = request.get_json(silent=True)
         if not isinstance(payload, dict):
             payload = {}
+        requestlog.note(creator_id=payload.get("creator_id") if isinstance(payload.get("creator_id"), str) else None)
         audit.log_rejection(
             creator_id=payload.get("creator_id", "unknown"),
             reason="rate_limited",
@@ -154,6 +157,7 @@ def health():
 def _bad_request(creator_id, reason, message, status=400):
     """Refuse an input, leave a trace in the log, answer with JSON — never a 500."""
     audit.log_rejection(creator_id=creator_id, reason=reason)
+    requestlog.note(creator_id=creator_id, outcome=reason)
     return jsonify({"error": reason, "message": message}), status
 
 
@@ -181,6 +185,7 @@ def submit():
         return _bad_request("unknown", "invalid_creator_id",
                             "creator_id must be a non-empty string.")
     creator_id = creator_id.strip()
+    requestlog.note(creator_id=creator_id)
 
     text = payload.get("text")
     if text is None:
@@ -194,28 +199,34 @@ def submit():
                             f"'text' is over {config.MAX_TEXT_CHARS} characters.", 413)
 
     try:
-        model_score = detector.model_signal(text)
+        with requestlog.stage("model"):
+            model_score = detector.model_signal(text)
     except ValueError as exc:  # too short to score
         return _bad_request(creator_id, "text_too_short", str(exc), 422)
     except detector.DetectorUnavailable as exc:
         audit.log_rejection(creator_id=creator_id, reason="detector_unavailable")
+        requestlog.note(outcome="detector_unavailable")
         return jsonify({"error": "detector_unavailable", "message": str(exc)}), 503
 
-    style_score = stylometry.style_signal(text)
-    combined = scoring.combine_signals(model_score, style_score)
-    guess, label = scoring.score_to_label(combined)
+    with requestlog.stage("style"):
+        style_score = stylometry.style_signal(text)
+    with requestlog.stage("combine"):
+        combined = scoring.combine_signals(model_score, style_score)
+        guess, label = scoring.score_to_label(combined)
 
     content_id = str(uuid.uuid4())
-    audit.log_decision(
-        content_id=content_id,
-        creator_id=creator_id,
-        guess=guess,
-        model_score=model_score,
-        style_score=style_score,
-        combined_score=combined,
-        label=label,
-        status="decided",
-    )
+    with requestlog.stage("audit"):
+        audit.log_decision(
+            content_id=content_id,
+            creator_id=creator_id,
+            guess=guess,
+            model_score=model_score,
+            style_score=style_score,
+            combined_score=combined,
+            label=label,
+            status="decided",
+        )
+    requestlog.note(outcome=f"decided:{guess}")
     return jsonify({
         "content_id": content_id,
         "guess": guess,
