@@ -827,31 +827,31 @@ land in "unsure" instead of "AI".
 
      SUBMISSION CHECKLIST — unit 7
 
-       [ ] criteria.md has five numbered criteria, each naming a target
-       [ ] Each has a reason underneath
-       [ ] POST /submit returns content_id, guess, confidence, label,
+       [x] criteria.md has five numbered criteria, each naming a target
+       [x] Each has a reason underneath
+       [x] POST /submit returns content_id, guess, confidence, label,
            model_score and style_score
-       [ ] Two signals that measure DIFFERENT things, each with a named blind spot
-       [ ] Three label variants, all reachable, written out in full
-       [ ] POST /appeal changes status and writes to the log
-       [ ] Signals and Scoring names scoring.py::combine_signals
-       [ ] Sample Run: a submission AND an appeal, as pasted text
-       [ ] At least four new commits
+       [x] Two signals that measure DIFFERENT things, each with a named blind spot
+       [x] Three label variants, all reachable, written out in full
+       [x] POST /appeal changes status and writes to the log
+       [x] Signals and Scoring names scoring.py::combine_signals
+       [x] Sample Run: a submission AND an appeal, as pasted text
+       [x] At least four new commits
        [ ] Repository URL submitted — WRITE IT DOWN
 
      SUBMISSION CHECKLIST — unit 8
 
-       [ ] Rate limiting on /submit, with your numbers justified
-       [ ] The pasted run of status codes showing 429
-       [ ] Audit log with all nine fields, recording rejections too
-       [ ] The attack set run IN FULL, every input with an outcome
-       [ ] Ten audit log entries pasted as text
-       [ ] Five criteria across three trials
-       [ ] A diagnosis for every miss and every broken attack — stage AND mechanism
-       [ ] One improvement, with Attack Run — After
-       [ ] What's Still Broken, including the production trade
-       [ ] At least four new commits
-       [ ] The SAME repository URL as last unit
+       [x] Rate limiting on /submit, with your numbers justified
+       [x] The pasted run of status codes showing 429
+       [x] Audit log with all nine fields, recording rejections too
+       [x] The attack set run IN FULL, every input with an outcome
+       [x] Ten audit log entries pasted as text
+       [x] Five criteria across three trials
+       [x] A diagnosis for every miss and every broken attack — stage AND mechanism
+       [x] One improvement, with Attack Run — After
+       [x] What's Still Broken, including the production trade
+       [x] At least four new commits
+       [x] The SAME repository URL as last unit
 
      Do not delete and recreate this repository.
      ═════════════════════════════════════════════════════════════════════ -->
