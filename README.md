@@ -917,3 +917,58 @@ Checked by starting it this way and sending `/health`, `/ping` and one
 a latency breakdown across the stages of one request, a load observation at
 about ten times normal rate, and a second measured improvement. Not attempting
 "both run paths", since a host can't hold the model.
+
+### Capstone results
+
+**The request log.** Every request, including rejected, rate-limited and 404
+ones, writes one line to `logs/requests.jsonl`: `request_id`, method, path,
+status, outcome, `duration_ms`, `stages_ms`, `creator_id`, body size. The text
+itself is never logged. It is separate from the audit log, whose nine-field
+shape is fixed. Checked in a 17-request test (bad bodies, 12 submits, two 429s,
+a 404): every request got a line. I did not test the 500 path.
+
+**Latency breakdown** (stretch, done). 66 warm `/submit` calls from the load run:
+
+| stage | p50 ms | max ms |
+|---|---|---|
+| model (GPT-2) | 103 | 447 |
+| style | 0.3 | 0.8 |
+| combine | 0.0 | 0.0 |
+| audit write | 0.4 | 1.8 |
+
+The model is about 99% of a request. Anything that makes a request faster has to
+be about the model; the rest is rounding. The first request after a start is the
+exception: about 12 to 16 s, all of it model load.
+
+**Load at ten times normal** (stretch, done; `results/load_2026-11-18_1918.md`).
+"Normal" is my assumption, not a measurement: 6 requests a minute, from a few
+active writers submitting a few times an hour. Ten times is 60 a minute, for 60
+seconds each, one worker, every request from a different `creator_id` so the
+limiter stayed out of it.
+
+| phase | sent | status | p50 | p95 | max |
+|---|---|---|---|---|---|
+| normal, 6/min | 6 | all 200 | 99 ms | 138 ms | 138 ms |
+| 10x, 60/min | 60 | all 200 | 113 ms | 196 ms | 458 ms |
+
+No errors and no timeouts at ten times. What this does not show: a warm request
+takes about 0.1 s and the 10x phase sent one a second, so requests barely
+overlapped. It shows headroom, not the breaking point. I did not push to a rate
+that does.
+
+**Cost per run** (`results/cost_2026-11-18_1923.md`). Local, so no per-call fee.
+Over 100 warm requests: 588 ms of CPU and 124 ms of wall time each, and the
+worker holds 977 MB resident. CPU is about 4.7 times wall because PyTorch spreads
+one request over several cores; on a single-vCPU host a request would take about
+0.6 s of wall time. At an assumed $0.05 per vCPU-hour (my number, not a quote)
+that is about $0.008 per 1,000 requests. One attack run of 25 rows is about 15
+CPU-seconds.
+
+**The hosting decision, now measured.** The earlier estimate was 750 MB to 1.35 GB.
+The measured worker is 977 MB, inside that range and about twice a free host's
+512 MB. Path B stands.
+
+**Not done.** The second measured improvement, which I declared as a stretch, is
+not built, so it does not count. The 500 path is untested. I also deleted the
+test-run logs before committing, so `logs/requests.jsonl` is not in the repo;
+the evidence is the two results files and the numbers above.
