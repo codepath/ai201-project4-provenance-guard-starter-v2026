@@ -199,6 +199,9 @@ what it is. A real one comes from `gunicorn`, which is in
 gunicorn app:app --bind 0.0.0.0:$PORT
 ```
 
+For this project use one worker: `gunicorn app:app --bind 127.0.0.1:$PORT --workers 1 --threads 4 --timeout 120`.
+Each extra worker loads its own copy of the model and gets its own rate-limit counts.
+
 Two settings do the work, and both read the environment:
 
 | Variable | Default | What it does |

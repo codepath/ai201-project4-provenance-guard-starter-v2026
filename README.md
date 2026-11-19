@@ -886,6 +886,33 @@ that got through in unit 8, not adding a third signal, not retuning thresholds
 or the combining rule, not hosting it on a paid tier, and not changing what
 `/submit` returns.
 
+**How I run it (gunicorn, one documented command)**
+
+```bash
+source .venv/bin/activate
+PORT=5000 gunicorn app:app --bind 127.0.0.1:$PORT --workers 1 --threads 4 --timeout 120
+```
+
+Why these flags, not the defaults:
+
+- `--workers 1`: each worker process loads its own copy of GPT-2. Two workers
+  double the memory, and Flask-Limiter's `memory://` storage is per process, so
+  two workers would also give every caller twice the rate limit.
+- `--threads 4`: lets `/ping`, `/health` and rejections answer while one
+  request is inside the model. Scoring itself still runs one at a time in
+  effect, since the model is CPU-bound.
+- `--timeout 120`: the first `/submit` loads the model and took about 14 s on
+  my machine (about 16 s in the test client). The default 30 s would be fine
+  here, but a slower machine or a cold disk cache needs the headroom or the
+  worker is killed mid-load.
+- `--bind 127.0.0.1`: Path B is local. To reach it from another device on my
+  network I would use `0.0.0.0`, and `AI201_DEBUG` turns itself off then.
+
+Checked by starting it this way and sending `/health`, `/ping` and one
+`/submit`: all answered, the `/submit` returned `decided:unsure`, and
+`logs/requests.jsonl` got a line for each, with the model stage at about
+13.6 s of a 13.6 s first request.
+
 **Stretch features declared before building** (so they count if present):
 a latency breakdown across the stages of one request, a load observation at
 about ten times normal rate, and a second measured improvement. Not attempting
