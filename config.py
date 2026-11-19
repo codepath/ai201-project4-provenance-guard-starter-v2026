@@ -46,6 +46,12 @@ DETECTOR_MODEL = os.getenv("AI201_DETECTOR_MODEL", "gpt2")
 # 300 words, which is enough for the signal to mean something.
 DETECTOR_MAX_TOKENS = 400
 
+# How many threads torch uses for one forward pass. The default is every core,
+# which on this laptop costs about 0.42 CPU-seconds per request for 0.075 s of
+# wall time. 4 threads cost about 0.31 CPU-seconds for the same speed (capstone
+# diagnosis of criterion 5). 0 means leave torch's default.
+TORCH_THREADS = int(os.getenv("AI201_TORCH_THREADS", "4"))
+
 
 # ─── Scoring (Milestone 4) ───────────────────────────────────────────────────
 # How much each signal counts toward the combined score.
@@ -115,9 +121,8 @@ RATE_LIMIT_STORAGE = "memory://"
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
 
-# AI201_LOG_DIR lets a load test write somewhere else so it never pollutes the
-# committed logs.
+# AI201_LOG_DIR lets a test run write its logs somewhere throwaway.
 LOG_DIR = Path(os.getenv("AI201_LOG_DIR", ROOT / "logs"))
 AUDIT_LOG = LOG_DIR / "audit.jsonl"
-REQUEST_LOG = LOG_DIR / "requests.jsonl"  # one line per request, with timings
+REQUEST_LOG = LOG_DIR / "requests.jsonl"
 RESULTS_DIR = ROOT / "results"

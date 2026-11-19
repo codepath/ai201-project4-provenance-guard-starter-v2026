@@ -199,9 +199,6 @@ what it is. A real one comes from `gunicorn`, which is in
 gunicorn app:app --bind 0.0.0.0:$PORT
 ```
 
-For this project use one worker: `gunicorn app:app --bind 127.0.0.1:$PORT --workers 1 --threads 4 --timeout 120`.
-Each extra worker loads its own copy of the model and gets its own rate-limit counts.
-
 Two settings do the work, and both read the environment:
 
 | Variable | Default | What it does |
@@ -309,3 +306,45 @@ is evidence, and the entries you paste into your README are what unit 8 grades.
 
 **Do not delete and recreate this repository.** You submit the same URL both
 units.
+
+---
+
+## Capstone: the run path (Path B, local with logs)
+
+Provenance Guard runs under gunicorn from one command, with one worker.
+
+**Environment**
+
+| Needs | Detail |
+|---|---|
+| Python | 3.11 |
+| Dependencies | pinned in `requirements.txt` (`pip install -r requirements.txt` in a venv) |
+| Model | `gpt2`, about 550 MB, downloaded once with `python detector.py` |
+| Memory | about 1 GB free for the worker (measured 934 MB resident) |
+
+**Start it**
+
+```bash
+source .venv/bin/activate
+gunicorn -c gunicorn.conf.py app:app
+```
+
+The model loads as the worker starts, which takes 10 to 20 seconds. The service
+is ready when `/health` reports the model loaded:
+
+```bash
+curl http://127.0.0.1:5000/health     # "detector_loaded": true
+```
+
+`gunicorn.conf.py` holds the decisions: one worker (a second would double the
+memory and split the rate-limit counters), a 120 second timeout, and the model
+warm-up. `PORT` and `HOST` change the address.
+
+**Where the records go**
+
+| File | What it holds |
+|---|---|
+| `logs/requests.jsonl` | one line per request, accepted or not, with per-stage milliseconds |
+| `logs/audit.jsonl` | one entry per decision and appeal |
+
+`AI201_LOG_DIR` points both somewhere else, which the test script uses.

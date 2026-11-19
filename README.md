@@ -870,10 +870,10 @@ land in "unsure" instead of "AI".
 Provenance Guard, my unit 7 and 8 project: a Flask service that scores a text
 with two signals (a local GPT-2 model and a stylometry measure), combines them,
 and returns one of three labels. What's new in this unit is the operational
-layer, not the detection: it now runs under `gunicorn` from a single documented
+layer, not the detection: it now runs under `gunicorn` from one documented
 command, writes one structured log line for every request (including rejected,
 rate-limited and failed ones) with per-stage timings, and has a measured cost
-per run.
+per run. The detector, thresholds and `/submit` response are unchanged.
 
 **The Shape**
 
@@ -886,107 +886,276 @@ that got through in unit 8, not adding a third signal, not retuning thresholds
 or the combining rule, not hosting it on a paid tier, and not changing what
 `/submit` returns.
 
-**How I run it (gunicorn, one documented command)**
+**Stretch features declared before building** (so they count if present): a
+latency breakdown across the stages of one request, a load observation at about
+ten times normal rate, and a second measured improvement. All three are
+below. Not attempting "both run paths", since a host can't hold the model.
+
+**Running It**
+
+Path B. One command, from the repo root with the venv active:
 
 ```bash
-source .venv/bin/activate
-PORT=5000 gunicorn app:app --bind 127.0.0.1:$PORT --workers 1 --threads 4 --timeout 120
+gunicorn -c gunicorn.conf.py app:app
 ```
 
-Why these flags, not the defaults:
+`RUNNING.md` ("Capstone: the run path") has the environment: Python 3.11, the
+pinned `requirements.txt`, the `gpt2` model (about 550 MB, `python detector.py`
+downloads it) and about 1 GB of free memory. `gunicorn.conf.py` holds the
+decisions: one worker, because each worker loads its own copy of the model
+(about 1 GB) and a second would also split the in-memory rate-limit counters;
+a 120 s timeout, because gunicorn's 30 s default is shorter than a cold model
+load; and a model warm-up as the worker starts.
 
-- `--workers 1`: each worker process loads its own copy of GPT-2. Two workers
-  double the memory, and Flask-Limiter's `memory://` storage is per process, so
-  two workers would also give every caller twice the rate limit.
-- `--threads 4`: lets `/ping`, `/health` and rejections answer while one
-  request is inside the model. Scoring itself still runs one at a time in
-  effect, since the model is CPU-bound.
-- `--timeout 120`: the first `/submit` loads the model and took about 14 s on
-  my machine (about 16 s in the test client). The default 30 s would be fine
-  here, but a slower machine or a cold disk cache needs the headroom or the
-  worker is killed mid-load.
-- `--bind 127.0.0.1`: Path B is local. To reach it from another device on my
-  network I would use `0.0.0.0`, and `AI201_DEBUG` turns itself off then.
+My test script clones the committed code into a clean folder and starts it with
+this command (criterion 2). It reuses this repo's `.venv` rather than
+reinstalling the packages every trial, so it tests the command and the
+committed code, not `pip install`.
 
-Checked by starting it this way and sending `/health`, `/ping` and one
-`/submit`: all answered, the `/submit` returned `decided:unsure`, and
-`logs/requests.jsonl` got a line for each, with the model stage at about
-13.6 s of a 13.6 s first request.
+**Instrumentation**
 
-**Stretch features declared before building** (so they count if present):
-a latency breakdown across the stages of one request, a load observation at
-about ten times normal rate, and a second measured improvement. Not attempting
-"both run paths", since a host can't hold the model.
+Every request writes one JSON line to `logs/requests.jsonl`: `ts`, `method`,
+`path`, `status`, `total_ms`, `stages_ms` (milliseconds per stage:
+`model_signal`, `style_signal`, `combine`, `audit_write`), `creator_id`,
+`text_chars` and, on any 4xx or 5xx, an `error` code. The submitted text is
+never logged, only its length. This is separate from `logs/audit.jsonl`, which
+records decisions and appeals. The hook runs after every response, so rejected
+and rate-limited requests are logged too. A log failure is swallowed so it can
+never break a response.
 
-### Capstone results
+Real entries from one session against the gunicorn service
+(`diagnostics/make_run_record.py`, full 27 lines in
+`results/run_record.jsonl`). Ten successful requests:
 
-**The request log.** Every request, including rejected, rate-limited and 404
-ones, writes one line to `logs/requests.jsonl`: `request_id`, method, path,
-status, outcome, `duration_ms`, `stages_ms`, `creator_id`, body size. The text
-itself is never logged. It is separate from the audit log, whose nine-field
-shape is fixed. Checked in a 17-request test (bad bodies, 12 submits, two 429s,
-a 404): every request got a line. I did not test the 500 path.
+```json
+{"ts": "2026-11-17T07:22:36.154+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 105.2, "stages_ms": {"model_signal": 93.8, "style_signal": 0.3, "combine": 0.0, "audit_write": 0.5}, "creator_id": "writer-1", "text_chars": 178}
+{"ts": "2026-11-17T07:22:36.225+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 68.5, "stages_ms": {"model_signal": 66.4, "style_signal": 1.0, "combine": 0.0, "audit_write": 0.3}, "creator_id": "writer-2", "text_chars": 112}
+{"ts": "2026-11-17T07:22:36.284+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 55.9, "stages_ms": {"model_signal": 54.6, "style_signal": 0.1, "combine": 0.0, "audit_write": 0.3}, "creator_id": "writer-3", "text_chars": 146}
+{"ts": "2026-11-17T07:22:36.365+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 78.1, "stages_ms": {"model_signal": 76.5, "style_signal": 0.3, "combine": 0.0, "audit_write": 0.4}, "creator_id": "writer-4", "text_chars": 127}
+{"ts": "2026-11-17T07:22:36.451+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 82.5, "stages_ms": {"model_signal": 80.7, "style_signal": 0.2, "combine": 0.0, "audit_write": 0.5}, "creator_id": "writer-5", "text_chars": 188}
+{"ts": "2026-11-17T07:22:36.515+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 60.0, "stages_ms": {"model_signal": 58.1, "style_signal": 0.2, "combine": 0.0, "audit_write": 0.3}, "creator_id": "writer-6", "text_chars": 122}
+{"ts": "2026-11-17T07:22:36.595+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 78.5, "stages_ms": {"model_signal": 77.3, "style_signal": 0.1, "combine": 0.0, "audit_write": 0.3}, "creator_id": "writer-7", "text_chars": 165}
+{"ts": "2026-11-17T07:22:36.669+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 71.6, "stages_ms": {"model_signal": 70.2, "style_signal": 0.2, "combine": 0.0, "audit_write": 0.3}, "creator_id": "writer-8", "text_chars": 115}
+{"ts": "2026-11-17T07:22:36.749+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 77.6, "stages_ms": {"model_signal": 75.9, "style_signal": 0.1, "combine": 0.0, "audit_write": 0.6}, "creator_id": "writer-9", "text_chars": 148}
+{"ts": "2026-11-17T07:22:36.834+00:00", "method": "POST", "path": "/submit", "status": 200, "total_ms": 81.7, "stages_ms": {"model_signal": 80.2, "style_signal": 0.1, "combine": 0.0, "audit_write": 0.4}, "creator_id": "writer-10", "text_chars": 144}
+```
 
-**Latency breakdown** (stretch, done). 66 warm `/submit` calls from the load run:
+Failed and rejected requests from the same session: a missing `text`, an empty
+`text`, a body that isn't JSON, a 60,000 character `text` (413), and the 11th
+and 12th requests from one creator (429):
 
-| stage | p50 ms | max ms |
+```json
+{"ts": "2026-11-17T07:22:36.838+00:00", "method": "POST", "path": "/submit", "status": 400, "total_ms": 1.4, "stages_ms": {}, "creator_id": "writer-11", "text_chars": null, "error": "missing_text"}
+{"ts": "2026-11-17T07:22:36.842+00:00", "method": "POST", "path": "/submit", "status": 400, "total_ms": 1.4, "stages_ms": {}, "creator_id": "writer-12", "text_chars": null, "error": "empty_text"}
+{"ts": "2026-11-17T07:22:36.849+00:00", "method": "POST", "path": "/submit", "status": 400, "total_ms": 1.3, "stages_ms": {}, "creator_id": null, "text_chars": null, "error": "invalid_body"}
+{"ts": "2026-11-17T07:22:36.854+00:00", "method": "POST", "path": "/submit", "status": 413, "total_ms": 1.6, "stages_ms": {}, "creator_id": "writer-14", "text_chars": 60000, "error": "text_too_long"}
+{"ts": "2026-11-17T07:22:37.736+00:00", "method": "POST", "path": "/submit", "status": 429, "total_ms": 0.9, "stages_ms": {}, "creator_id": null, "text_chars": null, "error": "rate_limited"}
+{"ts": "2026-11-17T07:22:37.738+00:00", "method": "POST", "path": "/submit", "status": 429, "total_ms": 0.6, "stages_ms": {}, "creator_id": null, "text_chars": null, "error": "rate_limited"}
+```
+
+Two things the log shows that I did not plan: a rate-limited request has
+`creator_id` null, because the limiter rejects it before the route reads the
+body, and so does the non-JSON body. The log can't say who was flooding.
+
+**What It Costs**
+
+Nothing here calls a paid service, so API spend is $0 and the cost is compute
+and memory. Method: `run_capstone_criteria.py` reads the worker's CPU time from
+`ps` before and after 10 consecutive requests, three times from three fresh
+starts (30 requests), and the log gives wall time per request.
+
+| Measure | Value | Source |
 |---|---|---|
-| model (GPT-2) | 103 | 447 |
-| style | 0.3 | 0.8 |
-| combine | 0.0 | 0.0 |
-| audit write | 0.4 | 1.8 |
+| Wall time per request, warm | 77 ms mean (72 ms median) over 21 successful requests | `results/run_record.jsonl` |
+| CPU per request | 0.34 s (0.357, 0.326, 0.330 across three trials) | `results/capstone_run_after_threads.md` |
+| Worker memory, warm | 918 to 947 MB | same |
+| API spend | $0 | nothing calls a hosted model |
 
-The model is about 99% of a request. Anything that makes a request faster has to
-be about the model; the rest is rounding. The first request after a start is the
-exception: about 12 to 16 s, all of it model load.
+This is fewer than the ten separate runs the brief suggests for the average,
+and CPU time on a laptop shared with other work is noisy (load average 6 to 12
+while I measured), so read the CPU figure as roughly a third of a second.
 
-**Load at ten times normal** (stretch, done; `results/load_2026-11-18_1918.md`).
-"Normal" is my assumption, not a measurement: 6 requests a minute, from a few
-active writers submitting a few times an hour. Ten times is 60 a minute, for 60
-seconds each, one worker, every request from a different `creator_id` so the
-limiter stayed out of it.
+For 100 people a day: I assume 5 submissions each, 500 requests a day. That is
+500 x 0.34 = about 170 CPU-seconds a day (under 3 minutes) and 500 x 0.077 =
+about 39 seconds of actual scoring. Compute is not the cost. The cost is one
+worker holding about 0.93 GB of memory all day, which is why this needs a host
+with more than 512 MB. 500 requests a day is about 21 an hour, far below what
+one worker can do (the load test below handled 60 a minute).
 
-| phase | sent | status | p50 | p95 | max |
+**Run Log and Verdicts**
+
+The criteria are in `criteria.md` (the capstone ones are on top). This is the
+first full run, before any fix: the code as it stood when I wrote the criteria,
+without the warm-up change. Three trials, each from fresh servers started from
+a clean clone (`run_capstone_criteria.py::main`, output in
+`results/capstone_run_before.md`).
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| normal, 6/min | 6 | all 200 | 99 ms | 138 ms | 138 ms |
-| 10x, 60/min | 60 | all 200 | 113 ms | 196 ms | 458 ms |
+| 1. Every request leaves a log line | 20 of 20 | 20/20 | 20/20 | 20/20 | MET |
+| 2. Starts from RUNNING.md alone | ready within 60 s | 10 s | 6 s | 7 s | MET |
+| 3. First request not slow | first under 1 s, next-50 median under 250 ms | 2.138 s | 0.259 s | 0.283 s | MISSED |
+| 4. Overload gives a refusal and a record | no 5xx, 40 to 50 x 429, 60/60 logged | 50 x 429, 60/60 | 50 x 429, 60/60 | 50 x 429, 60/60 | MET |
+| 5. Memory and CPU ceiling | under 1000 MB, under 0.5 s CPU | 932 MB, 0.441 s | 922 MB, 0.438 s | 931 MB, 0.479 s | MET |
 
-No errors and no timeouts at ten times. What this does not show: a warm request
-takes about 0.1 s and the 10x phase sent one a second, so requests barely
-overlapped. It shows headroom, not the breaking point. I did not push to a rate
-that does.
+Criterion 3 is MISSED because run 1's first request took 2.138 s. The median
+of the next 50 was fine in every run (0.073 to 0.077 s), so only the first
+request is slow.
 
-**Cost per run** (`results/cost_2026-11-18_1923.md`). Local, so no per-call fee.
-Over 100 warm requests: 588 ms of CPU and 124 ms of wall time each, and the
-worker holds 977 MB resident. CPU is about 4.7 times wall because PyTorch spreads
-one request over several cores; on a single-vCPU host a request would take about
-0.6 s of wall time. At an assumed $0.05 per vCPU-hour (my number, not a quote)
-that is about $0.008 per 1,000 requests. One attack run of 25 rows is about 15
-CPU-seconds.
+*Diagnosis, criterion 3.* The stage is the model signal on the first request;
+the mechanism is that `warm_up()` loaded the weights but never ran the model,
+so the first real request paid for torch's first forward pass. In an earlier
+single run the worker went from 342 MB after warm-up to 918 MB after the first
+request (`results/cost_before.txt`): about 570 MB was allocated during that
+request, not at startup. Runs 2 and 3 were 0.26 s and 0.28 s, still above the
+0.08 s of a normal request but under my limit. I think the weights were then
+already in the operating system's file cache from run 1, but I did not test
+that. The miss is real but smaller than the 2.8 s my first measurement
+suggested, and it depends on whether the machine has just run the model.
 
-**The hosting decision, now measured.** The earlier estimate was 750 MB to 1.35 GB.
-The measured worker is 977 MB, inside that range and about twice a free host's
-512 MB. Path B stands.
+Real output for criterion 3, run 1, from `run_capstone_criteria.py::trial_a`:
+`first_s: 2.138, first_status: 200, median_next50_s: 0.077`.
 
-**Second improvement: preload the model** (stretch, done;
-`results/preload_2026-11-18_1931.md`). The model stage was 99% of a request, and
-the worst of it was the first request after a start: 9 to 19 s while GPT-2
-loaded, paid by whoever submitted first. `gunicorn.conf.py` now loads the model
-in each worker before it takes traffic (`AI201_PRELOAD=0` turns it off). Three
-cold starts per mode, medians:
+Criteria 1, 2, 4 and 5 were met in all three trials. Looking at them honestly,
+1, 2 and 4 were met easily (ready in 6 to 10 s against a 60 s limit, 20 of 20
+every time), so those targets were set low. Criterion 5 was met with only
+0.02 to 0.06 s to spare on CPU, which turned out to matter (below).
 
-| | ready | first `/submit` | start to first score |
-|---|---|---|---|
-| before | 0.8 s | 9,335 ms | 10.2 s |
-| after | 9.1 s | 403 ms | 9.5 s |
+**The Improvement**
 
-The first caller's wait dropped from about 9.3 s to 0.4 s, and the combined score
-for the test text was 0.5087 in all six runs, so scoring is unchanged. The cost
-moved, it did not vanish: the service now takes about 9 s to become ready, so
-time from start to first score is about the same (10.2 s to 9.5 s, within the
-spread of three trials). The one before-run outlier was 18.9 s. The gain is who
-waits, not how long loading takes.
+*The fix, aimed at criterion 3.* `detector.warm_up()` now also scores one
+throwaway sentence, so the first forward pass happens at startup, not on a
+user's request.
 
-**Not done.** The 500 path is untested. I also deleted the
-test-run logs before committing, so `logs/requests.jsonl` is not in the repo;
-the evidence is the two results files and the numbers above.
+*Before and after, same criteria, same method* (`results/capstone_run_before.md`
+and `results/capstone_run_after.md`):
+
+| Criterion | Before | After (warm-up) |
+|---|---|---|
+| 1. Log line per request | MET, 20/20 x 3 | MET, 20/20 x 3 |
+| 2. Ready within 60 s | MET, 6 to 10 s | MET, 7 to 8 s |
+| 3. First request | MISSED: 2.138 s, 0.259 s, 0.283 s | MET: 0.085 s, 0.075 s, 0.089 s |
+| 4. Overload | MET | MET |
+| 5. Memory and CPU | MET: 922 to 932 MB, 0.44 to 0.48 s | **MISSED**: 930 to 967 MB, CPU 0.537 s, 0.553 s, 0.485 s |
+
+It helped criterion 3: the first request is now as fast as the rest. It did not
+come free, and the table shows the trade. The memory that used to be allocated
+on the first request is now allocated at startup (342 MB to 830 MB after
+warm-up in `results/cost_after.txt`), so the service starts heavier and a host
+would hit its memory limit at boot. And in this run criterion 5 was MISSED,
+on CPU, in two of three trials.
+
+*Second improvement (stretch), aimed at criterion 5.* The first possible cause
+I considered was that the warm-up had caused the CPU rise. I tested that and it was wrong. I
+alternated the code with and without the warm-up over five rounds of 30
+requests (`diagnostics/diag_cpu.py`): median CPU per request was 0.446 s
+without it and 0.436 s with it, indistinguishable. The two misses were noise
+on a busy laptop (load average 8 to 12); the one 0.532 s outlier was also the
+slowest request, 0.142 s.
+
+The stage is the model signal; the mechanism is torch's thread count. I ran the
+same code with torch limited to different thread counts
+(`diagnostics/diag_threads.py`, two rounds each):
+
+| torch threads | CPU per request | Wall time per request |
+|---|---|---|
+| default (every core) | 0.41 to 0.43 s | 0.075 s |
+| 4 | 0.30 to 0.33 s | 0.078 to 0.099 s |
+| 2 | 0.25 s | 0.13 to 0.14 s |
+| 1 | 0.20 to 0.22 s | 0.21 to 0.23 s |
+
+The real work is about 0.2 CPU-seconds, and every extra thread adds overhead,
+so using all cores roughly doubles CPU time for a small gain in wall time.
+That the CPU grows with thread count is measured. Why (the threads waiting on
+each other) is my inference; I did not profile it.
+
+*The fix:* `config.TORCH_THREADS` (default 4, `AI201_TORCH_THREADS` overrides
+it), applied with `torch.set_num_threads` when the model loads. Full run,
+three trials, same method (`results/capstone_run_after_threads.md`):
+
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. Every request leaves a log line | 20 of 20 | 20/20 | 20/20 | 20/20 | MET |
+| 2. Starts from RUNNING.md alone | ready within 60 s | 10 s | 7 s | 7 s | MET |
+| 3. First request not slow | first under 1 s, median under 250 ms | 0.083 s | 0.084 s | 0.081 s | MET |
+| 4. Overload gives a refusal and a record | no 5xx, 40 to 50 x 429, 60/60 logged | 50 x 429, 60/60 | 50 x 429, 60/60 | 50 x 429, 60/60 | MET |
+| 5. Memory and CPU ceiling | under 1000 MB, under 0.5 s CPU | 919 MB, 0.357 s | 947 MB, 0.326 s | 918 MB, 0.330 s | MET |
+
+CPU per request fell about 30 percent (0.44 to 0.55 s down to 0.33 to 0.36 s)
+with no change in latency (median 0.083 to 0.091 s) or memory. All five are
+met. The criterion 5 comparison is against the warm-up run, not the original.
+I also re-ran the unit 7 detector checks three times after the warm-up change
+(`check_criteria.py`, all five passed each time):
+`results/criteria_check_after_warmup.md`.
+
+**Latency breakdown and load (stretch)**
+
+*Where the time goes.* Over 66 successful requests the model signal is about
+98 percent of the time (median 77.5 of 78.8 ms); stylometry, combining and the
+audit write together are under 1 ms. If it needs to be faster, only the model
+matters (`results/load_2026-11-16.md`).
+
+*Load at about ten times normal.* I took normal as 6 submissions a minute and
+sent 60 a minute for a minute (`load_test.py`, each request its own
+`creator_id` so the per-creator limit did not hide the load). All 60 returned
+200, median 0.08 s, p95 0.12 s. At this size the service did not strain; one
+request takes under 0.1 s warm, so one worker can in theory do several hundred
+a minute. I did not push to the point where it fails, so I don't know where
+that is. This run was before the warm-up and thread changes; its one slow
+request (2.3 s) was the first of the session.
+
+**What's Still Broken**
+
+- *The log cannot say who was rate limited.* A 429 and a non-JSON body both have
+  `creator_id` null. Criterion 4 only asked for the line to exist, so it passes,
+  but a flood is anonymous in the record. This is the first thing I would fix:
+  have the limiter's key function record the creator before it rejects. I did
+  not do it because it changes the request path and I had already used the unit
+  on the CPU diagnosis.
+- *Three targets were set too low.* Criteria 1, 2 and 4 were met with room to
+  spare in every trial. I would tighten criterion 2 from 60 s to 20 s (it took
+  6 to 10 s) and criterion 3's first-request target from 1 s to 0.2 s (it takes
+  about 0.08 s now). Criterion 1 could add a request that crashes the worker
+  mid-response, which this test does not try.
+- *CPU is measured on a shared laptop.* Load average was 6 to 12 while I
+  measured, and the criterion 5 sample is only 10 requests, so it is noisy. The
+  thread fix has a clear margin, but I would want a quieter machine before
+  trusting the exact figures.
+- *The memory moved, not shrank.* The service needs about 0.93 GB from startup
+  and cannot run on a 512 MB host. A smaller model is out of scope here.
+- *One worker.* A request that takes long blocks the others, and I only tested
+  to 60 a minute.
+- Still out of scope from unit 8: the 14 evasion attacks that got through, and
+  anything about detection quality.
+
+I stopped because the five criteria are met and the remaining items are either
+out of the scope I declared or need a different kind of test.
+
+If this were real and I had another unit, the one thing I would do first is fix
+the anonymous 429 log lines, because an operator looking at a flood needs to
+know who is sending it, and everything else in the log is already useful.
+
+**How I Used AI**
+
+*Moment 1: criteria.* I asked Claude to draft five criteria after I had
+already seen some measurements. It returned five with targets and reasons, and
+warned me that the brief says to write them myself and that my earlier
+measurements meant they were not blind. I reviewed them and told it to write
+them into `criteria.md` as drafted, so the wording is Claude's and I did not
+change it. `criteria.md` notes that some measurements existed first. Criterion 5
+sat close to what I had measured, and then really did fail, in two of three
+trials of one run.
+
+*Moment 2: the CPU miss.* I asked Claude to diagnose why criterion 5 missed.
+It listed the warm-up change as one possible cause, and said it wanted to
+test one explanation before writing it down. It ran an alternating
+before-and-after test, which showed the warm-up made no difference, and then a
+thread-count test, which found the real cause. I asked
+it to make the 4-thread change and re-run all five criteria. I kept its
+statement that the reason for the extra CPU is an inference, and it is worded
+that way above.
+
+*A detour.* I first decided the capstone needed its own repository and had
+Claude push the commits to a new one. I then read the brief, which says to use
+the same repository as the system I'm extending and not to recreate it, so I
+had Claude put the work back in this repo, where the earlier history lives.

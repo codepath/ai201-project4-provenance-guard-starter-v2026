@@ -1,0 +1,3 @@
+[after] worker RSS after warm-up 830 MB, after 51 requests 934 MB
+[after] first request 0.08 s; next 50 median 0.093 s
+[after] CPU 23.4 s for 51 requests = 458 ms CPU per request

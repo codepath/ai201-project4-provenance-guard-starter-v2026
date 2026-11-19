@@ -1,3 +1,72 @@
+# Capstone acceptance criteria — Provenance Guard
+
+Five criteria for the capstone (unit 9, shape A: deploy and instrument, path B:
+local with logs). Four are about the extension, which is the operational layer:
+the request log, the run path, the warm-up, and the failure and cost behaviour.
+
+Some measurements (first-request latency, a 10x load run, memory and CPU per
+request) existed before these were written, so the targets are not blind. I set
+them where they could really fail, not at the numbers I saw.
+
+The unit 7 criteria for the detector itself are kept unchanged below the line.
+
+---
+
+## 1. Every request leaves a log line
+
+On a freshly started service I send 20 mixed requests: 10 valid, 5 malformed and
+5 over the rate limit. Each one produces exactly one line in
+`logs/requests.jsonl` with `ts`, `path`, `status`, `total_ms`, and an `error`
+code on every failure. **20 of 20 in each of three trials.**
+
+**Why this target:** A failure that leaves no record is one I would never find.
+The logging hook swallows its own errors so it can't break a response, which
+means it could also fail silently. Anything under 20 of 20 means some requests
+are invisible.
+
+## 2. It starts from RUNNING.md alone
+
+I clone the repo into a clean folder and follow only `RUNNING.md`. `/health`
+reports the model loaded within 60 seconds. **3 of 3 clean starts.**
+
+**Why this target:** A run path that only works on my machine isn't a run path.
+60 seconds is tighter than gunicorn's 120 second timeout, so a slow cold load
+counts as a miss even though the service would technically still start.
+
+## 3. The first request after startup isn't slow
+
+Over three cold starts, the first `POST /submit` takes **under 1 second**, and
+the median of the next 50 requests is **under 250 ms**.
+
+**Why this target:** The warm-up exists to fix this. Before it, the first
+request took 2.8 seconds, and the first user is the one who sees the hang. One
+second leaves room for laptop variance without letting the old behaviour pass.
+
+## 4. Overload turns into a clear refusal and a record
+
+One creator sends 60 requests in a minute against a limit of 10 a minute.
+**No 5xx responses, between 40 and 50 are 429, and all 60 appear in the request
+log.**
+
+**Why this target:** This is the bad path. Overload must become a refusal with
+a trace, not a crash or silent drops. The window is 40 to 50 because a counter
+reset at a minute boundary can let a few extra requests through.
+
+## 5. The memory and CPU ceiling holds
+
+Over 10 runs, the worker's resident memory after warm-up and 50 requests stays
+**under 1,000 MB**, and the average CPU time per request stays **under 500 ms**.
+
+**Why this target:** Memory is the real cost of this service, and it is why it
+cannot run on a 512 MB free host. Both ceilings sit close to what I measured
+earlier, so a longer text or a library change could genuinely break them.
+
+---
+
+# Unit 7 criteria (earlier project, unchanged)
+
+The numbering restarts here. These are the criteria for the detector itself.
+
 # Acceptance criteria — Provenance Guard
 
 Five criteria that say what "working" means for this service, written in unit 7
