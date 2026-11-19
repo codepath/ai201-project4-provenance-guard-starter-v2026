@@ -968,7 +968,25 @@ CPU-seconds.
 The measured worker is 977 MB, inside that range and about twice a free host's
 512 MB. Path B stands.
 
-**Not done.** The second measured improvement, which I declared as a stretch, is
-not built, so it does not count. The 500 path is untested. I also deleted the
+**Second improvement: preload the model** (stretch, done;
+`results/preload_2026-11-18_1931.md`). The model stage was 99% of a request, and
+the worst of it was the first request after a start: 9 to 19 s while GPT-2
+loaded, paid by whoever submitted first. `gunicorn.conf.py` now loads the model
+in each worker before it takes traffic (`AI201_PRELOAD=0` turns it off). Three
+cold starts per mode, medians:
+
+| | ready | first `/submit` | start to first score |
+|---|---|---|---|
+| before | 0.8 s | 9,335 ms | 10.2 s |
+| after | 9.1 s | 403 ms | 9.5 s |
+
+The first caller's wait dropped from about 9.3 s to 0.4 s, and the combined score
+for the test text was 0.5087 in all six runs, so scoring is unchanged. The cost
+moved, it did not vanish: the service now takes about 9 s to become ready, so
+time from start to first score is about the same (10.2 s to 9.5 s, within the
+spread of three trials). The one before-run outlier was 18.9 s. The gain is who
+waits, not how long loading takes.
+
+**Not done.** The 500 path is untested. I also deleted the
 test-run logs before committing, so `logs/requests.jsonl` is not in the repo;
 the evidence is the two results files and the numbers above.
