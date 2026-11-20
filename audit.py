@@ -102,11 +102,19 @@ def log_rejection(creator_id: str, reason: str, **extra) -> dict:
     thousand requests that got a 429 and left no trace look exactly like a
     quiet afternoon.
     """
+    # Same nine fields as a decision (empty, because nothing was decided), so
+    # every line in the log has one shape and can be filtered the same way.
     return _append({
         "timestamp": _now(),
+        "content_id": None,
         "creator_id": creator_id,
-        "event": "rejected",
+        "guess": None,
+        "model_score": None,
+        "style_score": None,
+        "combined_score": None,
+        "label": None,
         "status": "rejected",
+        "event": "rejected",
         "reason": reason,
         **extra,
     })

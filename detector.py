@@ -60,13 +60,16 @@ def _load():
         return _model, _tokenizer
 
     try:
-        import torch  # noqa: F401
+        import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
     except ImportError as exc:
         raise DetectorUnavailable(
             f"transformers or torch isn't installed ({exc}).\n"
             f"Run: pip install -r requirements.txt"
         ) from exc
+
+    if config.TORCH_THREADS > 0:
+        torch.set_num_threads(config.TORCH_THREADS)
 
     try:
         _tokenizer = AutoTokenizer.from_pretrained(config.DETECTOR_MODEL)
@@ -113,21 +116,48 @@ def perplexity(text: str) -> float:
     return float(math.exp(output.loss.item()))
 
 
+TRIM_FRACTION = 0.10   # drop this share of the highest-loss tokens before averaging
+
+
+def robust_perplexity(text: str) -> float:
+    """
+    Perplexity with the most surprising 10% of tokens thrown away.
+
+    Plain perplexity is the mean surprise per token, so a few typo-broken
+    words (each shattered into rare sub-word pieces the model has never seen
+    together) drag the whole mean up and make machine text look human. A
+    trimmed mean ignores those few outliers. Added in unit 8 after the typo
+    attacks (EV01, EV04) took a 0.85 model score down to 0.42.
+    """
+    import torch
+
+    model, tokenizer = _load()
+    ids = tokenizer(text, return_tensors="pt", truncation=True,
+                    max_length=config.DETECTOR_MAX_TOKENS)["input_ids"]
+    if ids.shape[1] < 3:
+        raise ValueError("Text is too short to score — a few sentences at least.")
+
+    with torch.no_grad():
+        logits = model(ids).logits
+    losses = torch.nn.functional.cross_entropy(
+        logits[0, :-1], ids[0, 1:], reduction="none").tolist()
+    losses.sort()
+    keep = max(int(len(losses) * (1 - TRIM_FRACTION)), 1)
+    return float(math.exp(sum(losses[:keep]) / keep))
+
+
 def model_signal(text: str) -> float:
     """
     The signal, as a 0–1 score. **Higher means more likely AI.**
 
-    Perplexity is unbounded and roughly log-distributed, so it gets squashed
-    onto 0–1 rather than clipped. The midpoint below is the perplexity that
-    maps to 0.5 — text this surprising is a coin flip.
-
-    You may want to move that midpoint once you've run the four calibration
-    inputs in Milestone 4 and seen what your own text actually scores. If you
-    do, say so in your README: it's a scoring decision, not a detail.
+    Trimmed perplexity is squashed onto 0–1 with a logistic. The midpoint is the
+    trimmed perplexity that maps to 0.5. Trimming lowers every perplexity by
+    roughly half, so the midpoint moved from 45 (plain perplexity) to 22 to keep
+    ordinary text scoring about where it did before.
     """
-    ppl = perplexity(text)
+    ppl = robust_perplexity(text)
 
-    midpoint = 45.0    # perplexity that scores 0.5
+    midpoint = 22.0    # trimmed perplexity that scores 0.5
     steepness = 1.6    # how sharply the score moves either side of it
 
     # Logistic on log-perplexity. Low perplexity -> high AI score.
@@ -136,8 +166,13 @@ def model_signal(text: str) -> float:
 
 
 def warm_up() -> str:
-    """Load the model without scoring anything. Run this before class."""
+    """Load the model and run one throwaway score, so the first real request
+    doesn't pay for the model's first forward pass (about 2.5 s and ~570 MB)."""
     _load()
+    try:
+        model_signal("The quick brown fox jumps over the lazy dog near the old river bank today.")
+    except Exception:
+        pass  # warming up must never stop the service starting
     return f"{config.DETECTOR_MODEL} loaded and ready."
 
 

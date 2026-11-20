@@ -46,6 +46,12 @@ DETECTOR_MODEL = os.getenv("AI201_DETECTOR_MODEL", "gpt2")
 # 300 words, which is enough for the signal to mean something.
 DETECTOR_MAX_TOKENS = 400
 
+# How many threads torch uses for one forward pass. The default is every core,
+# which on this laptop costs about 0.42 CPU-seconds per request for 0.075 s of
+# wall time. 4 threads cost about 0.31 CPU-seconds for the same speed (capstone
+# diagnosis of criterion 5). 0 means leave torch's default.
+TORCH_THREADS = int(os.getenv("AI201_TORCH_THREADS", "4"))
+
 
 # ─── Scoring (Milestone 4) ───────────────────────────────────────────────────
 # How much each signal counts toward the combined score.
@@ -54,8 +60,14 @@ DETECTOR_MAX_TOKENS = 400
 # down BEFORE you code it, and to put the numbers in your README. Whatever you
 # decide, it goes here.
 
-WEIGHT_MODEL_SIGNAL = 0.5
-WEIGHT_STYLE_SIGNAL = 0.5
+WEIGHT_MODEL_SIGNAL = 0.6
+WEIGHT_STYLE_SIGNAL = 0.4
+
+# If the two signals differ by more than this, the combined score is clamped
+# into [FLOOR, CEILING] — always the unsure band. See scoring.combine_signals.
+DISAGREEMENT_GAP = 0.40
+DISAGREEMENT_FLOOR = 0.40
+DISAGREEMENT_CEILING = 0.60
 
 
 # ─── Thresholds (Milestone 5) ────────────────────────────────────────────────
@@ -72,7 +84,11 @@ WEIGHT_STYLE_SIGNAL = 0.5
 # that decide who pays for it.
 
 HUMAN_THRESHOLD = 0.35
-AI_THRESHOLD = 0.65
+AI_THRESHOLD = 0.80
+
+# Longest text /submit accepts, in characters. Only the first
+# DETECTOR_MAX_TOKENS tokens are scored anyway, so more is wasted work.
+MAX_TEXT_CHARS = 20000
 
 # ⚠️ One thing that catches people out in Milestone 5. A weighted average can
 # only land between its two inputs — so while `style_signal` is still the stub
@@ -92,7 +108,7 @@ AI_THRESHOLD = 0.65
 # an hour, and a script sending a thousand variations to map your thresholds.
 # Your README has to say why your numbers and not others.
 
-RATE_LIMITING_ENABLED = os.getenv("AI201_RATE_LIMITS", "0") == "1"
+RATE_LIMITING_ENABLED = os.getenv("AI201_RATE_LIMITS", "1") == "1"
 
 RATE_LIMIT_PER_MINUTE = 10
 RATE_LIMIT_PER_DAY = 200
@@ -105,6 +121,8 @@ RATE_LIMIT_STORAGE = "memory://"
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
 
-LOG_DIR = ROOT / "logs"
+# AI201_LOG_DIR lets a test run write its logs somewhere throwaway.
+LOG_DIR = Path(os.getenv("AI201_LOG_DIR", ROOT / "logs"))
 AUDIT_LOG = LOG_DIR / "audit.jsonl"
+REQUEST_LOG = LOG_DIR / "requests.jsonl"
 RESULTS_DIR = ROOT / "results"

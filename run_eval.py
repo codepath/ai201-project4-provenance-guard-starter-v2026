@@ -66,6 +66,38 @@ def describe(body):
     return json.dumps(body)[:120]
 
 
+def appeal_against(requests, args, content_id):
+    """Appeal one submission, then read its status back. Returns report fields."""
+    out = {"content_id": content_id}
+    if not content_id:
+        return out | {"appeal_status": None, "note": "no content_id to appeal"}
+    try:
+        a = requests.post(f"{args.url}/appeal", timeout=args.timeout, json={
+            "content_id": content_id, "reasoning": "I wrote this myself."})
+        s = requests.get(f"{args.url}/content/{content_id}", timeout=args.timeout)
+        out["appeal_status"] = a.status_code
+        out["appeal_state"] = a.json().get("status")
+        out["content_state"] = s.json().get("status")
+        out["appeals_on_record"] = s.json().get("appeals")
+    except Exception as exc:  # noqa: BLE001
+        out["appeal_status"] = None
+        out["error"] = f"{type(exc).__name__}: {exc}"
+    return out
+
+
+def unknown_appeal(requests, args):
+    """An appeal against an id that doesn't exist must 404 and record nothing."""
+    try:
+        a = requests.post(f"{args.url}/appeal", timeout=args.timeout, json={
+            "content_id": "no-such-id", "reasoning": "x"})
+        s = requests.get(f"{args.url}/content/no-such-id", timeout=args.timeout)
+        return {"sent": "(appeal on unknown content_id)", "status": None,
+                "appeal_status": a.status_code, "content_state": s.status_code}
+    except Exception as exc:  # noqa: BLE001
+        return {"sent": "(appeal on unknown content_id)", "status": None,
+                "error": f"{type(exc).__name__}: {exc}"}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -128,9 +160,17 @@ def main():
                         "label": payload.get("label"),
                         "sent": preview,
                     })
+                    if scenario.get("appeal"):
+                        # Criterion 4 can't be tested with text alone: appeal the
+                        # content_id that came back, then ask for its status.
+                        results[-1].update(appeal_against(
+                            requests, args, payload.get("content_id")))
                 except Exception as exc:  # noqa: BLE001
                     results.append({"status": None, "error": f"{type(exc).__name__}: {exc}",
                                     "sent": preview})
+
+            if scenario.get("appeal"):
+                results.append(unknown_appeal(requests, args))
 
             trials.append(results)
             guesses = [r.get("guess") or "—" for r in results]
