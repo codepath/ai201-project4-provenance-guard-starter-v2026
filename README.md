@@ -38,7 +38,21 @@
 
 <!-- The path a submission takes, from arriving to the label a reader sees.
      Six or seven steps — this is the trace you wrote in Milestone 1. -->
+The provenance guard takes a piece of text from the writing site and returns four things: a guess about how it was produced, a confidence score for that guess, a plain-English label for readers, and a way for the writer to dispute the result. The path the submission takes is:
 
+1. Arrive. The site sends the text to the service with an ID
+
+2. Prepare. The service cleans and normalizes the text. It also checks that there's enough of it to judge, and very short submissions get an "not enough text" outcome instead of a guess.
+
+3. Analyze. The text goes through the detection checks, and each one produces its own signal.
+
+4. Guess and score. The signals are combined into a single guess and a confidence number. The number reflects how strongly the evidence points one way, so a weak or mixed result gets a low score instead of a forced answer.
+
+5. Choose the label. The guess and confidence are mapped to the wording a reader will see. High confidence gets a direct label, and low confidence gets hedged wording or no label at all.
+
+6. Return and record. The service sends back the guess, the confidence, and the label, and it stores the result so it can be reviewed later.
+
+7. Push back. If the writer disagrees, they file a dispute from the label. The dispute is attached to the stored result and sent for review. If the review overturns the guess, the label is updated or removed.
 
 
 ---
@@ -53,20 +67,40 @@
 
 ### Signal one — the model signal
 
-**What it measures:**
+**What it measures:** This signal measures Perplexity. Perplexity indicates how predictable a piece of text is to a LLM. This model reads the text and takes its mean negative log-likelihood per token, then exponentiates it. Low perplexity indicates the model could have guessed the next words. High preplexity indicates the model was surprised.
 
 **Why that might differ between human and AI writing:**
+A language model writes by repeatedly picking a likely next word, so its output tends to be text another model finds easy to predict. Human writing wanders more: odd word choices, abrupt turns, and specific details instead of typical ones. That gives human text higher perplexity on average and AI text lower.
 
 **What it can't see:**
+Authorship. It only sees predictability, which is not the same thing.
+- **Plain human writing looks like AI.** Common words in short, ordinary sentences score as machine-like. That covers people writing in a second language, younger writers, and anyone writing plainly on purpose, who are the least able to argue back.
+- **Ornate AI or human text looks human.** Dense prose full of rare words scores as human, because rare words are what a language model fails to predict. Formality alone doesn't decide it.
+- **Edited or prompted AI text.** It has no view of the writing process, so AI text that was edited, or prompted to be quirky, can slip past.
+- **Topic and length.** The usual perplexity range shifts with both, which is why the raw number isn't what gets scored.
+- **Context.** It judges only the text in front of it, so it can't use the author's history, the assignment, or any evidence outside the writing.
 
 ### Signal two — the style signal
 
 **What it measures:**
 
+This signal measures shape of the text, not its meaning.
+
+- Sentence-length spread: the standard deviation of sentence lengths divided by the mean, so short and long texts are comparable.
+- Type-token ratio: unique words over total words, a measure of vocabulary variety.
+- Punctuation density: commas, semicolons, colons, dashes, brackets, quotes, ellipses, "?" and "!" per word. Full stops and apostrophes are not counted.
+These are scaled to 0-1, weighted (spread 45%, punctuation 35%, vocabulary 20%) and flipped into one score where higher means more likely AI.
+
+
 **Why that might differ between human and AI writing:**
+Generated prose tends toward even, mid-length sentences and a narrower band of vocabulary, because that is what "most likely next word" produces on average. Human writing is lumpier: a three-word sentence next to a forty-word one, odder word choices, and more varied punctuation such as dashes, parentheses and semicolons. In my test, the clearly human paragraph had a sentence-length spread of 1.5 against 0.2 for the AI paragraph.
 
 **What it can't see:**
-
+- Meaning. It cannot read, so anything that changes the shape without changing the substance moves it. Adding typos, breaking up sentences, or pasting in a quotation is cheap to do on purpose. In my test, a light edit left the AI text at 0.73.
+- Plain human writing. Someone writing short, simple sentences with little punctuation gets a score of 0.87, higher than the AI sample, so the people least able to argue back are the ones accused.
+- Length. Type-token ratio falls as text gets longer, so texts of different lengths aren't directly comparable.
+- Short input. A one-sentence submission has no spread to measure, so it returns 0.0 and reads as machine-like, and fewer than 3 words returns a neutral 0.5.
+- Genre and language. Poetry, lists, code, and second-language or very formal writing all have unusual shapes that say nothing about who wrote them.
 ### The combining rule
 
 <!-- Write the rule in words, then give the numbers. What happens when the two
