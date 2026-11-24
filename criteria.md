@@ -46,23 +46,23 @@ Two things worth knowing before you pick numbers:
 
 <!-- Your criterion. It must name a number. -->
 
-
+Of 10 pieces I wrote myself, at most 1 is labelled high-confidence AI, or at most 2 get the middle "uncertain" label.
 
 **Why this target:**
 
-
+This target is more tolerant of the "uncertain" but not of the confident.
 
 ---
 
 ## 2.
 
 <!-- Your criterion. -->
-
+Every clearly-AI input scores above every clearly-human input, with no overlap.
 
 
 **Why this target:**
 
-
+This is the minimum for a detector to rank text at all, and it's strict enough that it can fail.
 
 ---
 
@@ -70,11 +70,11 @@ Two things worth knowing before you pick numbers:
 
 <!-- Your criterion. -->
 
-
+On a mixed set of at least 12 inputs, each of the three labels is produced at least once, in every tria
 
 **Why this target:**
 
-
+This keep the dataset balanced.
 
 ---
 
@@ -83,21 +83,23 @@ Two things worth knowing before you pick numbers:
 <!-- Your criterion. -->
 
 
+Appealing a nonexistent submission returns a clear error and creates no record, and appealing the same submission twice doesn't create a duplicate or corrupt the status.
 
 **Why this target:**
 
-
+Appeals are where mistakes get corrected, so they must not add new ones.
 
 ---
 
 ## 5.
 
+Text too short to score (under 3 tokens) is rejected, not scored.
 <!-- Your criterion. -->
 
 
 
 **Why this target:**
-
+detector.py already refuses it, and the service should handle that cleanly rather than return a 500.
 
 
 ---
