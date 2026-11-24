@@ -101,6 +101,7 @@ Generated prose tends toward even, mid-length sentences and a narrower band of v
 - Length. Type-token ratio falls as text gets longer, so texts of different lengths aren't directly comparable.
 - Short input. A one-sentence submission has no spread to measure, so it returns 0.0 and reads as machine-like, and fewer than 3 words returns a neutral 0.5.
 - Genre and language. Poetry, lists, code, and second-language or very formal writing all have unusual shapes that say nothing about who wrote them.
+
 ### The combining rule
 
 <!-- Write the rule in words, then give the numbers. What happens when the two

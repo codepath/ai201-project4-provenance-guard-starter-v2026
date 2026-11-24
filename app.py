@@ -201,15 +201,18 @@ def submit():
     """
     payload = request.get_json(silent=True) or {}
 
-    # TODO: delete this and build the route.
+    # Milestone 3, step 1: a hardcoded response, with no logic at all yet.
+    # Confirm `curl` gets this back before pulling `text` and `creator_id` out
+    # of the payload. If this answers but a later version breaks, the problem
+    # is the logic you added, not the route.
     return jsonify({
-        "error": "not_implemented",
-        "message": "POST /submit isn't built yet — see the TODO in app.py.",
-        "you_sent": {
-            "text_length": len(payload.get("text", "")),
-            "creator_id": payload.get("creator_id"),
-        },
-    }), 501
+        "content_id": "hardcoded-0001",
+        "guess": "placeholder",
+        "confidence": 0.0,
+        "label": "placeholder",
+        "model_score": 0.0,
+        "style_score": 0.0,
+    })
 
 
 @app.post("/appeal")
