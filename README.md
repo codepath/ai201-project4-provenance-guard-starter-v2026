@@ -156,6 +156,12 @@ Generated prose tends toward even, mid-length sentences and a narrower band of v
      two off the response, so leaving them out costs you next unit's
      diagnostics. -->
 
+<!-- TODO (Milestone 3): run this locally and paste the real response.
+     This sandbox's network policy blocks huggingface.co, so gpt2 can't be
+     downloaded here — `python detector.py` and `/submit` both need that
+     host. Run `python detector.py` once to download the model, then
+     `python app.py`, then the curl below, and paste what comes back. -->
+
 ```bash
 $ curl -X POST http://127.0.0.1:5000/submit \
   -H "Content-Type: application/json" \
@@ -167,6 +173,8 @@ $ curl -X POST http://127.0.0.1:5000/submit \
 ```
 
 **An appeal**
+
+<!-- /appeal isn't built yet (Milestone 5) — fill this in once it is. -->
 
 ```bash
 $ curl -X POST http://127.0.0.1:5000/appeal \

@@ -30,6 +30,7 @@ from flask import Flask, jsonify, request
 
 import audit
 import config
+import detector
 
 app = Flask(__name__)
 
@@ -200,18 +201,31 @@ def submit():
     a malformed input is one of the most common real failures there is.
     """
     payload = request.get_json(silent=True) or {}
+    text = payload.get("text")
+    creator_id = payload.get("creator_id", "unknown")
 
-    # Milestone 3, step 1: a hardcoded response, with no logic at all yet.
-    # Confirm `curl` gets this back before pulling `text` and `creator_id` out
-    # of the payload. If this answers but a later version breaks, the problem
-    # is the logic you added, not the route.
+    if not isinstance(text, str) or not text.strip():
+        return jsonify({"error": "text is required"}), 400
+
+    content_id = str(uuid.uuid4())
+    model_score = detector.model_signal(text)
+    guess = "ai" if model_score >= 0.5 else "human"
+
+    audit.log_decision(
+        content_id=content_id,
+        creator_id=creator_id,
+        guess=guess,
+        model_score=model_score,
+        status="decided",
+    )
+
     return jsonify({
-        "content_id": "hardcoded-0001",
-        "guess": "placeholder",
-        "confidence": 0.0,
-        "label": "placeholder",
-        "model_score": 0.0,
-        "style_score": 0.0,
+        "content_id": content_id,
+        "guess": guess,
+        "confidence": 0.0,      # placeholder until Milestone 5
+        "label": "placeholder",  # placeholder until Milestone 5
+        "model_score": model_score,
+        "style_score": 0.0,     # placeholder until Milestone 4
     })
 
 
